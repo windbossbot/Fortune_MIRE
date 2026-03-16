@@ -29,17 +29,8 @@
           카드, 방향, 상황, 실용 운, 마무리 문장을 한 번에 뽑아 하나의 리딩으로 엮습니다.
         </p>
 
-        <div class="orb-stage">
-          <button id="draw-button" class="orb-button" type="button" aria-label="운을 펼친다">
-            <span class="orb-core"></span>
-            <span class="orb-ring orb-ring-a"></span>
-            <span class="orb-ring orb-ring-b"></span>
-            <span class="orb-label">기운을 부른다</span>
-          </button>
-        </div>
-
-        <section id="choice-panel" class="choice-panel hidden" aria-live="polite">
-          <p class="choice-title">끌리는 상징 하나를 고르세요</p>
+        <section id="choice-panel" class="choice-panel" aria-live="polite">
+          <p class="choice-title">먼저 끌리는 상징 하나를 고르세요</p>
           <div class="choice-grid">
             <button class="choice-button" data-choice-key="light" type="button">
               <span class="choice-name">빛</span>
@@ -63,6 +54,15 @@
             </button>
           </div>
         </section>
+
+        <div class="orb-stage">
+          <button id="draw-button" class="orb-button" type="button" aria-label="운을 펼친다">
+            <span class="orb-core"></span>
+            <span class="orb-ring orb-ring-a"></span>
+            <span class="orb-ring orb-ring-b"></span>
+            <span class="orb-label">기운을 부른다</span>
+          </button>
+        </div>
 
         <div id="copy-actions" class="hero-actions hidden">
           <button id="copy-button" class="secondary-button" type="button" disabled>AI 해석 프롬프트 복사</button>

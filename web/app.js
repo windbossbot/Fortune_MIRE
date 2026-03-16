@@ -750,8 +750,7 @@ async function copyPrompt() {
 
 async function startDraw() {
   if (!pendingChoiceKey) {
-    choicePanel.classList.remove("hidden");
-    drawStatus.textContent = "끌리는 상징 하나를 고른 뒤 운을 열어 보세요";
+    drawStatus.textContent = "먼저 5개의 상징 중 하나를 고른 뒤 기운을 불러 주세요";
     return;
   }
 
@@ -801,10 +800,9 @@ copyInlineButton.addEventListener("click", () => {
 function initializeView() {
   latestPrompt = "";
   promptOutput.value = "";
-  drawStatus.textContent = "대기 중";
+  drawStatus.textContent = "먼저 상징을 고르고 기운을 불러 보세요";
   pendingChoiceKey = null;
   copyActions.classList.add("hidden");
-  choicePanel.classList.add("hidden");
   copyButton.disabled = true;
   copyInlineButton.disabled = true;
   readingPanel.classList.add("hidden");
@@ -821,7 +819,11 @@ function initializeView() {
 initializeView();
 
 drawButton.addEventListener("click", () => {
-  choicePanel.classList.remove("hidden");
+  if (!pendingChoiceKey) {
+    drawStatus.textContent = "끌리는 상징 하나를 먼저 고르세요";
+    return;
+  }
+
   startDraw().catch((error) => {
     console.error(error);
     drawStatus.textContent = "운세를 펼치지 못했습니다";
@@ -836,12 +838,6 @@ choiceButtons.forEach((button) => {
     choiceButtons.forEach((item) => {
       item.classList.toggle("is-selected", item === button);
     });
-    drawStatus.textContent = `${ritualChoices[pendingChoiceKey].label}의 기운이 선택되었습니다`;
-    startDraw().catch((error) => {
-      console.error(error);
-      drawStatus.textContent = "운세를 펼치지 못했습니다";
-      drawButton.disabled = false;
-      document.body.classList.remove("is-drawing");
-    });
+    drawStatus.textContent = `${ritualChoices[pendingChoiceKey].label}의 기운이 선택되었습니다. 이제 구슬을 눌러 기운을 부르세요`;
   });
 });

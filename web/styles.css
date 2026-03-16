@@ -24,10 +24,37 @@ body {
   font-family: "IBM Plex Sans KR", sans-serif;
   color: var(--pearl);
   background:
-    radial-gradient(circle at top, rgba(53, 74, 126, 0.35), transparent 36%),
-    radial-gradient(circle at 20% 20%, rgba(240, 151, 138, 0.14), transparent 28%),
-    linear-gradient(180deg, var(--bg-night), var(--bg-deep));
+    radial-gradient(circle at 50% 14%, rgba(86, 112, 186, 0.3), transparent 24%),
+    radial-gradient(circle at 12% 18%, rgba(240, 151, 138, 0.12), transparent 24%),
+    radial-gradient(circle at 88% 74%, rgba(238, 215, 154, 0.1), transparent 22%),
+    linear-gradient(180deg, #070910 0%, #0d1222 46%, #12162a 100%);
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 35%, transparent 95%);
+  opacity: 0.32;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 40%, rgba(238, 215, 154, 0.08) 40.4%, transparent 41%),
+    radial-gradient(circle at 50% 50%, transparent 0 57%, rgba(238, 215, 154, 0.05) 57.3%, transparent 58%);
+  opacity: 0.7;
 }
 
 button,
@@ -147,7 +174,9 @@ textarea {
 .oracle-card,
 .prompt-card {
   backdrop-filter: blur(18px);
-  background: linear-gradient(180deg, rgba(18, 23, 43, 0.82), rgba(10, 13, 28, 0.88));
+  background:
+    linear-gradient(180deg, rgba(18, 23, 43, 0.84), rgba(10, 13, 28, 0.9)),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 38%);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
 }
