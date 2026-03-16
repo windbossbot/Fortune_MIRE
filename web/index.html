@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fortune | One Click Reading</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="sky">
+      <div class="sky-glow sky-glow-left"></div>
+      <div class="sky-glow sky-glow-right"></div>
+      <div class="starfield"></div>
+      <div class="orbit orbit-a"></div>
+      <div class="orbit orbit-b"></div>
+    </div>
+
+    <main class="page-shell">
+      <section class="hero-panel">
+        <h1>구슬 한 번으로 겹쳐 보는 오늘의 운</h1>
+        <p class="hero-copy">
+          카드, 방향, 상황, 실용 운, 마무리 문장을 한 번에 뽑아 하나의 리딩으로 엮습니다.
+        </p>
+
+        <div class="orb-stage">
+          <button id="draw-button" class="orb-button" type="button" aria-label="운을 펼친다">
+            <span class="orb-core"></span>
+            <span class="orb-ring orb-ring-a"></span>
+            <span class="orb-ring orb-ring-b"></span>
+            <span class="orb-label">운을 펼친다</span>
+          </button>
+        </div>
+
+        <div id="copy-actions" class="hero-actions hidden">
+          <button id="copy-button" class="secondary-button" type="button" disabled>AI 해석 프롬프트 복사</button>
+        </div>
+
+        <div class="status-row">
+          <span id="draw-status" class="status-chip">대기 중</span>
+          <span class="status-note">한 번의 클릭으로 복합 운을 생성합니다.</span>
+        </div>
+      </section>
+
+      <section id="reading-panel" class="reading-panel hidden" aria-live="polite">
+        <div class="headline-card reveal">
+          <h2 id="headline-text"></h2>
+          <p id="summary-text" class="summary-text"></p>
+        </div>
+
+        <div class="grid-layout">
+          <article class="detail-card reveal reveal-delay-1">
+            <div class="symbol-title-row">
+              <h3 id="card-name"></h3>
+              <span id="card-group" class="pill"></span>
+            </div>
+            <p id="card-summary"></p>
+            <dl class="detail-list">
+              <div>
+                <dt>빛</dt>
+                <dd id="card-positive"></dd>
+              </div>
+              <div>
+                <dt>그림자</dt>
+                <dd id="card-shadow"></dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="detail-card reveal reveal-delay-2">
+            <div class="symbol-title-row">
+              <h3 id="direction-name"></h3>
+              <span id="trigram-name" class="pill"></span>
+            </div>
+            <p id="direction-summary"></p>
+            <p id="trigram-summary" class="supporting-copy"></p>
+          </article>
+
+          <article class="detail-card score-card reveal reveal-delay-3">
+            <div id="scores" class="score-list"></div>
+          </article>
+
+          <article class="detail-card reveal reveal-delay-4">
+            <p id="interpretation-text"></p>
+            <p id="advice-text" class="supporting-copy"></p>
+            <p id="caution-text" class="warning-copy"></p>
+          </article>
+        </div>
+
+        <article class="oracle-card reveal reveal-delay-5">
+          <blockquote id="oracle-line"></blockquote>
+        </article>
+
+        <article class="oracle-card reveal reveal-delay-6">
+          <h3 id="shinjeom-line" class="shinjeom-title"></h3>
+          <p id="shinjeom-deep-message" class="supporting-copy"></p>
+          <p id="shinjeom-guidance" class="warning-copy"></p>
+        </article>
+
+        <article class="prompt-card reveal reveal-delay-6">
+          <div class="prompt-header">
+            <div>
+              <h3>복합 해석용 프롬프트</h3>
+            </div>
+            <button id="copy-inline-button" class="ghost-button" type="button" disabled>
+              프롬프트 복사
+            </button>
+          </div>
+          <p class="supporting-copy">
+            아래 내용을 그대로 AI에 넣으면, 카드와 보조 운을 함께 고려한 자연스러운 해석을 이어서 받을 수 있습니다.
+          </p>
+          <textarea id="prompt-output" readonly spellcheck="false"></textarea>
+        </article>
+      </section>
+    </main>
+
+    <template id="score-template">
+      <div class="score-item">
+        <div class="score-copy">
+          <span class="score-label"></span>
+          <span class="score-value"></span>
+        </div>
+        <div class="score-track">
+          <div class="score-fill"></div>
+        </div>
+      </div>
+    </template>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
