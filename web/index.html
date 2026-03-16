@@ -34,9 +34,35 @@
             <span class="orb-core"></span>
             <span class="orb-ring orb-ring-a"></span>
             <span class="orb-ring orb-ring-b"></span>
-            <span class="orb-label">운을 펼친다</span>
+            <span class="orb-label">기운을 부른다</span>
           </button>
         </div>
+
+        <section id="choice-panel" class="choice-panel hidden" aria-live="polite">
+          <p class="choice-title">끌리는 상징 하나를 고르세요</p>
+          <div class="choice-grid">
+            <button class="choice-button" data-choice-key="light" type="button">
+              <span class="choice-name">빛</span>
+              <span class="choice-copy">열림, 선명함, 응답</span>
+            </button>
+            <button class="choice-button" data-choice-key="wave" type="button">
+              <span class="choice-name">물결</span>
+              <span class="choice-copy">감정, 흐름, 스며듦</span>
+            </button>
+            <button class="choice-button" data-choice-key="gate" type="button">
+              <span class="choice-name">문</span>
+              <span class="choice-copy">기회, 경계, 전환</span>
+            </button>
+            <button class="choice-button" data-choice-key="ember" type="button">
+              <span class="choice-name">불씨</span>
+              <span class="choice-copy">행동, 의지, 점화</span>
+            </button>
+            <button class="choice-button" data-choice-key="shadow" type="button">
+              <span class="choice-name">그림자</span>
+              <span class="choice-copy">정리, 경고, 직감</span>
+            </button>
+          </div>
+        </section>
 
         <div id="copy-actions" class="hero-actions hidden">
           <button id="copy-button" class="secondary-button" type="button" disabled>AI 해석 프롬프트 복사</button>

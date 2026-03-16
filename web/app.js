@@ -427,22 +427,70 @@ const scoreLabels = [
   { key: "money", label: "돈과 현실" },
 ];
 
+const ritualChoices = {
+  light: {
+    label: "빛",
+    summary: "열림과 선명함을 부르는 상징",
+    scoreBias: { overall: 1, love: 0, work: 1, money: 0 },
+    directionBias: { Rise: 3, Hold: 1, Release: 1 },
+    toneBias: { gentle: 2, stern: 1, warning: 0 },
+  },
+  wave: {
+    label: "물결",
+    summary: "감정과 흐름을 흔드는 상징",
+    scoreBias: { overall: 0, love: 1, work: 0, money: -1 },
+    directionBias: { Rise: 1, Hold: 2, Release: 1 },
+    toneBias: { gentle: 2, stern: 0, warning: 1 },
+  },
+  gate: {
+    label: "문",
+    summary: "기회와 경계, 전환을 부르는 상징",
+    scoreBias: { overall: 1, love: 0, work: 1, money: 1 },
+    directionBias: { Rise: 2, Hold: 2, Release: 1 },
+    toneBias: { gentle: 1, stern: 2, warning: 0 },
+  },
+  ember: {
+    label: "불씨",
+    summary: "행동과 의지를 깨우는 상징",
+    scoreBias: { overall: 1, love: 0, work: 2, money: 0 },
+    directionBias: { Rise: 3, Hold: 0, Release: 1 },
+    toneBias: { gentle: 0, stern: 2, warning: 1 },
+  },
+  shadow: {
+    label: "그림자",
+    summary: "정리와 경고, 직감을 부르는 상징",
+    scoreBias: { overall: -1, love: -1, work: 0, money: 0 },
+    directionBias: { Rise: 0, Hold: 1, Release: 3 },
+    toneBias: { gentle: 0, stern: 1, warning: 2 },
+  },
+};
+
 const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
 const copyActions = document.querySelector("#copy-actions");
+const choicePanel = document.querySelector("#choice-panel");
+const choiceButtons = document.querySelectorAll(".choice-button");
 const drawStatus = document.querySelector("#draw-status");
 const readingPanel = document.querySelector("#reading-panel");
 const promptOutput = document.querySelector("#prompt-output");
 const scoreTemplate = document.querySelector("#score-template");
 let latestPrompt = "";
+let pendingChoiceKey = null;
 
 function sample(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function sampleTone() {
-  return sample(["gentle", "stern", "warning"]);
+function sampleTone(choice) {
+  const tonePool = [];
+  for (const tone of ["gentle", "stern", "warning"]) {
+    const count = (choice.toneBias[tone] ?? 0) + 1;
+    for (let index = 0; index < count; index += 1) {
+      tonePool.push(tone);
+    }
+  }
+  return sample(tonePool);
 }
 
 function randomScore(base = 3) {
@@ -450,7 +498,19 @@ function randomScore(base = 3) {
   return Math.min(5, Math.max(1, base + drift));
 }
 
-function deriveScores(card, direction, trigram) {
+function weightedPick(items, weights) {
+  const total = items.reduce((sum, item) => sum + (weights[item.name] ?? 1), 0);
+  let roll = Math.random() * total;
+  for (const item of items) {
+    roll -= weights[item.name] ?? 1;
+    if (roll <= 0) {
+      return item;
+    }
+  }
+  return items[items.length - 1];
+}
+
+function deriveScores(card, direction, trigram, choice) {
   const energetic = ["momentum", "clarity", "hope", "manifestation", "completion"];
   const inward = ["retreat", "pause", "intuition", "ambiguity"];
   const intense = ["disruption", "attachment", "ending"];
@@ -471,10 +531,10 @@ function deriveScores(card, direction, trigram) {
   const moneyBias = trigram.name === "Earth" ? 1 : trigram.name === "Thunder" ? -1 : 0;
 
   return {
-    overall: randomScore(base),
-    love: randomScore(base + loveBias),
-    work: randomScore(base + workBias),
-    money: randomScore(base + moneyBias),
+    overall: randomScore(base + choice.scoreBias.overall),
+    love: randomScore(base + loveBias + choice.scoreBias.love),
+    work: randomScore(base + workBias + choice.scoreBias.work),
+    money: randomScore(base + moneyBias + choice.scoreBias.money),
   };
 }
 
@@ -529,12 +589,15 @@ function buildPrompt(draw) {
 
 요구사항:
 - 톤은 차분하고 신비롭되 과장되지 않게
-- "핵심 흐름", "현재 에너지", "추천 행동", "주의할 점", "관계/일/돈" 순서로 정리
+- "핵심 흐름", "현재 에너지", "미래 예측", "추천 행동", "주의할 점", "관계/일/돈" 순서로 정리
 - "오늘의 운세", "연애운", "금전운"을 별도 소제목으로 포함
-- 단정적 예언 대신 해석과 조언 중심으로 작성
+- 미래 예측은 가까운 흐름 기준으로 3일 안쪽 또는 이번 주 안의 변화를 예측하듯 써줘
+- 점술 결과이므로 미래 예측 문장은 분명하게 써도 되지만, 지나치게 극단적이거나 공포를 조장하는 표현은 피할 것
 - 카드, 방향성, 상황 기운, 점수, 오라클 문장을 모두 반영
 
 [복합 운세 원본]
+- 선택한 상징: ${draw.choice.label}
+- 선택한 상징의 결: ${draw.choice.summary}
 - 메인 카드: ${draw.card.name} (${draw.card.group})
 - 카드 요약: ${draw.card.summary}
 - 카드의 빛: ${draw.card.positive}
@@ -555,18 +618,20 @@ function buildPrompt(draw) {
 - 해석: ${draw.interpretation}
 - 조언: ${draw.advice}
 - 주의: ${draw.caution}
-- 오늘의 운세: ${draw.todayFortune}
-- 연애운: ${draw.loveFortune}
-- 금전운: ${draw.moneyFortune}
 - 신점 한마디: ${draw.shinjeomLine}
 - 신점 깊은 메시지: ${draw.shinjeomDeepMessage}
 - 받들어야 할 기운: ${draw.shinjeomGuidance}
 
-이 결과를 바탕으로, 겹쳐진 상징이 하나의 운세처럼 읽히도록 최종 해석문을 작성해줘.`;
+이 결과를 바탕으로, 겹쳐진 상징이 하나의 운세처럼 읽히도록 최종 해석문을 작성해줘.
+
+추가로 반드시 포함할 것:
+- 가까운 미래 예측
+- 지금 들어오는 운이 어느 방향으로 굳어질 가능성이 큰지
+- 만약 흐름을 잘 타면 어떻게 되고, 잘못 다루면 어떻게 엇나갈 수 있는지`;
 }
 
-function buildShinjeomLine(card, direction) {
-  const tone = sampleTone();
+function buildShinjeomLine(card, direction, choice) {
+  const tone = sampleTone(choice);
   const cardSpecific = shinjeomCardLines[card.energy];
   if (cardSpecific) {
     return {
@@ -641,28 +706,30 @@ function renderReading(draw) {
 }
 
 function composeReading() {
+  const choice = ritualChoices[pendingChoiceKey];
   const card = sample(tarotCards);
-  const direction = sample(directions);
+  const direction = weightedPick(directions, choice.directionBias);
   const trigram = sample(trigrams);
   const oracle = sample(oracleLines);
-  const scores = deriveScores(card, direction, trigram);
+  const scores = deriveScores(card, direction, trigram, choice);
   const headline = buildHeadline(direction, trigram);
   const interpretation = buildInterpretation(card, direction, trigram);
   const advice = buildAdvice(direction, trigram, scores);
   const caution = buildCaution(card, direction, scores);
-  const shinjeomBase = buildShinjeomLine(card, direction);
+  const shinjeomBase = buildShinjeomLine(card, direction, choice);
   const shinjeomLine = shinjeomBase.text;
   const shinjeomDeepMessage = buildShinjeomDeepMessage(card, direction, oracle, shinjeomBase.tone);
   const shinjeomGuidance = buildShinjeomGuidance(direction, trigram, shinjeomBase.tone);
 
   return {
+    choice,
     card,
     direction,
     trigram,
     oracle,
     scores,
     headline,
-    summary: `${card.name}의 중심 메시지 위에 ${direction.label}의 방향성과 ${trigram.label}의 상황 기운이 겹쳐진 결과입니다.`,
+    summary: `${choice.label}의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
     interpretation,
     advice,
     caution,
@@ -682,6 +749,12 @@ async function copyPrompt() {
 }
 
 async function startDraw() {
+  if (!pendingChoiceKey) {
+    choicePanel.classList.remove("hidden");
+    drawStatus.textContent = "끌리는 상징 하나를 고른 뒤 운을 열어 보세요";
+    return;
+  }
+
   drawButton.disabled = true;
   drawButton.setAttribute("aria-busy", "true");
   copyButton.disabled = true;
@@ -692,6 +765,9 @@ async function startDraw() {
   document.body.classList.add("is-drawing");
   readingPanel.classList.add("hidden");
   readingPanel.classList.remove("active");
+  choiceButtons.forEach((button) => {
+    button.disabled = true;
+  });
 
   await new Promise((resolve) => {
     window.setTimeout(resolve, 1100);
@@ -705,20 +781,14 @@ async function startDraw() {
 
   const draw = composeReading();
   renderReading(draw);
-  drawStatus.textContent = "오늘의 운이 펼쳐졌습니다";
+  drawStatus.textContent = `${draw.choice.label}의 기운이 오늘의 운을 열었습니다`;
   document.body.classList.remove("is-drawing");
   drawButton.disabled = false;
   drawButton.removeAttribute("aria-busy");
-}
-
-drawButton.addEventListener("click", () => {
-  startDraw().catch((error) => {
-    console.error(error);
-    drawStatus.textContent = "운세를 펼치지 못했습니다";
-    drawButton.disabled = false;
-    document.body.classList.remove("is-drawing");
+  choiceButtons.forEach((button) => {
+    button.disabled = false;
   });
-});
+}
 
 copyButton.addEventListener("click", () => {
   copyPrompt().catch(console.error);
@@ -732,7 +802,9 @@ function initializeView() {
   latestPrompt = "";
   promptOutput.value = "";
   drawStatus.textContent = "대기 중";
+  pendingChoiceKey = null;
   copyActions.classList.add("hidden");
+  choicePanel.classList.add("hidden");
   copyButton.disabled = true;
   copyInlineButton.disabled = true;
   readingPanel.classList.add("hidden");
@@ -740,6 +812,36 @@ function initializeView() {
   document.body.classList.remove("is-drawing");
   drawButton.disabled = false;
   drawButton.removeAttribute("aria-busy");
+  choiceButtons.forEach((button) => {
+    button.classList.remove("is-selected");
+    button.disabled = false;
+  });
 }
 
 initializeView();
+
+drawButton.addEventListener("click", () => {
+  choicePanel.classList.remove("hidden");
+  startDraw().catch((error) => {
+    console.error(error);
+    drawStatus.textContent = "운세를 펼치지 못했습니다";
+    drawButton.disabled = false;
+    document.body.classList.remove("is-drawing");
+  });
+});
+
+choiceButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    pendingChoiceKey = button.dataset.choiceKey;
+    choiceButtons.forEach((item) => {
+      item.classList.toggle("is-selected", item === button);
+    });
+    drawStatus.textContent = `${ritualChoices[pendingChoiceKey].label}의 기운이 선택되었습니다`;
+    startDraw().catch((error) => {
+      console.error(error);
+      drawStatus.textContent = "운세를 펼치지 못했습니다";
+      drawButton.disabled = false;
+      document.body.classList.remove("is-drawing");
+    });
+  });
+});
