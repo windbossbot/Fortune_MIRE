@@ -28,19 +28,34 @@
           <p class="choice-title">먼저 끌리는 카드 한 장을 고르세요</p>
           <div class="choice-grid">
             <button class="choice-button" data-choice-slot="0" type="button">
-              <span class="choice-name">Card</span>
+              <span class="choice-card">
+                <span class="choice-glyph">I</span>
+                <span class="choice-name">Card</span>
+              </span>
             </button>
             <button class="choice-button" data-choice-slot="1" type="button">
-              <span class="choice-name">Card</span>
+              <span class="choice-card">
+                <span class="choice-glyph">II</span>
+                <span class="choice-name">Card</span>
+              </span>
             </button>
             <button class="choice-button" data-choice-slot="2" type="button">
-              <span class="choice-name">Card</span>
+              <span class="choice-card">
+                <span class="choice-glyph">III</span>
+                <span class="choice-name">Card</span>
+              </span>
             </button>
             <button class="choice-button" data-choice-slot="3" type="button">
-              <span class="choice-name">Card</span>
+              <span class="choice-card">
+                <span class="choice-glyph">IV</span>
+                <span class="choice-name">Card</span>
+              </span>
             </button>
             <button class="choice-button" data-choice-slot="4" type="button">
-              <span class="choice-name">Card</span>
+              <span class="choice-card">
+                <span class="choice-glyph">V</span>
+                <span class="choice-name">Card</span>
+              </span>
             </button>
           </div>
         </section>
@@ -71,17 +86,24 @@
 
       <section id="reading-panel" class="reading-panel hidden" aria-live="polite">
         <div class="headline-card reveal">
+          <p class="origin-label">복합 점괘</p>
           <h2 id="headline-text"></h2>
           <p id="summary-text" class="summary-text"></p>
         </div>
 
         <div class="grid-layout">
           <article class="detail-card reveal reveal-delay-1">
-            <div class="symbol-title-row">
-              <h3 id="card-name"></h3>
-              <span id="card-group" class="pill"></span>
+            <p class="origin-label">타로</p>
+            <div class="tarot-card-header">
+              <img id="card-art" class="card-art" alt="타로 카드 이미지" />
+              <div class="tarot-card-copy">
+                <div class="symbol-title-row">
+                  <h3 id="card-name"></h3>
+                  <span id="card-group" class="pill"></span>
+                </div>
+                <p id="card-summary"></p>
+              </div>
             </div>
-            <p id="card-summary"></p>
             <dl class="detail-list">
               <div>
                 <dt>빛</dt>
@@ -95,6 +117,7 @@
           </article>
 
           <article class="detail-card reveal reveal-delay-2">
+            <p class="origin-label">주역 기운</p>
             <div class="symbol-title-row">
               <h3 id="direction-name"></h3>
               <span id="trigram-name" class="pill"></span>
@@ -104,10 +127,12 @@
           </article>
 
           <article class="detail-card score-card reveal reveal-delay-3">
+            <p class="origin-label">운세 점수</p>
             <div id="scores" class="score-list"></div>
           </article>
 
           <article class="detail-card reveal reveal-delay-4">
+            <p class="origin-label">종합 해석</p>
             <p id="interpretation-text"></p>
             <p id="advice-text" class="supporting-copy"></p>
             <p id="caution-text" class="warning-copy"></p>
@@ -115,10 +140,12 @@
         </div>
 
         <article class="oracle-card reveal reveal-delay-5">
+          <p class="origin-label">오라클</p>
           <blockquote id="oracle-line"></blockquote>
         </article>
 
         <article class="oracle-card reveal reveal-delay-6">
+          <p class="origin-label">신점</p>
           <h3 id="shinjeom-line" class="shinjeom-title"></h3>
           <p id="shinjeom-deep-message" class="supporting-copy"></p>
           <p id="shinjeom-guidance" class="warning-copy"></p>
@@ -127,6 +154,7 @@
         <article class="prompt-card reveal reveal-delay-6">
           <div class="prompt-header">
             <div>
+              <p class="origin-label">AI 보조 해석</p>
               <h3>복합 해석용 프롬프트</h3>
             </div>
             <button id="copy-inline-button" class="ghost-button" type="button" disabled>

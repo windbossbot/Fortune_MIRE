@@ -190,6 +190,7 @@ textarea {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 0.8rem;
 }
 
 .hero-panel::after {
@@ -209,6 +210,14 @@ textarea {
   margin: 0 0 0.75rem;
 }
 
+.origin-label {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.76rem;
+  margin: 0 0 0.9rem;
+}
+
 h1,
 h2,
 h3,
@@ -219,23 +228,24 @@ blockquote {
 }
 
 h1 {
-  font-size: clamp(2rem, 4.6vw, 3.6rem);
-  max-width: 8ch;
-  margin: 1rem auto 0;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  max-width: 12ch;
+  margin: 0 auto;
+  line-height: 1.1;
 }
 
 .hero-copy {
-  max-width: 30rem;
+  max-width: 42rem;
   color: var(--mist);
   line-height: 1.7;
-  margin: 0.8rem 0 0;
+  margin: 0;
 }
 
 .hero-actions {
   display: flex;
   gap: 0.9rem;
   flex-wrap: wrap;
-  margin-top: 1.5rem;
+  margin-top: 0.75rem;
   justify-content: center;
 }
 
@@ -277,17 +287,17 @@ h1 {
 .orb-stage {
   display: grid;
   place-items: center;
-  margin-top: 1rem;
+  margin-top: 0.25rem;
   width: 100%;
 }
 
 .choice-panel {
-  width: min(62rem, 100%);
+  width: min(72rem, 100%);
   margin-top: 0;
 }
 
 .choice-title {
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.6rem;
   color: var(--gold);
   letter-spacing: 0.08em;
   font-size: 0.95rem;
@@ -296,15 +306,15 @@ h1 {
 .choice-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .choice-button {
   border: 1px solid rgba(238, 215, 154, 0.14);
   background: rgba(255, 255, 255, 0.03);
   border-radius: 1.2rem;
-  padding: 1rem 0.7rem;
-  min-height: 6.2rem;
+  padding: 0.7rem;
+  min-height: 10rem;
   color: var(--pearl);
   cursor: pointer;
   transition:
@@ -325,12 +335,57 @@ h1 {
   background: rgba(238, 215, 154, 0.08);
 }
 
+.choice-card {
+  display: grid;
+  place-items: center;
+  gap: 0.55rem;
+  min-height: 8.4rem;
+  border-radius: 0.95rem;
+  padding: 0.8rem 0.55rem;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.09), transparent 34%),
+    linear-gradient(180deg, rgba(26, 31, 57, 0.96), rgba(14, 18, 35, 0.98));
+  border: 1px solid rgba(238, 215, 154, 0.12);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 14px 30px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+}
+
+.choice-card::before {
+  content: "";
+  position: absolute;
+  inset: 0.45rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(238, 215, 154, 0.1);
+  pointer-events: none;
+}
+
+.choice-glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 999px;
+  color: var(--gold);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  background:
+    radial-gradient(circle, rgba(238, 215, 154, 0.18), rgba(238, 215, 154, 0.03) 70%, transparent 72%);
+  border: 1px solid rgba(238, 215, 154, 0.14);
+  box-shadow: 0 0 26px rgba(238, 215, 154, 0.08);
+}
+
 .choice-name {
   display: block;
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.45rem;
+  font-size: 1.1rem;
   line-height: 1.1;
   color: var(--gold);
+  text-align: center;
+  max-width: 9ch;
 }
 
 .orb-button {
@@ -476,6 +531,30 @@ body.is-drawing .orb-ring-b {
   border-radius: 1.45rem;
   padding: 1.3rem;
   min-height: 16rem;
+}
+
+.tarot-card-header {
+  display: grid;
+  grid-template-columns: 6.6rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.tarot-card-copy {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.card-art {
+  width: 100%;
+  aspect-ratio: 5 / 8;
+  object-fit: cover;
+  border-radius: 1rem;
+  border: 1px solid rgba(238, 215, 154, 0.2);
+  background: linear-gradient(180deg, rgba(17, 22, 41, 0.92), rgba(10, 13, 28, 0.96));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 14px 34px rgba(0, 0, 0, 0.28);
 }
 
 .symbol-title-row {
@@ -757,7 +836,7 @@ body.is-drawing .orb-core {
 @media (max-width: 900px) {
   .page-shell {
     width: min(100vw - 1rem, 100%);
-    padding-top: 1.1rem;
+    padding-top: 0.8rem;
   }
 
   .hero-panel {
@@ -766,8 +845,8 @@ body.is-drawing .orb-core {
   }
 
   h1 {
-    font-size: clamp(2rem, 11vw, 3rem);
-    max-width: 8ch;
+    font-size: clamp(1.9rem, 10vw, 2.6rem);
+    max-width: 9ch;
   }
 
   .hero-copy {
@@ -782,12 +861,20 @@ body.is-drawing .orb-core {
     grid-template-columns: 1fr;
   }
 
+  .tarot-card-header {
+    grid-template-columns: 1fr;
+  }
+
+  .card-art {
+    width: min(9.5rem, 100%);
+  }
+
   .fortune-focus-grid {
     grid-template-columns: 1fr;
   }
 
   .choice-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .prompt-header {

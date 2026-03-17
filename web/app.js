@@ -440,6 +440,30 @@ const scoreTemplate = document.querySelector("#score-template");
 let latestPrompt = "";
 let pendingChoiceSlot = null;
 let currentChoiceCards = [];
+const glyphByEnergy = {
+  "new-beginning": "SKY",
+  manifestation: "SUN",
+  intuition: "MOON",
+  abundance: "ROSE",
+  structure: "CROWN",
+  tradition: "PILLAR",
+  connection: "TWIN",
+  momentum: "WHEEL",
+  "gentle-power": "LION",
+  retreat: "LAMP",
+  "turning-point": "RING",
+  balance: "SCALE",
+  pause: "HALO",
+  ending: "GATE",
+  integration: "CHALICE",
+  attachment: "CHAIN",
+  disruption: "BOLT",
+  hope: "STAR",
+  ambiguity: "TIDE",
+  clarity: "DAWN",
+  awakening: "CALL",
+  completion: "WORLD",
+};
 
 function sample(items) {
   return items[Math.floor(Math.random() * items.length)];
@@ -497,6 +521,45 @@ function buildChoiceFromCard(card) {
   };
 }
 
+function createTarotCardArt(card) {
+  const tonePalette = {
+    bright: { top: "#1d2545", bottom: "#0c1123", accent: "#f1d998", glow: "#fff4c2" },
+    mist: { top: "#252341", bottom: "#0d1124", accent: "#d8c8f1", glow: "#efe8ff" },
+    ember: { top: "#321d27", bottom: "#120d1d", accent: "#ffb684", glow: "#ffd5b7" },
+    gold: { top: "#2d2530", bottom: "#0d1020", accent: "#eed79a", glow: "#fff0bb" },
+    rose: { top: "#352332", bottom: "#13101e", accent: "#f2a6a6", glow: "#ffe2e2" },
+  };
+  const palette = tonePalette[card.tone] ?? tonePalette.gold;
+  const glyph = glyphByEnergy[card.energy] ?? "ARC";
+  const encodedName = encodeURIComponent(card.name.toUpperCase());
+  const encodedGroup = encodeURIComponent(card.group.toUpperCase());
+  const encodedGlyph = encodeURIComponent(glyph);
+
+  return `data:image/svg+xml;utf8,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 520'>
+  <defs>
+    <linearGradient id='bg' x1='0' x2='0' y1='0' y2='1'>
+      <stop offset='0%' stop-color='${palette.top}'/>
+      <stop offset='100%' stop-color='${palette.bottom}'/>
+    </linearGradient>
+    <radialGradient id='glow' cx='50%' cy='26%' r='44%'>
+      <stop offset='0%' stop-color='${palette.glow}' stop-opacity='0.95'/>
+      <stop offset='100%' stop-color='${palette.glow}' stop-opacity='0'/>
+    </radialGradient>
+  </defs>
+  <rect x='12' y='12' width='296' height='496' rx='26' fill='url(%23bg)' stroke='${palette.accent}' stroke-opacity='0.65' />
+  <rect x='28' y='28' width='264' height='464' rx='18' fill='none' stroke='${palette.accent}' stroke-opacity='0.28' />
+  <circle cx='160' cy='170' r='86' fill='url(%23glow)' opacity='0.78' />
+  <circle cx='160' cy='170' r='72' fill='none' stroke='${palette.accent}' stroke-opacity='0.72' />
+  <circle cx='160' cy='170' r='52' fill='none' stroke='${palette.accent}' stroke-opacity='0.45' />
+  <text x='160' y='182' text-anchor='middle' fill='${palette.accent}' font-size='22' font-family='IBM Plex Sans KR, sans-serif' letter-spacing='2'>${encodedGlyph}</text>
+  <path d='M92 278 Q160 236 228 278' fill='none' stroke='${palette.accent}' stroke-opacity='0.48' stroke-width='2'/>
+  <path d='M98 300 Q160 340 222 300' fill='none' stroke='${palette.accent}' stroke-opacity='0.32' stroke-width='2'/>
+  <text x='160' y='402' text-anchor='middle' fill='${palette.accent}' font-size='18' font-family='Cormorant Garamond, serif' letter-spacing='1.2'>${encodedName}</text>
+  <text x='160' y='435' text-anchor='middle' fill='${palette.accent}' fill-opacity='0.82' font-size='11' font-family='IBM Plex Sans KR, sans-serif' letter-spacing='3'>${encodedGroup}</text>
+</svg>`.replace(/\n/g, "");
+}
+
 function hydrateChoiceCards() {
   currentChoiceCards = sampleUnique(tarotCards, 5);
   choiceButtons.forEach((button, index) => {
@@ -505,6 +568,7 @@ function hydrateChoiceCards() {
       return;
     }
     button.querySelector(".choice-name").textContent = card.name;
+    button.querySelector(".choice-glyph").textContent = glyphByEnergy[card.energy] ?? "ARC";
     button.setAttribute("aria-label", `${card.name} 카드 선택`);
   });
 }
@@ -704,6 +768,8 @@ function renderReading(draw) {
   document.querySelector("#summary-text").textContent = draw.summary;
   document.querySelector("#card-name").textContent = draw.card.name;
   document.querySelector("#card-group").textContent = draw.card.group;
+  document.querySelector("#card-art").src = createTarotCardArt(draw.card);
+  document.querySelector("#card-art").alt = `${draw.card.name} 카드 이미지`;
   document.querySelector("#card-summary").textContent = draw.card.summary;
   document.querySelector("#card-positive").textContent = draw.card.positive;
   document.querySelector("#card-shadow").textContent = draw.card.shadow;
