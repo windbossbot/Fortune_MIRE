@@ -810,18 +810,18 @@ function buildHeadline(direction, trigram, focus) {
 
 function buildInterpretation(card, direction, trigram, focus) {
   const toneMap = {
-    bright: "전반적으로 밝은 흐름이 살아 있어, 너무 움츠리기보다 마음을 열어 두는 편이 좋습니다.",
-    mist: "흐름이 선명하기보다 미세하게 바뀌는 쪽이라, 섣부른 단정보다 감각을 세우는 편이 유리합니다.",
-    ember: "기류에 열감이 있어 선택 하나하나가 분위기를 크게 바꿀 수 있습니다. 감정의 힘을 의식적으로 다루는 것이 중요합니다.",
-    gold: "성급한 돌진보다 균형 잡힌 선택이 더 좋은 결과를 만듭니다. 중심을 지키는 태도가 운을 안정시킵니다.",
-    rose: "관계와 감정의 결이 진해져 반응보다 진심의 방향이 더 중요해집니다.",
+    bright: "운은 열린 쪽으로 기울어 있으니 지나친 망설임만 줄이면 됩니다.",
+    mist: "흐름이 흐릿할수록 서두르기보다 감각을 세우는 편이 맞습니다.",
+    ember: "열감이 큰 날이라 밀어붙이기보다 힘의 방향을 조절하는 것이 중요합니다.",
+    gold: "균형을 지킬수록 결과가 안정되고 무리한 선택은 덜어집니다.",
+    rose: "감정의 결이 진해지는 날이라 반응보다 진심의 방향이 더 중요합니다.",
   };
 
   return [
-    `${focus.label}을 중심에 두고 보면 ${focus.summary}`,
+    `${focus.label} 중심으로 보면 ${focus.summary}`,
     `메인 카드는 ${card.summary}`,
-    `방향성은 ${direction.label}으로 잡혀 있어 ${direction.summary}`,
-    `주변에는 ${trigram.label}의 기운이 감돌며 ${trigram.theme}`,
+    `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
+    `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
     toneMap[card.tone],
   ].join(" ");
 }
@@ -831,7 +831,7 @@ function buildAdvice(direction, trigram, scores, focus) {
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => right.value - left.value)[0];
 
-  return `${focus.label}을 기준으로 보면 ${direction.advice} ${trigram.advice} 오늘 특히 힘이 실리는 영역은 ${strongest.label}입니다.`;
+  return `${focus.label} 기준 조언은 간단합니다. ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
 }
 
 function buildCaution(card, direction, scores, focus) {
@@ -839,13 +839,13 @@ function buildCaution(card, direction, scores, focus) {
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => left.value - right.value)[0];
 
-  return `${focus.label}에 마음이 쏠릴수록 ${card.shadow}. ${direction.caution} 다만 ${weakest.label}에서는 예민함이 올라오기 쉬우니 과잉 해석과 과잉 반응은 줄이는 편이 좋습니다.`;
+  return `${focus.label}에 마음이 쏠릴수록 ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
 }
 
 function buildScoreInsightLine(key, score, draw) {
   const levelMap = {
-    5: "매우 강하게",
-    4: "꽤 안정적으로",
+    5: "아주 강하게",
+    4: "안정적으로",
     3: "무난하게",
     2: "예민하게",
     1: "조심스럽게",
@@ -853,9 +853,9 @@ function buildScoreInsightLine(key, score, draw) {
   const level = levelMap[score] ?? "복합적으로";
   const lineByKey = {
     overall: `${level} 흐릅니다. ${draw.direction.summary} ${draw.oracle}`,
-    love: `${level} 반응합니다. ${draw.card.positive}의 결이 관계에 스미지만, ${draw.card.shadow} 쪽 해석은 줄이는 편이 좋습니다.`,
+    love: `${level} 반응합니다. ${draw.card.positive}의 결이 관계에 스미고, 감정 해석은 조금 덜어낼수록 좋습니다.`,
     work: `${level} 힘이 실립니다. ${draw.direction.advice} ${draw.trigram.advice}`,
-    money: `${level} 작동합니다. ${draw.direction.caution} 특히 지출이나 현실 판단에서는 기준을 먼저 세우는 쪽이 유리합니다.`,
+    money: `${level} 작동합니다. 지출과 판단은 빠르게 움직이기보다 기준을 먼저 세우는 쪽이 유리합니다.`,
   };
 
   return lineByKey[key];
@@ -872,58 +872,43 @@ function buildPrompt(draw, modeKey) {
   const mode = promptModes[modeKey] ?? promptModes.today;
   const sectionList = mode.sections.map((section) => `- ${section}`).join("\n");
 
-  return `너는 상징 해석과 복합 운세 조합에 능한 리더다.
+  return `${mode.label} 중심 복합 운세를 해석해줘.
 
-아래는 한 번의 클릭으로 생성된 복합 운세 결과다.
-각 요소를 따로 설명하지 말고, 서로 어떻게 영향을 주는지 엮어서 자연스러운 한국어 해석으로 써줘.
-
-요구사항:
-- 톤은 차분하고 신비롭되 과장되지 않게
-- 이번 해석의 중심 주제는 "${mode.label}"이다
-- 아래 순서의 소제목을 유지할 것:
+조건:
+- 차분하고 자연스러운 한국어
+- 과장 없이 단정하게
+- 아래 소제목 순서 유지
 ${sectionList}
-- 미래 예측은 ${mode.horizon} 흐름을 기준으로 쓸 것
-- 점술 결과이므로 미래 예측 문장은 분명하게 써도 되지만, 지나치게 극단적이거나 공포를 조장하는 표현은 피할 것
-- 카드, 방향성, 상황 기운, 점수, 오라클 문장을 모두 반영
-- 특히 이번 해석에서는 ${mode.focus}에 더 무게를 둘 것
-- 문장들이 서로 충돌하지 않도록, 하나의 일관된 흐름처럼 써줄 것
+- ${mode.horizon} 기준 미래 예측 포함
+- ${mode.focus}에 가장 무게를 둘 것
+- 모든 내용은 서로 충돌하지 않게 하나의 흐름으로 쓸 것
 
-[복합 운세 원본]
+[원본 데이터]
 - 중점 운: ${draw.focus.label}
-- 선택한 카드: ${draw.choice.label}
-- 선택한 카드의 결: ${draw.choice.summary}
-- 메인 카드: ${draw.card.name} (${draw.card.group})
+- 선택 카드: ${draw.choice.label}
+- 메인 카드: ${draw.card.name}
 - 카드 요약: ${draw.card.summary}
 - 카드의 빛: ${draw.card.positive}
 - 카드의 그림자: ${draw.card.shadow}
-- 방향성: ${draw.direction.label} (${draw.direction.name})
-- 방향성 요약: ${draw.direction.summary}
-- 상황 기운: ${draw.trigram.label} (${draw.trigram.name})
+- 방향성: ${draw.direction.label}
+- 방향 요약: ${draw.direction.summary}
+- 상황 기운: ${draw.trigram.label}
 - 상황 테마: ${draw.trigram.theme}
 - 상황 조언: ${draw.trigram.advice}
-- 전체 흐름 점수: ${draw.scores.overall}/5
-- 관계와 감정 점수: ${draw.scores.love}/5
-- 집중과 일 점수: ${draw.scores.work}/5
-- 돈과 현실 점수: ${draw.scores.money}/5
-- 마무리 오라클: "${draw.oracle}"
-
-[현재 자동 조합 해석 초안]
-- 헤드라인: ${draw.headline}
-- 해석: ${draw.interpretation}
+- 점수: 전체 ${draw.scores.overall}/5, 관계 ${draw.scores.love}/5, 일 ${draw.scores.work}/5, 돈 ${draw.scores.money}/5
+- 오라클: ${draw.oracle}
+- 현재 해석: ${draw.interpretation}
 - 조언: ${draw.advice}
 - 주의: ${draw.caution}
-- 영역별 디테일:
-${buildScoreInsights(draw).map((item) => `  - ${item.label}: ${item.text}`).join("\n")}
-- 신점 한마디: ${draw.shinjeomLine}
+- 신점: ${draw.shinjeomLine}
 - 신점 깊은 메시지: ${draw.shinjeomDeepMessage}
 - 받들어야 할 기운: ${draw.shinjeomGuidance}
 
-이 결과를 바탕으로, 겹쳐진 상징이 하나의 운세처럼 읽히도록 ${mode.label} 중심의 최종 해석문을 작성해줘.
-
-추가로 반드시 포함할 것:
-- ${mode.horizon} 기준의 미래 예측
-- 지금 들어오는 운이 어느 방향으로 굳어질 가능성이 큰지
-- 만약 흐름을 잘 타면 어떻게 되고, 잘못 다루면 어떻게 엇나갈 수 있는지`;
+이 데이터를 바탕으로 ${mode.label} 위주 최종 해석을 써줘.
+반드시 포함:
+- 가까운 미래 흐름
+- 잘 타면 어떻게 되는지
+- 잘못 다루면 어디서 어긋나는지`;
 }
 
 function updatePromptOutput() {
