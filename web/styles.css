@@ -433,6 +433,10 @@ h1 {
   opacity: 0.9;
 }
 
+.choice-name:empty {
+  display: none;
+}
+
 .orb-button {
   position: relative;
   width: min(42vw, 17rem);

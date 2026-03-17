@@ -13,3 +13,4 @@ tmp/
 cache/
 .playwright-cli/
 output/playwright/
+output/

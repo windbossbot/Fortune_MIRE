@@ -729,7 +729,7 @@ function hydrateChoiceCards() {
     choiceArt.onerror = null;
     choiceArt.src = createTarotBackArt();
     choiceArt.alt = `${index + 1}번째 카드 뒷면`;
-    button.querySelector(".choice-name").textContent = "뒤집기 전";
+    button.querySelector(".choice-name").textContent = "";
     button.setAttribute("aria-label", `${index + 1}번째 카드 뒷면 선택`);
   });
 }
