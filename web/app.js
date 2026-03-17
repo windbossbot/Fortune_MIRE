@@ -466,6 +466,44 @@ const promptModes = {
   },
 };
 
+const focusModes = {
+  overall: {
+    label: "전체운",
+    scoreKey: "overall",
+    promptMode: "today",
+    summary: "전체 흐름과 오늘 판의 방향을 중점적으로 봅니다.",
+    headline: "전체 흐름에 더 무게가 실린 채",
+  },
+  love: {
+    label: "연애운",
+    scoreKey: "love",
+    promptMode: "love",
+    summary: "감정, 관계, 연락과 호감의 흐름을 더 가까이 봅니다.",
+    headline: "관계와 감정의 결을 먼저 비추며",
+  },
+  money: {
+    label: "금전운",
+    scoreKey: "money",
+    promptMode: "today",
+    summary: "지출, 수입, 판단과 실속의 결을 더 선명하게 봅니다.",
+    headline: "돈과 현실의 감각이 앞에 놓인 채",
+  },
+  health: {
+    label: "건강운",
+    scoreKey: "overall",
+    promptMode: "health",
+    summary: "몸 상태, 생활 리듬, 회복과 무리의 경계를 더 깊게 봅니다.",
+    headline: "몸과 리듬의 신호를 먼저 읽으며",
+  },
+  work: {
+    label: "일·사업운",
+    scoreKey: "work",
+    promptMode: "business",
+    summary: "일, 성과, 협업, 추진력과 기회의 결을 더 가까이 봅니다.",
+    headline: "일과 성과의 흐름을 먼저 붙들고",
+  },
+};
+
 const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
@@ -478,9 +516,11 @@ const readingPanel = document.querySelector("#reading-panel");
 const promptOutput = document.querySelector("#prompt-output");
 const scoreTemplate = document.querySelector("#score-template");
 const promptModeButtons = document.querySelectorAll(".prompt-mode-button");
+const focusButtons = document.querySelectorAll(".focus-button");
 let latestPrompt = "";
 let latestDraw = null;
 let currentPromptMode = "today";
+let currentFocusMode = "overall";
 let pendingChoiceSlot = null;
 let currentChoiceCards = [];
 const glyphByEnergy = {
@@ -729,7 +769,7 @@ function weightedPick(items, weights) {
   return items[items.length - 1];
 }
 
-function deriveScores(card, direction, trigram, choice) {
+function deriveScores(card, direction, trigram, choice, focusMode) {
   const energetic = ["momentum", "clarity", "hope", "manifestation", "completion"];
   const inward = ["retreat", "pause", "intuition", "ambiguity"];
   const intense = ["disruption", "attachment", "ending"];
@@ -749,25 +789,33 @@ function deriveScores(card, direction, trigram, choice) {
   const workBias = trigram.name === "Heaven" || trigram.name === "Fire" ? 1 : 0;
   const moneyBias = trigram.name === "Earth" ? 1 : trigram.name === "Thunder" ? -1 : 0;
 
-  return {
+  const scores = {
     overall: randomScore(base + choice.scoreBias.overall),
     love: randomScore(base + loveBias + choice.scoreBias.love),
     work: randomScore(base + workBias + choice.scoreBias.work),
     money: randomScore(base + moneyBias + choice.scoreBias.money),
   };
+
+  const focus = focusModes[focusMode] ?? focusModes.overall;
+  scores[focus.scoreKey] = Math.min(5, scores[focus.scoreKey] + 1);
+  if (focusMode === "health") {
+    scores.overall = Math.min(5, scores.overall + 1);
+  }
+
+  return scores;
 }
 
-function buildHeadline(direction, trigram) {
+function buildHeadline(direction, trigram, focus) {
   const actionPhrase = {
     Rise: "조용한 확신을 행동으로 옮길 때",
     Hold: "지금은 멈춤 속에서 기준을 세울 때",
     Release: "덜어낼수록 길이 선명해질 때",
   }[direction.name];
 
-  return `${actionPhrase}, ${trigram.label}의 기운이 주변을 감싸고 있습니다.`;
+  return `${focus.headline} ${actionPhrase}, ${trigram.label}의 기운이 주변을 감싸고 있습니다.`;
 }
 
-function buildInterpretation(card, direction, trigram) {
+function buildInterpretation(card, direction, trigram, focus) {
   const toneMap = {
     bright: "전반적으로 밝은 흐름이 살아 있어, 너무 움츠리기보다 마음을 열어 두는 편이 좋습니다.",
     mist: "흐름이 선명하기보다 미세하게 바뀌는 쪽이라, 섣부른 단정보다 감각을 세우는 편이 유리합니다.",
@@ -777,6 +825,7 @@ function buildInterpretation(card, direction, trigram) {
   };
 
   return [
+    `${focus.label}을 중심에 두고 보면 ${focus.summary}`,
     `메인 카드는 ${card.summary}`,
     `방향성은 ${direction.label}으로 잡혀 있어 ${direction.summary}`,
     `주변에는 ${trigram.label}의 기운이 감돌며 ${trigram.theme}`,
@@ -784,20 +833,20 @@ function buildInterpretation(card, direction, trigram) {
   ].join(" ");
 }
 
-function buildAdvice(direction, trigram, scores) {
+function buildAdvice(direction, trigram, scores, focus) {
   const strongest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => right.value - left.value)[0];
 
-  return `${direction.advice} ${trigram.advice} 오늘 특히 힘이 실리는 영역은 ${strongest.label}입니다.`;
+  return `${focus.label}을 기준으로 보면 ${direction.advice} ${trigram.advice} 오늘 특히 힘이 실리는 영역은 ${strongest.label}입니다.`;
 }
 
-function buildCaution(card, direction, scores) {
+function buildCaution(card, direction, scores, focus) {
   const weakest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => left.value - right.value)[0];
 
-  return `${card.shadow}. ${direction.caution} 다만 ${weakest.label}에서는 예민함이 올라오기 쉬우니 과잉 해석과 과잉 반응은 줄이는 편이 좋습니다.`;
+  return `${focus.label}에 마음이 쏠릴수록 ${card.shadow}. ${direction.caution} 다만 ${weakest.label}에서는 예민함이 올라오기 쉬우니 과잉 해석과 과잉 반응은 줄이는 편이 좋습니다.`;
 }
 
 function buildScoreInsightLine(key, score, draw) {
@@ -847,6 +896,7 @@ ${sectionList}
 - 문장들이 서로 충돌하지 않도록, 하나의 일관된 흐름처럼 써줄 것
 
 [복합 운세 원본]
+- 중점 운: ${draw.focus.label}
 - 선택한 카드: ${draw.choice.label}
 - 선택한 카드의 결: ${draw.choice.summary}
 - 메인 카드: ${draw.card.name} (${draw.card.group})
@@ -994,15 +1044,16 @@ function renderReading(draw) {
 function composeReading() {
   const choiceCard = currentChoiceCards[pendingChoiceSlot];
   const choice = buildChoiceFromCard(choiceCard);
+  const focus = focusModes[currentFocusMode] ?? focusModes.overall;
   const card = sample(tarotCards);
   const direction = weightedPick(directions, choice.directionBias);
   const trigram = sample(trigrams);
   const oracle = sample(oracleLines);
-  const scores = deriveScores(card, direction, trigram, choice);
-  const headline = buildHeadline(direction, trigram);
-  const interpretation = buildInterpretation(card, direction, trigram);
-  const advice = buildAdvice(direction, trigram, scores);
-  const caution = buildCaution(card, direction, scores);
+  const scores = deriveScores(card, direction, trigram, choice, currentFocusMode);
+  const headline = buildHeadline(direction, trigram, focus);
+  const interpretation = buildInterpretation(card, direction, trigram, focus);
+  const advice = buildAdvice(direction, trigram, scores, focus);
+  const caution = buildCaution(card, direction, scores, focus);
   const shinjeomBase = buildShinjeomLine(card, direction, choice);
   const shinjeomLine = shinjeomBase.text;
   const shinjeomDeepMessage = buildShinjeomDeepMessage(card, direction, oracle, shinjeomBase.tone);
@@ -1010,13 +1061,14 @@ function composeReading() {
 
   return {
     choice,
+    focus,
     card,
     direction,
     trigram,
     oracle,
     scores,
     headline,
-    summary: `${choice.label} 카드의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
+    summary: `${focus.label}을 중점으로 두고, ${choice.label} 카드의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
     interpretation,
     advice,
     caution,
@@ -1068,7 +1120,7 @@ async function startDraw() {
 
   const draw = composeReading();
   renderReading(draw);
-  drawStatus.textContent = `${draw.choice.label}의 기운이 오늘의 운을 열었습니다`;
+  drawStatus.textContent = `${draw.focus.label} 중심으로 ${draw.choice.label}의 기운이 열렸습니다`;
   document.body.classList.remove("is-drawing");
   drawButton.disabled = false;
   drawButton.removeAttribute("aria-busy");
@@ -1089,7 +1141,7 @@ function initializeView() {
   latestDraw = null;
   latestPrompt = "";
   promptOutput.value = "";
-  drawStatus.textContent = "먼저 카드 뒷면을 고르고 기운을 불러 보세요";
+  drawStatus.textContent = `${focusModes[currentFocusMode].label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
   pendingChoiceSlot = null;
   copyActions.classList.add("hidden");
   copyButton.disabled = true;
@@ -1138,6 +1190,26 @@ promptModeButtons.forEach((button) => {
     promptModeButtons.forEach((item) => {
       item.classList.toggle("is-selected", item === button);
     });
+    updatePromptOutput();
+  });
+});
+
+focusButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    currentFocusMode = button.dataset.focusMode;
+    focusButtons.forEach((item) => {
+      item.classList.toggle("is-selected", item === button);
+    });
+    const linkedPromptMode = focusModes[currentFocusMode]?.promptMode;
+    if (linkedPromptMode) {
+      currentPromptMode = linkedPromptMode;
+      promptModeButtons.forEach((item) => {
+        item.classList.toggle("is-selected", item.dataset.promptMode === linkedPromptMode);
+      });
+    }
+    if (!latestDraw) {
+      drawStatus.textContent = `${focusModes[currentFocusMode].label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
+    }
     updatePromptOutput();
   });
 });
