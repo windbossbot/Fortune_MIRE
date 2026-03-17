@@ -469,6 +469,7 @@ const promptModes = {
 const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
+const retryButton = document.querySelector("#retry-button");
 const copyActions = document.querySelector("#copy-actions");
 const choicePanel = document.querySelector("#choice-panel");
 const choiceButtons = document.querySelectorAll(".choice-button");
@@ -505,6 +506,31 @@ const glyphByEnergy = {
   clarity: "DAWN",
   awakening: "CALL",
   completion: "WORLD",
+};
+
+const riderWaiteImageFiles = {
+  "The Fool": "RWS Tarot 00 Fool.jpg",
+  "The Magician": "RWS Tarot 01 Magician.jpg",
+  "The High Priestess": "RWS Tarot 02 High Priestess.jpg",
+  "The Empress": "RWS Tarot 03 Empress.jpg",
+  "The Emperor": "RWS Tarot 04 Emperor.jpg",
+  "The Hierophant": "RWS Tarot 05 Hierophant.jpg",
+  "The Lovers": "RWS Tarot 06 Lovers.jpg",
+  "The Chariot": "RWS Tarot 07 Chariot.jpg",
+  Strength: "RWS Tarot 08 Strength.jpg",
+  "The Hermit": "RWS Tarot 09 Hermit.jpg",
+  "Wheel of Fortune": "RWS Tarot 10 Wheel of Fortune.jpg",
+  Justice: "RWS Tarot 11 Justice.jpg",
+  "The Hanged Man": "RWS Tarot 12 Hanged Man.jpg",
+  Death: "RWS Tarot 13 Death.jpg",
+  Temperance: "RWS Tarot 14 Temperance.jpg",
+  "The Devil": "RWS Tarot 15 Devil.jpg",
+  "The Tower": "RWS Tarot 16 Tower.jpg",
+  "The Star": "RWS Tarot 17 Star.jpg",
+  "The Moon": "RWS Tarot 18 Moon.jpg",
+  "The Sun": "RWS Tarot 19 Sun.jpg",
+  Judgement: "RWS Tarot 20 Judgement.jpg",
+  "The World": "RWS Tarot 21 World.jpg",
 };
 
 function sample(items) {
@@ -600,6 +626,27 @@ function createTarotCardArt(card) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
+function getTarotImageUrl(card) {
+  const fileName = riderWaiteImageFiles[card.name];
+  if (!fileName) {
+    return "";
+  }
+
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}`;
+}
+
+function setTarotImage(image, card, altText) {
+  const fallback = createTarotCardArt(card);
+  const imageUrl = getTarotImageUrl(card);
+
+  image.alt = altText;
+  image.onerror = () => {
+    image.onerror = null;
+    image.src = fallback;
+  };
+  image.src = imageUrl || fallback;
+}
+
 function hydrateChoiceCards() {
   currentChoiceCards = sampleUnique(tarotCards, 5);
   choiceButtons.forEach((button, index) => {
@@ -607,8 +654,9 @@ function hydrateChoiceCards() {
     if (!card) {
       return;
     }
-    button.querySelector(".choice-art").src = createTarotCardArt(card);
-    button.querySelector(".choice-art").alt = `${card.name} 선택 카드 이미지`;
+    const choiceArt = button.querySelector(".choice-art");
+    choiceArt.loading = "lazy";
+    setTarotImage(choiceArt, card, `${card.name} 선택 카드 이미지`);
     button.querySelector(".choice-name").textContent = card.name;
     button.setAttribute("aria-label", `${card.name} 카드 선택`);
   });
@@ -873,8 +921,8 @@ function renderReading(draw) {
   document.querySelector("#summary-text").textContent = draw.summary;
   document.querySelector("#card-name").textContent = draw.card.name;
   document.querySelector("#card-group").textContent = draw.card.group;
-  document.querySelector("#card-art").src = createTarotCardArt(draw.card);
-  document.querySelector("#card-art").alt = `${draw.card.name} 카드 이미지`;
+  const mainCardArt = document.querySelector("#card-art");
+  setTarotImage(mainCardArt, draw.card, `${draw.card.name} 카드 이미지`);
   document.querySelector("#card-summary").textContent = draw.card.summary;
   document.querySelector("#card-positive").textContent = draw.card.positive;
   document.querySelector("#card-shadow").textContent = draw.card.shadow;
@@ -1053,4 +1101,9 @@ promptModeButtons.forEach((button) => {
     });
     updatePromptOutput();
   });
+});
+
+retryButton.addEventListener("click", () => {
+  initializeView();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
