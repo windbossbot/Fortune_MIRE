@@ -504,6 +504,39 @@ const focusModes = {
   },
 };
 
+const subfocusModes = {
+  overall: [
+    { key: "general", label: "일반 흐름", summary: "하루 전체 판과 전반 운을 봅니다." },
+    { key: "luck", label: "행운 흐름", summary: "운이 붙는 타이밍과 기회의 결을 봅니다." },
+    { key: "relationship", label: "대인관계", summary: "주변 사람과의 분위기와 마찰을 봅니다." },
+    { key: "decision", label: "결정", summary: "지금 밀어야 할지 보류해야 할지의 결을 봅니다." },
+  ],
+  love: [
+    { key: "solo", label: "솔로", summary: "새 인연, 호감, 다가오는 기회를 중심으로 봅니다." },
+    { key: "some", label: "썸", summary: "애매한 거리, 연락, 진전 가능성을 중심으로 봅니다." },
+    { key: "dating", label: "연애중", summary: "현재 관계의 온도, 대화, 균형을 중심으로 봅니다." },
+    { key: "reunion", label: "재회", summary: "다시 이어질 여지와 정리의 결을 중심으로 봅니다." },
+  ],
+  money: [
+    { key: "saving", label: "저축", summary: "모으는 흐름과 지키는 감각을 중심으로 봅니다." },
+    { key: "spending", label: "지출", summary: "새는 돈, 소비 판단, 충동 지출을 중심으로 봅니다." },
+    { key: "income", label: "수입", summary: "들어오는 돈과 실질적인 회복 흐름을 중심으로 봅니다." },
+    { key: "invest", label: "투자", summary: "리스크 감각, 판단 속도, 보수적 접근을 중심으로 봅니다." },
+  ],
+  health: [
+    { key: "condition", label: "컨디션", summary: "오늘 몸 상태와 체력 흐름을 중심으로 봅니다." },
+    { key: "sleep", label: "수면", summary: "잠, 회복 리듬, 피로 누적을 중심으로 봅니다." },
+    { key: "stress", label: "스트레스", summary: "예민함, 긴장, 신경 소모를 중심으로 봅니다." },
+    { key: "recovery", label: "회복", summary: "쉬어야 할 지점과 회복 가능성을 중심으로 봅니다." },
+  ],
+  work: [
+    { key: "job", label: "직장", summary: "현재 회사 일, 분위기, 협업을 중심으로 봅니다." },
+    { key: "career", label: "이직", summary: "움직일 타이밍과 방향성을 중심으로 봅니다." },
+    { key: "business", label: "사업", summary: "판단, 기회, 책임과 리스크를 중심으로 봅니다." },
+    { key: "study", label: "취업·시험", summary: "집중력, 준비, 결과 흐름을 중심으로 봅니다." },
+  ],
+};
+
 const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
@@ -517,10 +550,12 @@ const promptOutput = document.querySelector("#prompt-output");
 const scoreTemplate = document.querySelector("#score-template");
 const promptModeButtons = document.querySelectorAll(".prompt-mode-button");
 const focusButtons = document.querySelectorAll(".focus-button");
+const subfocusSelector = document.querySelector("#subfocus-selector");
 let latestPrompt = "";
 let latestDraw = null;
 let currentPromptMode = "today";
 let currentFocusMode = "overall";
+let currentSubfocusKey = "general";
 let pendingChoiceSlot = null;
 let currentChoiceCards = [];
 const glyphByEnergy = {
@@ -585,6 +620,37 @@ function sampleUnique(items, count) {
     picked.push(pool.splice(index, 1)[0]);
   }
   return picked;
+}
+
+function getCurrentSubfocus() {
+  const options = subfocusModes[currentFocusMode] ?? subfocusModes.overall;
+  return options.find((item) => item.key === currentSubfocusKey) ?? options[0];
+}
+
+function renderSubfocusOptions() {
+  const options = subfocusModes[currentFocusMode] ?? subfocusModes.overall;
+  if (!options.some((item) => item.key === currentSubfocusKey)) {
+    currentSubfocusKey = options[0].key;
+  }
+
+  subfocusSelector.innerHTML = "";
+  for (const option of options) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "subfocus-button";
+    button.dataset.subfocusKey = option.key;
+    button.textContent = option.label;
+    button.classList.toggle("is-selected", option.key === currentSubfocusKey);
+    button.addEventListener("click", () => {
+      currentSubfocusKey = option.key;
+      renderSubfocusOptions();
+      if (!latestDraw) {
+        drawStatus.textContent = `${focusModes[currentFocusMode].label} · ${option.label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
+      }
+      updatePromptOutput();
+    });
+    subfocusSelector.append(button);
+  }
 }
 
 function buildChoiceFromCard(card) {
@@ -808,7 +874,7 @@ function buildHeadline(direction, trigram, focus) {
   return `${focus.headline} ${actionPhrase}, ${trigram.label}의 기운이 주변을 감싸고 있습니다.`;
 }
 
-function buildInterpretation(card, direction, trigram, focus) {
+function buildInterpretation(card, direction, trigram, focus, subfocus) {
   const toneMap = {
     bright: "운은 열린 쪽으로 기울어 있으니 지나친 망설임만 줄이면 됩니다.",
     mist: "흐름이 흐릿할수록 서두르기보다 감각을 세우는 편이 맞습니다.",
@@ -818,7 +884,7 @@ function buildInterpretation(card, direction, trigram, focus) {
   };
 
   return [
-    `${focus.label} 중심으로 보면 ${focus.summary}`,
+    `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
     `메인 카드는 ${card.summary}`,
     `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
     `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
@@ -826,20 +892,20 @@ function buildInterpretation(card, direction, trigram, focus) {
   ].join(" ");
 }
 
-function buildAdvice(direction, trigram, scores, focus) {
+function buildAdvice(direction, trigram, scores, focus, subfocus) {
   const strongest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => right.value - left.value)[0];
 
-  return `${focus.label} 기준 조언은 간단합니다. ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+  return `${focus.label}의 ${subfocus.label} 기준 조언은 간단합니다. ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
 }
 
-function buildCaution(card, direction, scores, focus) {
+function buildCaution(card, direction, scores, focus, subfocus) {
   const weakest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => left.value - right.value)[0];
 
-  return `${focus.label}에 마음이 쏠릴수록 ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+  return `${focus.label}의 ${subfocus.label}에 마음이 쏠릴수록 ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
 }
 
 function buildScoreInsightLine(key, score, draw) {
@@ -885,6 +951,7 @@ ${sectionList}
 
 [원본 데이터]
 - 중점 운: ${draw.focus.label}
+- 세부 상황: ${draw.subfocus.label}
 - 선택 카드: ${draw.choice.label}
 - 메인 카드: ${draw.card.name}
 - 카드 요약: ${draw.card.summary}
@@ -1023,15 +1090,16 @@ function composeReading() {
   const choiceCard = currentChoiceCards[pendingChoiceSlot];
   const choice = buildChoiceFromCard(choiceCard);
   const focus = focusModes[currentFocusMode] ?? focusModes.overall;
+  const subfocus = getCurrentSubfocus();
   const card = sample(tarotCards);
   const direction = weightedPick(directions, choice.directionBias);
   const trigram = sample(trigrams);
   const oracle = sample(oracleLines);
   const scores = deriveScores(card, direction, trigram, choice, currentFocusMode);
   const headline = buildHeadline(direction, trigram, focus);
-  const interpretation = buildInterpretation(card, direction, trigram, focus);
-  const advice = buildAdvice(direction, trigram, scores, focus);
-  const caution = buildCaution(card, direction, scores, focus);
+  const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
+  const advice = buildAdvice(direction, trigram, scores, focus, subfocus);
+  const caution = buildCaution(card, direction, scores, focus, subfocus);
   const shinjeomBase = buildShinjeomLine(card, direction, choice);
   const shinjeomLine = shinjeomBase.text;
   const shinjeomDeepMessage = buildShinjeomDeepMessage(card, direction, oracle, shinjeomBase.tone);
@@ -1040,13 +1108,14 @@ function composeReading() {
   return {
     choice,
     focus,
+    subfocus,
     card,
     direction,
     trigram,
     oracle,
     scores,
     headline,
-    summary: `${focus.label}을 중점으로 두고, ${choice.label} 카드의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
+    summary: `${focus.label}의 ${subfocus.label}을 중점으로 두고, ${choice.label} 카드의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
     interpretation,
     advice,
     caution,
@@ -1119,7 +1188,7 @@ function initializeView() {
   latestDraw = null;
   latestPrompt = "";
   promptOutput.value = "";
-  drawStatus.textContent = `${focusModes[currentFocusMode].label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
+  drawStatus.textContent = `${focusModes[currentFocusMode].label} · ${getCurrentSubfocus().label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
   pendingChoiceSlot = null;
   copyActions.classList.add("hidden");
   copyButton.disabled = true;
@@ -1130,6 +1199,7 @@ function initializeView() {
   drawButton.disabled = false;
   drawButton.removeAttribute("aria-busy");
   hydrateChoiceCards();
+  renderSubfocusOptions();
   choiceButtons.forEach((button) => {
     button.classList.remove("is-selected");
     button.disabled = false;
@@ -1185,8 +1255,9 @@ focusButtons.forEach((button) => {
         item.classList.toggle("is-selected", item.dataset.promptMode === linkedPromptMode);
       });
     }
+    renderSubfocusOptions();
     if (!latestDraw) {
-      drawStatus.textContent = `${focusModes[currentFocusMode].label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
+      drawStatus.textContent = `${focusModes[currentFocusMode].label} · ${getCurrentSubfocus().label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
     }
     updatePromptOutput();
   });
