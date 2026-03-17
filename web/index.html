@@ -24,36 +24,31 @@
 
     <main class="page-shell">
       <section class="hero-panel">
+        <section id="choice-panel" class="choice-panel" aria-live="polite">
+          <p class="choice-title">먼저 끌리는 카드 한 장을 고르세요</p>
+          <div class="choice-grid">
+            <button class="choice-button" data-choice-slot="0" type="button">
+              <span class="choice-name">Card</span>
+            </button>
+            <button class="choice-button" data-choice-slot="1" type="button">
+              <span class="choice-name">Card</span>
+            </button>
+            <button class="choice-button" data-choice-slot="2" type="button">
+              <span class="choice-name">Card</span>
+            </button>
+            <button class="choice-button" data-choice-slot="3" type="button">
+              <span class="choice-name">Card</span>
+            </button>
+            <button class="choice-button" data-choice-slot="4" type="button">
+              <span class="choice-name">Card</span>
+            </button>
+          </div>
+        </section>
+
         <h1>구슬 한 번으로 겹쳐 보는 오늘의 운</h1>
         <p class="hero-copy">
           카드, 방향, 상황, 실용 운, 마무리 문장을 한 번에 뽑아 하나의 리딩으로 엮습니다.
         </p>
-
-        <section id="choice-panel" class="choice-panel" aria-live="polite">
-          <p class="choice-title">먼저 끌리는 상징 하나를 고르세요</p>
-          <div class="choice-grid">
-            <button class="choice-button" data-choice-key="light" type="button">
-              <span class="choice-name">빛</span>
-              <span class="choice-copy">열림, 선명함, 응답</span>
-            </button>
-            <button class="choice-button" data-choice-key="wave" type="button">
-              <span class="choice-name">물결</span>
-              <span class="choice-copy">감정, 흐름, 스며듦</span>
-            </button>
-            <button class="choice-button" data-choice-key="gate" type="button">
-              <span class="choice-name">문</span>
-              <span class="choice-copy">기회, 경계, 전환</span>
-            </button>
-            <button class="choice-button" data-choice-key="ember" type="button">
-              <span class="choice-name">불씨</span>
-              <span class="choice-copy">행동, 의지, 점화</span>
-            </button>
-            <button class="choice-button" data-choice-key="shadow" type="button">
-              <span class="choice-name">그림자</span>
-              <span class="choice-copy">정리, 경고, 직감</span>
-            </button>
-          </div>
-        </section>
 
         <div class="orb-stage">
           <button id="draw-button" class="orb-button" type="button" aria-label="운을 펼친다">

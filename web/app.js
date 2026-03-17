@@ -427,44 +427,6 @@ const scoreLabels = [
   { key: "money", label: "돈과 현실" },
 ];
 
-const ritualChoices = {
-  light: {
-    label: "빛",
-    summary: "열림과 선명함을 부르는 상징",
-    scoreBias: { overall: 1, love: 0, work: 1, money: 0 },
-    directionBias: { Rise: 3, Hold: 1, Release: 1 },
-    toneBias: { gentle: 2, stern: 1, warning: 0 },
-  },
-  wave: {
-    label: "물결",
-    summary: "감정과 흐름을 흔드는 상징",
-    scoreBias: { overall: 0, love: 1, work: 0, money: -1 },
-    directionBias: { Rise: 1, Hold: 2, Release: 1 },
-    toneBias: { gentle: 2, stern: 0, warning: 1 },
-  },
-  gate: {
-    label: "문",
-    summary: "기회와 경계, 전환을 부르는 상징",
-    scoreBias: { overall: 1, love: 0, work: 1, money: 1 },
-    directionBias: { Rise: 2, Hold: 2, Release: 1 },
-    toneBias: { gentle: 1, stern: 2, warning: 0 },
-  },
-  ember: {
-    label: "불씨",
-    summary: "행동과 의지를 깨우는 상징",
-    scoreBias: { overall: 1, love: 0, work: 2, money: 0 },
-    directionBias: { Rise: 3, Hold: 0, Release: 1 },
-    toneBias: { gentle: 0, stern: 2, warning: 1 },
-  },
-  shadow: {
-    label: "그림자",
-    summary: "정리와 경고, 직감을 부르는 상징",
-    scoreBias: { overall: -1, love: -1, work: 0, money: 0 },
-    directionBias: { Rise: 0, Hold: 1, Release: 3 },
-    toneBias: { gentle: 0, stern: 1, warning: 2 },
-  },
-};
-
 const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
@@ -476,10 +438,75 @@ const readingPanel = document.querySelector("#reading-panel");
 const promptOutput = document.querySelector("#prompt-output");
 const scoreTemplate = document.querySelector("#score-template");
 let latestPrompt = "";
-let pendingChoiceKey = null;
+let pendingChoiceSlot = null;
+let currentChoiceCards = [];
 
 function sample(items) {
   return items[Math.floor(Math.random() * items.length)];
+}
+
+function sampleUnique(items, count) {
+  const pool = [...items];
+  const picked = [];
+  while (pool.length > 0 && picked.length < count) {
+    const index = Math.floor(Math.random() * pool.length);
+    picked.push(pool.splice(index, 1)[0]);
+  }
+  return picked;
+}
+
+function buildChoiceFromCard(card) {
+  const toneBiasByTone = {
+    bright: { gentle: 2, stern: 0, warning: 0 },
+    mist: { gentle: 1, stern: 1, warning: 1 },
+    ember: { gentle: 0, stern: 1, warning: 2 },
+    gold: { gentle: 1, stern: 2, warning: 0 },
+    rose: { gentle: 2, stern: 0, warning: 1 },
+  };
+
+  const directionBias = { Rise: 1, Hold: 1, Release: 1 };
+  const scoreBias = { overall: 0, love: 0, work: 0, money: 0 };
+
+  if (["momentum", "manifestation", "clarity", "hope", "completion"].includes(card.energy)) {
+    directionBias.Rise += 2;
+    scoreBias.overall += 1;
+    scoreBias.work += 1;
+  }
+  if (["retreat", "pause", "intuition", "ambiguity"].includes(card.energy)) {
+    directionBias.Hold += 2;
+    scoreBias.love += 1;
+  }
+  if (["ending", "attachment", "disruption"].includes(card.energy)) {
+    directionBias.Release += 2;
+    scoreBias.money -= 1;
+  }
+  if (card.energy === "connection" || card.energy === "abundance") {
+    scoreBias.love += 1;
+  }
+  if (card.energy === "structure" || card.energy === "balance") {
+    scoreBias.money += 1;
+    scoreBias.work += 1;
+  }
+
+  return {
+    label: card.name,
+    summary: card.summary,
+    scoreBias,
+    directionBias,
+    toneBias: toneBiasByTone[card.tone] ?? { gentle: 1, stern: 1, warning: 1 },
+  };
+}
+
+function hydrateChoiceCards() {
+  currentChoiceCards = sampleUnique(tarotCards, 5);
+  choiceButtons.forEach((button, index) => {
+    const card = currentChoiceCards[index];
+    if (!card) {
+      return;
+    }
+    button.querySelector(".choice-name").textContent = card.name;
+    button.setAttribute("aria-label", `${card.name} 카드 선택`);
+  });
 }
 
 function sampleTone(choice) {
@@ -596,8 +623,8 @@ function buildPrompt(draw) {
 - 카드, 방향성, 상황 기운, 점수, 오라클 문장을 모두 반영
 
 [복합 운세 원본]
-- 선택한 상징: ${draw.choice.label}
-- 선택한 상징의 결: ${draw.choice.summary}
+- 선택한 카드: ${draw.choice.label}
+- 선택한 카드의 결: ${draw.choice.summary}
 - 메인 카드: ${draw.card.name} (${draw.card.group})
 - 카드 요약: ${draw.card.summary}
 - 카드의 빛: ${draw.card.positive}
@@ -706,7 +733,8 @@ function renderReading(draw) {
 }
 
 function composeReading() {
-  const choice = ritualChoices[pendingChoiceKey];
+  const choiceCard = currentChoiceCards[pendingChoiceSlot];
+  const choice = buildChoiceFromCard(choiceCard);
   const card = sample(tarotCards);
   const direction = weightedPick(directions, choice.directionBias);
   const trigram = sample(trigrams);
@@ -729,7 +757,7 @@ function composeReading() {
     oracle,
     scores,
     headline,
-    summary: `${choice.label}의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
+    summary: `${choice.label} 카드의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
     interpretation,
     advice,
     caution,
@@ -749,8 +777,8 @@ async function copyPrompt() {
 }
 
 async function startDraw() {
-  if (!pendingChoiceKey) {
-    drawStatus.textContent = "먼저 5개의 상징 중 하나를 고른 뒤 기운을 불러 주세요";
+  if (pendingChoiceSlot === null) {
+    drawStatus.textContent = "먼저 5장의 카드 중 하나를 고른 뒤 기운을 불러 주세요";
     return;
   }
 
@@ -800,8 +828,8 @@ copyInlineButton.addEventListener("click", () => {
 function initializeView() {
   latestPrompt = "";
   promptOutput.value = "";
-  drawStatus.textContent = "먼저 상징을 고르고 기운을 불러 보세요";
-  pendingChoiceKey = null;
+  drawStatus.textContent = "먼저 카드를 고르고 기운을 불러 보세요";
+  pendingChoiceSlot = null;
   copyActions.classList.add("hidden");
   copyButton.disabled = true;
   copyInlineButton.disabled = true;
@@ -810,6 +838,7 @@ function initializeView() {
   document.body.classList.remove("is-drawing");
   drawButton.disabled = false;
   drawButton.removeAttribute("aria-busy");
+  hydrateChoiceCards();
   choiceButtons.forEach((button) => {
     button.classList.remove("is-selected");
     button.disabled = false;
@@ -819,8 +848,8 @@ function initializeView() {
 initializeView();
 
 drawButton.addEventListener("click", () => {
-  if (!pendingChoiceKey) {
-    drawStatus.textContent = "끌리는 상징 하나를 먼저 고르세요";
+  if (pendingChoiceSlot === null) {
+    drawStatus.textContent = "끌리는 카드 한 장을 먼저 고르세요";
     return;
   }
 
@@ -834,10 +863,10 @@ drawButton.addEventListener("click", () => {
 
 choiceButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    pendingChoiceKey = button.dataset.choiceKey;
+    pendingChoiceSlot = Number(button.dataset.choiceSlot);
     choiceButtons.forEach((item) => {
       item.classList.toggle("is-selected", item === button);
     });
-    drawStatus.textContent = `${ritualChoices[pendingChoiceKey].label}의 기운이 선택되었습니다. 이제 구슬을 눌러 기운을 부르세요`;
+    drawStatus.textContent = `${currentChoiceCards[pendingChoiceSlot].name} 카드가 선택되었습니다. 이제 구슬을 눌러 기운을 부르세요`;
   });
 });
