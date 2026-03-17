@@ -666,15 +666,8 @@ function createTarotCardArt(card) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-function createTarotBackArt(seed) {
-  const palette = [
-    { top: "#1a2140", bottom: "#0b1020", accent: "#eed79a", glow: "#fff0bb" },
-    { top: "#241d3b", bottom: "#0d1020", accent: "#d8c8f1", glow: "#efe8ff" },
-    { top: "#2a1f2d", bottom: "#10101d", accent: "#f0b37c", glow: "#ffe0c2" },
-  ][seed % 3];
-
-  const symbols = ["ORB", "ARC", "VEIL", "FATE", "MIRE"];
-  const symbol = symbols[seed % symbols.length];
+function createTarotBackArt() {
+  const palette = { top: "#1a2140", bottom: "#0b1020", accent: "#eed79a", glow: "#fff0bb" };
   const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520">
   <defs>
@@ -696,7 +689,7 @@ function createTarotBackArt(seed) {
   <path d="M90 266 Q160 216 230 266" fill="none" stroke="${palette.accent}" stroke-opacity="0.4" stroke-width="2"/>
   <path d="M90 290 Q160 340 230 290" fill="none" stroke="${palette.accent}" stroke-opacity="0.36" stroke-width="2"/>
   <path d="M112 388 Q160 354 208 388 Q160 424 112 388Z" fill="none" stroke="${palette.accent}" stroke-opacity="0.3"/>
-  <text x="160" y="178" text-anchor="middle" fill="${palette.accent}" font-size="22" font-family="IBM Plex Sans KR, sans-serif" letter-spacing="2">${symbol}</text>
+  <circle cx="160" cy="166" r="20" fill="none" stroke="${palette.accent}" stroke-opacity="0.72" />
   <text x="160" y="430" text-anchor="middle" fill="${palette.accent}" fill-opacity="0.84" font-size="12" font-family="IBM Plex Sans KR, sans-serif" letter-spacing="5">CARD BACK</text>
 </svg>`;
 
@@ -734,7 +727,7 @@ function hydrateChoiceCards() {
     const choiceArt = button.querySelector(".choice-art");
     choiceArt.loading = "lazy";
     choiceArt.onerror = null;
-    choiceArt.src = createTarotBackArt(index);
+    choiceArt.src = createTarotBackArt();
     choiceArt.alt = `${index + 1}번째 카드 뒷면`;
     button.querySelector(".choice-name").textContent = "뒤집기 전";
     button.setAttribute("aria-label", `${index + 1}번째 카드 뒷면 선택`);
