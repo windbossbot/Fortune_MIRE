@@ -626,6 +626,43 @@ function createTarotCardArt(card) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
+function createTarotBackArt(seed) {
+  const palette = [
+    { top: "#1a2140", bottom: "#0b1020", accent: "#eed79a", glow: "#fff0bb" },
+    { top: "#241d3b", bottom: "#0d1020", accent: "#d8c8f1", glow: "#efe8ff" },
+    { top: "#2a1f2d", bottom: "#10101d", accent: "#f0b37c", glow: "#ffe0c2" },
+  ][seed % 3];
+
+  const symbols = ["ORB", "ARC", "VEIL", "FATE", "MIRE"];
+  const symbol = symbols[seed % symbols.length];
+  const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="${palette.top}"/>
+      <stop offset="100%" stop-color="${palette.bottom}"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="24%" r="44%">
+      <stop offset="0%" stop-color="${palette.glow}" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="${palette.glow}" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="12" y="12" width="296" height="496" rx="26" fill="url(#bg)" stroke="${palette.accent}" stroke-opacity="0.55" />
+  <rect x="28" y="28" width="264" height="464" rx="18" fill="none" stroke="${palette.accent}" stroke-opacity="0.26" />
+  <rect x="48" y="48" width="224" height="424" rx="14" fill="none" stroke="${palette.accent}" stroke-opacity="0.18" />
+  <circle cx="160" cy="166" r="84" fill="url(#glow)" opacity="0.78" />
+  <circle cx="160" cy="166" r="68" fill="none" stroke="${palette.accent}" stroke-opacity="0.72" />
+  <circle cx="160" cy="166" r="48" fill="none" stroke="${palette.accent}" stroke-opacity="0.5" />
+  <path d="M90 266 Q160 216 230 266" fill="none" stroke="${palette.accent}" stroke-opacity="0.4" stroke-width="2"/>
+  <path d="M90 290 Q160 340 230 290" fill="none" stroke="${palette.accent}" stroke-opacity="0.36" stroke-width="2"/>
+  <path d="M112 388 Q160 354 208 388 Q160 424 112 388Z" fill="none" stroke="${palette.accent}" stroke-opacity="0.3"/>
+  <text x="160" y="178" text-anchor="middle" fill="${palette.accent}" font-size="22" font-family="IBM Plex Sans KR, sans-serif" letter-spacing="2">${symbol}</text>
+  <text x="160" y="430" text-anchor="middle" fill="${palette.accent}" fill-opacity="0.84" font-size="12" font-family="IBM Plex Sans KR, sans-serif" letter-spacing="5">CARD BACK</text>
+</svg>`;
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
 function getTarotImageUrl(card) {
   const fileName = riderWaiteImageFiles[card.name];
   if (!fileName) {
@@ -656,9 +693,11 @@ function hydrateChoiceCards() {
     }
     const choiceArt = button.querySelector(".choice-art");
     choiceArt.loading = "lazy";
-    setTarotImage(choiceArt, card, `${card.name} 선택 카드 이미지`);
-    button.querySelector(".choice-name").textContent = card.name;
-    button.setAttribute("aria-label", `${card.name} 카드 선택`);
+    choiceArt.onerror = null;
+    choiceArt.src = createTarotBackArt(index);
+    choiceArt.alt = `${index + 1}번째 카드 뒷면`;
+    button.querySelector(".choice-name").textContent = "뒤집기 전";
+    button.setAttribute("aria-label", `${index + 1}번째 카드 뒷면 선택`);
   });
 }
 
@@ -998,7 +1037,7 @@ async function copyPrompt() {
 
 async function startDraw() {
   if (pendingChoiceSlot === null) {
-    drawStatus.textContent = "먼저 5장의 카드 중 하나를 고른 뒤 기운을 불러 주세요";
+    drawStatus.textContent = "먼저 카드 뒷면 한 장을 고른 뒤 기운을 불러 주세요";
     return;
   }
 
@@ -1050,7 +1089,7 @@ function initializeView() {
   latestDraw = null;
   latestPrompt = "";
   promptOutput.value = "";
-  drawStatus.textContent = "먼저 카드를 고르고 기운을 불러 보세요";
+  drawStatus.textContent = "먼저 카드 뒷면을 고르고 기운을 불러 보세요";
   pendingChoiceSlot = null;
   copyActions.classList.add("hidden");
   copyButton.disabled = true;
@@ -1071,7 +1110,7 @@ initializeView();
 
 drawButton.addEventListener("click", () => {
   if (pendingChoiceSlot === null) {
-    drawStatus.textContent = "끌리는 카드 한 장을 먼저 고르세요";
+    drawStatus.textContent = "카드 뒷면 한 장을 먼저 고르세요";
     return;
   }
 
@@ -1089,7 +1128,7 @@ choiceButtons.forEach((button) => {
     choiceButtons.forEach((item) => {
       item.classList.toggle("is-selected", item === button);
     });
-    drawStatus.textContent = `${currentChoiceCards[pendingChoiceSlot].name} 카드가 선택되었습니다. 이제 구슬을 눌러 기운을 부르세요`;
+    drawStatus.textContent = `${pendingChoiceSlot + 1}번째 카드가 선택되었습니다. 이제 구슬을 눌러 기운을 부르세요`;
   });
 });
 
