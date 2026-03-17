@@ -427,6 +427,45 @@ const scoreLabels = [
   { key: "money", label: "돈과 현실" },
 ];
 
+const promptModes = {
+  today: {
+    label: "오늘의 운세",
+    horizon: "오늘부터 3일 안쪽",
+    sections: ["핵심 흐름", "오늘의 운세", "건강운", "연애운", "사업(회사)운", "추천 행동", "주의할 점", "가까운 미래 예측"],
+    focus: "오늘 하루의 분위기, 당장의 선택, 바로 체감되는 운의 방향",
+  },
+  health: {
+    label: "건강운",
+    horizon: "오늘부터 일주일 안쪽",
+    sections: ["핵심 흐름", "몸 상태", "생활 리듬", "회복 포인트", "주의 신호", "추천 행동", "가까운 미래 예측"],
+    focus: "컨디션, 수면, 피로도, 회복과 무리의 경계",
+  },
+  love: {
+    label: "연애운",
+    horizon: "오늘부터 일주일 안쪽",
+    sections: ["핵심 흐름", "연애운", "감정의 결", "상대와의 거리", "좋은 흐름을 타는 법", "주의할 점", "가까운 미래 예측"],
+    focus: "호감, 관계 진전, 연락, 감정 표현, 오해와 화해의 흐름",
+  },
+  business: {
+    label: "사업(회사)운",
+    horizon: "이번 주부터 이번 달 안쪽",
+    sections: ["핵심 흐름", "일과 사업운", "성과 가능성", "협업과 관계", "돈의 흐름", "추천 행동", "주의할 점", "가까운 미래 예측"],
+    focus: "회사 일, 사업 판단, 협업, 성과, 책임, 기회와 리스크",
+  },
+  month: {
+    label: "이번달의 운세",
+    horizon: "이번 달 전체",
+    sections: ["이달의 핵심 흐름", "전반 운세", "관계와 감정", "일과 돈", "놓치지 말아야 할 기회", "월간 조언", "주의할 점"],
+    focus: "이번 달 전체 분위기, 월간 기회와 주의점, 꾸준히 가져갈 태도",
+  },
+  year: {
+    label: "올해의 운세",
+    horizon: "올해 전체",
+    sections: ["올해의 핵심 흐름", "큰 전환 포인트", "관계와 감정", "일과 돈", "장기 방향", "올해의 조언", "올해의 경계"],
+    focus: "한 해의 방향성, 장기 흐름, 반복될 패턴과 크게 달라질 지점",
+  },
+};
+
 const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
@@ -437,7 +476,10 @@ const drawStatus = document.querySelector("#draw-status");
 const readingPanel = document.querySelector("#reading-panel");
 const promptOutput = document.querySelector("#prompt-output");
 const scoreTemplate = document.querySelector("#score-template");
+const promptModeButtons = document.querySelectorAll(".prompt-mode-button");
 let latestPrompt = "";
+let latestDraw = null;
+let currentPromptMode = "today";
 let pendingChoiceSlot = null;
 let currentChoiceCards = [];
 const glyphByEnergy = {
@@ -531,33 +573,31 @@ function createTarotCardArt(card) {
   };
   const palette = tonePalette[card.tone] ?? tonePalette.gold;
   const glyph = glyphByEnergy[card.energy] ?? "ARC";
-  const encodedName = encodeURIComponent(card.name.toUpperCase());
-  const encodedGroup = encodeURIComponent(card.group.toUpperCase());
-  const encodedGlyph = encodeURIComponent(glyph);
-
-  return `data:image/svg+xml;utf8,
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 520'>
+  const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520">
   <defs>
-    <linearGradient id='bg' x1='0' x2='0' y1='0' y2='1'>
-      <stop offset='0%' stop-color='${palette.top}'/>
-      <stop offset='100%' stop-color='${palette.bottom}'/>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="${palette.top}"/>
+      <stop offset="100%" stop-color="${palette.bottom}"/>
     </linearGradient>
-    <radialGradient id='glow' cx='50%' cy='26%' r='44%'>
-      <stop offset='0%' stop-color='${palette.glow}' stop-opacity='0.95'/>
-      <stop offset='100%' stop-color='${palette.glow}' stop-opacity='0'/>
+    <radialGradient id="glow" cx="50%" cy="26%" r="44%">
+      <stop offset="0%" stop-color="${palette.glow}" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="${palette.glow}" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect x='12' y='12' width='296' height='496' rx='26' fill='url(%23bg)' stroke='${palette.accent}' stroke-opacity='0.65' />
-  <rect x='28' y='28' width='264' height='464' rx='18' fill='none' stroke='${palette.accent}' stroke-opacity='0.28' />
-  <circle cx='160' cy='170' r='86' fill='url(%23glow)' opacity='0.78' />
-  <circle cx='160' cy='170' r='72' fill='none' stroke='${palette.accent}' stroke-opacity='0.72' />
-  <circle cx='160' cy='170' r='52' fill='none' stroke='${palette.accent}' stroke-opacity='0.45' />
-  <text x='160' y='182' text-anchor='middle' fill='${palette.accent}' font-size='22' font-family='IBM Plex Sans KR, sans-serif' letter-spacing='2'>${encodedGlyph}</text>
-  <path d='M92 278 Q160 236 228 278' fill='none' stroke='${palette.accent}' stroke-opacity='0.48' stroke-width='2'/>
-  <path d='M98 300 Q160 340 222 300' fill='none' stroke='${palette.accent}' stroke-opacity='0.32' stroke-width='2'/>
-  <text x='160' y='402' text-anchor='middle' fill='${palette.accent}' font-size='18' font-family='Cormorant Garamond, serif' letter-spacing='1.2'>${encodedName}</text>
-  <text x='160' y='435' text-anchor='middle' fill='${palette.accent}' fill-opacity='0.82' font-size='11' font-family='IBM Plex Sans KR, sans-serif' letter-spacing='3'>${encodedGroup}</text>
-</svg>`.replace(/\n/g, "");
+  <rect x="12" y="12" width="296" height="496" rx="26" fill="url(#bg)" stroke="${palette.accent}" stroke-opacity="0.65" />
+  <rect x="28" y="28" width="264" height="464" rx="18" fill="none" stroke="${palette.accent}" stroke-opacity="0.28" />
+  <circle cx="160" cy="170" r="86" fill="url(#glow)" opacity="0.78" />
+  <circle cx="160" cy="170" r="72" fill="none" stroke="${palette.accent}" stroke-opacity="0.72" />
+  <circle cx="160" cy="170" r="52" fill="none" stroke="${palette.accent}" stroke-opacity="0.45" />
+  <text x="160" y="182" text-anchor="middle" fill="${palette.accent}" font-size="22" font-family="IBM Plex Sans KR, sans-serif" letter-spacing="2">${glyph}</text>
+  <path d="M92 278 Q160 236 228 278" fill="none" stroke="${palette.accent}" stroke-opacity="0.48" stroke-width="2"/>
+  <path d="M98 300 Q160 340 222 300" fill="none" stroke="${palette.accent}" stroke-opacity="0.32" stroke-width="2"/>
+  <text x="160" y="402" text-anchor="middle" fill="${palette.accent}" font-size="18" font-family="Cormorant Garamond, serif" letter-spacing="1.2">${card.name.toUpperCase()}</text>
+  <text x="160" y="435" text-anchor="middle" fill="${palette.accent}" fill-opacity="0.82" font-size="11" font-family="IBM Plex Sans KR, sans-serif" letter-spacing="3">${card.group.toUpperCase()}</text>
+</svg>`;
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
 function hydrateChoiceCards() {
@@ -567,8 +607,9 @@ function hydrateChoiceCards() {
     if (!card) {
       return;
     }
+    button.querySelector(".choice-art").src = createTarotCardArt(card);
+    button.querySelector(".choice-art").alt = `${card.name} 선택 카드 이미지`;
     button.querySelector(".choice-name").textContent = card.name;
-    button.querySelector(".choice-glyph").textContent = glyphByEnergy[card.energy] ?? "ARC";
     button.setAttribute("aria-label", `${card.name} 카드 선택`);
   });
 }
@@ -650,8 +691,8 @@ function buildInterpretation(card, direction, trigram) {
 
   return [
     `메인 카드는 ${card.summary}`,
-    direction.summary,
-    trigram.theme,
+    `방향성은 ${direction.label}으로 잡혀 있어 ${direction.summary}`,
+    `주변에는 ${trigram.label}의 기운이 감돌며 ${trigram.theme}`,
     toneMap[card.tone],
   ].join(" ");
 }
@@ -672,7 +713,36 @@ function buildCaution(card, direction, scores) {
   return `${card.shadow}. ${direction.caution} 다만 ${weakest.label}에서는 예민함이 올라오기 쉬우니 과잉 해석과 과잉 반응은 줄이는 편이 좋습니다.`;
 }
 
-function buildPrompt(draw) {
+function buildScoreInsightLine(key, score, draw) {
+  const levelMap = {
+    5: "매우 강하게",
+    4: "꽤 안정적으로",
+    3: "무난하게",
+    2: "예민하게",
+    1: "조심스럽게",
+  };
+  const level = levelMap[score] ?? "복합적으로";
+  const lineByKey = {
+    overall: `${level} 흐릅니다. ${draw.direction.summary} ${draw.oracle}`,
+    love: `${level} 반응합니다. ${draw.card.positive}의 결이 관계에 스미지만, ${draw.card.shadow} 쪽 해석은 줄이는 편이 좋습니다.`,
+    work: `${level} 힘이 실립니다. ${draw.direction.advice} ${draw.trigram.advice}`,
+    money: `${level} 작동합니다. ${draw.direction.caution} 특히 지출이나 현실 판단에서는 기준을 먼저 세우는 쪽이 유리합니다.`,
+  };
+
+  return lineByKey[key];
+}
+
+function buildScoreInsights(draw) {
+  return scoreLabels.map(({ key, label }) => ({
+    label,
+    text: buildScoreInsightLine(key, draw.scores[key], draw),
+  }));
+}
+
+function buildPrompt(draw, modeKey) {
+  const mode = promptModes[modeKey] ?? promptModes.today;
+  const sectionList = mode.sections.map((section) => `- ${section}`).join("\n");
+
   return `너는 상징 해석과 복합 운세 조합에 능한 리더다.
 
 아래는 한 번의 클릭으로 생성된 복합 운세 결과다.
@@ -680,11 +750,14 @@ function buildPrompt(draw) {
 
 요구사항:
 - 톤은 차분하고 신비롭되 과장되지 않게
-- "핵심 흐름", "현재 에너지", "미래 예측", "추천 행동", "주의할 점", "관계/일/돈" 순서로 정리
-- "오늘의 운세", "연애운", "금전운"을 별도 소제목으로 포함
-- 미래 예측은 가까운 흐름 기준으로 3일 안쪽 또는 이번 주 안의 변화를 예측하듯 써줘
+- 이번 해석의 중심 주제는 "${mode.label}"이다
+- 아래 순서의 소제목을 유지할 것:
+${sectionList}
+- 미래 예측은 ${mode.horizon} 흐름을 기준으로 쓸 것
 - 점술 결과이므로 미래 예측 문장은 분명하게 써도 되지만, 지나치게 극단적이거나 공포를 조장하는 표현은 피할 것
 - 카드, 방향성, 상황 기운, 점수, 오라클 문장을 모두 반영
+- 특히 이번 해석에서는 ${mode.focus}에 더 무게를 둘 것
+- 문장들이 서로 충돌하지 않도록, 하나의 일관된 흐름처럼 써줄 것
 
 [복합 운세 원본]
 - 선택한 카드: ${draw.choice.label}
@@ -709,16 +782,29 @@ function buildPrompt(draw) {
 - 해석: ${draw.interpretation}
 - 조언: ${draw.advice}
 - 주의: ${draw.caution}
+- 영역별 디테일:
+${buildScoreInsights(draw).map((item) => `  - ${item.label}: ${item.text}`).join("\n")}
 - 신점 한마디: ${draw.shinjeomLine}
 - 신점 깊은 메시지: ${draw.shinjeomDeepMessage}
 - 받들어야 할 기운: ${draw.shinjeomGuidance}
 
-이 결과를 바탕으로, 겹쳐진 상징이 하나의 운세처럼 읽히도록 최종 해석문을 작성해줘.
+이 결과를 바탕으로, 겹쳐진 상징이 하나의 운세처럼 읽히도록 ${mode.label} 중심의 최종 해석문을 작성해줘.
 
 추가로 반드시 포함할 것:
-- 가까운 미래 예측
+- ${mode.horizon} 기준의 미래 예측
 - 지금 들어오는 운이 어느 방향으로 굳어질 가능성이 큰지
 - 만약 흐름을 잘 타면 어떻게 되고, 잘못 다루면 어떻게 엇나갈 수 있는지`;
+}
+
+function updatePromptOutput() {
+  if (!latestDraw) {
+    latestPrompt = "";
+    promptOutput.value = "";
+    return;
+  }
+
+  latestPrompt = buildPrompt(latestDraw, currentPromptMode);
+  promptOutput.value = latestPrompt;
 }
 
 function buildShinjeomLine(card, direction, choice) {
@@ -763,6 +849,25 @@ function renderScores(scores) {
   }
 }
 
+function renderScoreInsights(draw) {
+  const scoreInsights = document.querySelector("#score-insights");
+  scoreInsights.innerHTML = "";
+
+  for (const insight of buildScoreInsights(draw)) {
+    const item = document.createElement("div");
+    item.className = "score-insight";
+
+    const title = document.createElement("strong");
+    title.textContent = insight.label;
+
+    const copy = document.createElement("span");
+    copy.textContent = insight.text;
+
+    item.append(title, copy);
+    scoreInsights.append(item);
+  }
+}
+
 function renderReading(draw) {
   document.querySelector("#headline-text").textContent = draw.headline;
   document.querySelector("#summary-text").textContent = draw.summary;
@@ -785,9 +890,10 @@ function renderReading(draw) {
   document.querySelector("#shinjeom-deep-message").textContent = draw.shinjeomDeepMessage;
   document.querySelector("#shinjeom-guidance").textContent = draw.shinjeomGuidance;
   renderScores(draw.scores);
+  renderScoreInsights(draw);
 
-  latestPrompt = buildPrompt(draw);
-  promptOutput.value = latestPrompt;
+  latestDraw = draw;
+  updatePromptOutput();
   copyActions.classList.remove("hidden");
   copyButton.disabled = false;
   copyInlineButton.disabled = false;
@@ -852,6 +958,7 @@ async function startDraw() {
   drawButton.setAttribute("aria-busy", "true");
   copyButton.disabled = true;
   copyInlineButton.disabled = true;
+  latestDraw = null;
   latestPrompt = "";
   promptOutput.value = "";
   drawStatus.textContent = "구슬이 기운을 모으는 중...";
@@ -892,6 +999,7 @@ copyInlineButton.addEventListener("click", () => {
 });
 
 function initializeView() {
+  latestDraw = null;
   latestPrompt = "";
   promptOutput.value = "";
   drawStatus.textContent = "먼저 카드를 고르고 기운을 불러 보세요";
@@ -934,5 +1042,15 @@ choiceButtons.forEach((button) => {
       item.classList.toggle("is-selected", item === button);
     });
     drawStatus.textContent = `${currentChoiceCards[pendingChoiceSlot].name} 카드가 선택되었습니다. 이제 구슬을 눌러 기운을 부르세요`;
+  });
+});
+
+promptModeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    currentPromptMode = button.dataset.promptMode;
+    promptModeButtons.forEach((item) => {
+      item.classList.toggle("is-selected", item === button);
+    });
+    updatePromptOutput();
   });
 });

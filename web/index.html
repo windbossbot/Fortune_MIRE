@@ -24,46 +24,46 @@
 
     <main class="page-shell">
       <section class="hero-panel">
+        <h1>구슬점</h1>
+        <p class="hero-copy">
+          카드, 방향, 상황, 실용 운, 마무리 문장을 한 번에 뽑아 하나의 리딩으로 엮습니다.
+        </p>
+
         <section id="choice-panel" class="choice-panel" aria-live="polite">
           <p class="choice-title">먼저 끌리는 카드 한 장을 고르세요</p>
           <div class="choice-grid">
             <button class="choice-button" data-choice-slot="0" type="button">
               <span class="choice-card">
-                <span class="choice-glyph">I</span>
+                <img class="choice-art" alt="선택 카드 이미지" />
                 <span class="choice-name">Card</span>
               </span>
             </button>
             <button class="choice-button" data-choice-slot="1" type="button">
               <span class="choice-card">
-                <span class="choice-glyph">II</span>
+                <img class="choice-art" alt="선택 카드 이미지" />
                 <span class="choice-name">Card</span>
               </span>
             </button>
             <button class="choice-button" data-choice-slot="2" type="button">
               <span class="choice-card">
-                <span class="choice-glyph">III</span>
+                <img class="choice-art" alt="선택 카드 이미지" />
                 <span class="choice-name">Card</span>
               </span>
             </button>
             <button class="choice-button" data-choice-slot="3" type="button">
               <span class="choice-card">
-                <span class="choice-glyph">IV</span>
+                <img class="choice-art" alt="선택 카드 이미지" />
                 <span class="choice-name">Card</span>
               </span>
             </button>
             <button class="choice-button" data-choice-slot="4" type="button">
               <span class="choice-card">
-                <span class="choice-glyph">V</span>
+                <img class="choice-art" alt="선택 카드 이미지" />
                 <span class="choice-name">Card</span>
               </span>
             </button>
           </div>
         </section>
-
-        <h1>구슬 한 번으로 겹쳐 보는 오늘의 운</h1>
-        <p class="hero-copy">
-          카드, 방향, 상황, 실용 운, 마무리 문장을 한 번에 뽑아 하나의 리딩으로 엮습니다.
-        </p>
 
         <div class="orb-stage">
           <button id="draw-button" class="orb-button" type="button" aria-label="운을 펼친다">
@@ -129,6 +129,7 @@
           <article class="detail-card score-card reveal reveal-delay-3">
             <p class="origin-label">운세 점수</p>
             <div id="scores" class="score-list"></div>
+            <div id="score-insights" class="score-insights"></div>
           </article>
 
           <article class="detail-card reveal reveal-delay-4">
@@ -164,6 +165,14 @@
           <p class="supporting-copy">
             아래 내용을 그대로 AI에 넣으면, 카드와 보조 운을 함께 고려한 자연스러운 해석을 이어서 받을 수 있습니다.
           </p>
+          <div id="prompt-mode-selector" class="prompt-mode-selector" role="tablist" aria-label="프롬프트 주제 선택">
+            <button class="prompt-mode-button is-selected" data-prompt-mode="today" type="button">오늘의 운세</button>
+            <button class="prompt-mode-button" data-prompt-mode="health" type="button">건강운</button>
+            <button class="prompt-mode-button" data-prompt-mode="love" type="button">연애운</button>
+            <button class="prompt-mode-button" data-prompt-mode="business" type="button">사업(회사)운</button>
+            <button class="prompt-mode-button" data-prompt-mode="month" type="button">이번달의 운세</button>
+            <button class="prompt-mode-button" data-prompt-mode="year" type="button">올해의 운세</button>
+          </div>
           <textarea id="prompt-output" readonly spellcheck="false"></textarea>
         </article>
       </section>

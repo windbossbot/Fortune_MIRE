@@ -228,17 +228,17 @@ blockquote {
 }
 
 h1 {
-  font-size: clamp(2rem, 3.8vw, 3rem);
-  max-width: 12ch;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  max-width: none;
   margin: 0 auto;
-  line-height: 1.1;
+  line-height: 1;
 }
 
 .hero-copy {
   max-width: 42rem;
   color: var(--mist);
   line-height: 1.7;
-  margin: 0;
+  margin: 0 0 0.3rem;
 }
 
 .hero-actions {
@@ -287,13 +287,13 @@ h1 {
 .orb-stage {
   display: grid;
   place-items: center;
-  margin-top: 0.25rem;
+  margin-top: 0.45rem;
   width: 100%;
 }
 
 .choice-panel {
   width: min(72rem, 100%);
-  margin-top: 0;
+  margin-top: 0.4rem;
 }
 
 .choice-title {
@@ -337,11 +337,11 @@ h1 {
 
 .choice-card {
   display: grid;
-  place-items: center;
-  gap: 0.55rem;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0.6rem;
   min-height: 8.4rem;
   border-radius: 0.95rem;
-  padding: 0.8rem 0.55rem;
+  padding: 0.7rem;
   background:
     radial-gradient(circle at top, rgba(255, 255, 255, 0.09), transparent 34%),
     linear-gradient(180deg, rgba(26, 31, 57, 0.96), rgba(14, 18, 35, 0.98));
@@ -362,30 +362,28 @@ h1 {
   pointer-events: none;
 }
 
-.choice-glyph {
-  display: inline-grid;
-  place-items: center;
-  width: 3.2rem;
-  height: 3.2rem;
-  border-radius: 999px;
-  color: var(--gold);
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.25rem;
-  letter-spacing: 0.08em;
-  background:
-    radial-gradient(circle, rgba(238, 215, 154, 0.18), rgba(238, 215, 154, 0.03) 70%, transparent 72%);
-  border: 1px solid rgba(238, 215, 154, 0.14);
-  box-shadow: 0 0 26px rgba(238, 215, 154, 0.08);
+.choice-art {
+  width: 100%;
+  height: 100%;
+  min-height: 6.5rem;
+  border-radius: 0.8rem;
+  object-fit: cover;
+  border: 1px solid rgba(238, 215, 154, 0.16);
+  background: linear-gradient(180deg, rgba(17, 22, 41, 0.92), rgba(10, 13, 28, 0.96));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 10px 22px rgba(0, 0, 0, 0.24);
 }
 
 .choice-name {
   display: block;
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.1;
   color: var(--gold);
   text-align: center;
-  max-width: 9ch;
+  max-width: none;
+  padding: 0 0.3rem 0.2rem;
 }
 
 .orb-button {
@@ -688,6 +686,63 @@ body.is-drawing .orb-ring-b {
 
 .prompt-header h3 {
   font-size: 1.9rem;
+}
+
+.score-insights {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.score-insight {
+  display: grid;
+  gap: 0.22rem;
+}
+
+.score-insight strong {
+  color: var(--gold);
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.score-insight span {
+  color: var(--mist);
+  line-height: 1.65;
+}
+
+.prompt-mode-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.prompt-mode-button {
+  border: 1px solid rgba(238, 215, 154, 0.18);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--mist);
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.prompt-mode-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(238, 215, 154, 0.38);
+  color: var(--pearl);
+}
+
+.prompt-mode-button.is-selected {
+  background: rgba(238, 215, 154, 0.12);
+  border-color: rgba(238, 215, 154, 0.48);
+  color: var(--gold);
 }
 
 .shinjeom-title {
