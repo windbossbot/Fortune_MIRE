@@ -247,6 +247,24 @@ const oracleLines = [
   "보이지 않던 연결이 느린 순간에 더 또렷해집니다.",
   "지금 필요한 것은 더 많은 답보다 정확한 하나입니다.",
   "기다림이 멈춤이 아니라 정렬이라는 사실을 기억하세요.",
+  "한 번 미뤄 둔 선택이 오늘은 더 정확한 답으로 돌아옵니다.",
+  "마음을 다잡는 순서가 맞으면 바깥 흐름도 천천히 따라옵니다.",
+  "오늘의 운은 큰 승부보다 결을 바로잡는 쪽에 가깝습니다.",
+  "서두르지 않은 판단이 나중에 가장 단단한 결과가 됩니다.",
+  "익숙한 방식 하나를 덜어낼 때 의외의 길이 열립니다.",
+  "당장 반응하지 않은 침묵이 오히려 좋은 타이밍을 데려옵니다.",
+  "운은 크게 흔드는 손보다 정확히 짚는 손에 더 오래 머뭅니다.",
+  "겉으로 드러난 결과보다 지금 어떤 기운을 붙드는지가 더 중요합니다.",
+  "지금의 망설임은 겁이 아니라 순서를 다시 세우라는 신호일 수 있습니다.",
+  "하나를 덜어낸 자리에서 더 잘 맞는 흐름이 조용히 들어옵니다.",
+  "무리하게 맞추려 들수록 흐름은 흐려지고, 단순하게 볼수록 길이 살아납니다.",
+  "오늘은 빨리 끝내는 일보다 제대로 놓는 일이 더 큰 운이 됩니다.",
+  "보이는 성과보다 보이지 않는 정렬이 먼저 자리를 잡는 날입니다.",
+  "잠깐의 멈춤이 판을 식히는 것이 아니라 방향을 또렷하게 만드는 시간입니다.",
+  "작은 기준 하나를 세우는 일이 오늘 전체 운을 안정시킬 수 있습니다.",
+  "흩어진 마음을 모으는 순간, 미뤄졌던 답도 함께 모습을 드러냅니다.",
+  "과하게 의미를 붙이지 않을수록 진짜 신호가 더 또렷하게 남습니다.",
+  "운은 이미 와 있고, 지금 필요한 것은 그것을 놓치지 않을 리듬입니다.",
 ];
 
 const shinjeomOpenings = {
@@ -1232,16 +1250,84 @@ const headlineTemplates = {
     "{focus} 길을 여는 쪽으로 움직일 때, {trigram}의 기운이 앞을 밀고 있습니다.",
     "{focus} 먼저 손을 내밀수록, {trigram}의 기운이 흐름을 당겨 옵니다.",
     "{focus} 움직임이 답이 되는 날, {trigram}의 기운이 주변을 깨웁니다.",
+    "{focus} 머뭇거림을 줄일수록, {trigram}의 기운이 판을 앞으로 밀어 줍니다.",
+    "{focus} 먼저 시작하는 쪽이 유리한 날, {trigram}의 기운이 응답을 빠르게 돌려줍니다.",
   ],
   Hold: [
     "{focus} 멈춤 속에서 기준을 세울 때, {trigram}의 기운이 판을 고르게 만듭니다.",
     "{focus} 서두르지 않고 다듬을수록, {trigram}의 기운이 흐름을 안정시킵니다.",
     "{focus} 한 번 더 살펴볼 때, {trigram}의 기운이 진짜 결을 드러냅니다.",
+    "{focus} 속도를 줄이고 균형을 잡을 때, {trigram}의 기운이 흐트러진 판을 고릅니다.",
+    "{focus} 덜 움직여도 더 정확할 수 있는 날, {trigram}의 기운이 기준을 붙잡아 줍니다.",
   ],
   Release: [
     "{focus} 덜어낼수록 길이 선명해질 때, {trigram}의 기운이 막힌 자리를 풉니다.",
     "{focus} 비워 낸 자리 위로, {trigram}의 기운이 새 흐름을 데려옵니다.",
     "{focus} 놓아야 할 것을 놓을 때, {trigram}의 기운이 판을 가볍게 돌립니다.",
+    "{focus} 붙잡고 있던 것을 정리할수록, {trigram}의 기운이 다음 자리를 비워 냅니다.",
+    "{focus} 끝낼 것을 분명히 할 때, {trigram}의 기운이 새로운 흐름을 조용히 밀어 넣습니다.",
+  ],
+};
+
+const compositeSummaryTemplates = [
+  "{focus}의 {subfocus}을 중심에 두고 {choice} 카드에서 받은 첫 기운 위에 {card}의 핵심 뜻, {direction}의 방향성, {trigram}의 기운이 겹쳐졌습니다.",
+  "{choice} 카드로 연 문 위에 {focus}의 {subfocus} 흐름을 얹어 보면, 메인 카드는 {card}로 잡히고 전체 결은 {direction} 쪽으로 기울며 바탕 기운은 {trigram}에서 들어옵니다.",
+  "{focus} 중에서도 {subfocus}을 자세히 보면, {choice}에서 끌어온 기운과 {card}의 메시지, {direction}의 움직임, {trigram}의 배경이 하나의 판으로 묶였습니다.",
+  "{choice} 선택 이후 오늘의 판은 {card}를 중심축으로 삼고, 바깥 흐름은 {direction}, 바탕 기운은 {trigram}으로 정리됩니다. 이번 리딩은 특히 {focus}의 {subfocus}을 더 가까이 봅니다.",
+  "{focus}의 핵심 질문을 {subfocus}에 맞춰 좁혀 보면, 선택 카드 {choice} 위로 {card}의 상징이 올라오고 {direction}과 {trigram}이 전체 분위기를 보정하고 있습니다.",
+  "{subfocus} 문제를 붙잡고 뽑은 이번 점괘는 {choice} 카드로 문을 열고, {card}의 중심 해석에 {direction}의 흐름과 {trigram}의 바탕 기운을 포개는 방식으로 읽힙니다.",
+  "{focus}의 {subfocus}을 향해 열린 판에서, 첫 선택은 {choice}였고 핵심 상징은 {card}였습니다. 여기에 {direction}의 방향과 {trigram}의 바탕이 더해지며 오늘의 결이 완성됩니다.",
+  "{choice}에서 시작한 오늘의 복합 점괘는 {card}의 중심 메시지를 세우고, {direction}의 결론과 {trigram}의 배경을 얹어 {focus}의 {subfocus}을 읽어 줍니다.",
+];
+
+const interpretationToneVariants = {
+  bright: [
+    "운은 열린 쪽으로 기울어 있으니 지나친 망설임만 줄이면 됩니다.",
+    "판이 비교적 밝게 열려 있어, 지나친 의심만 덜어내면 흐름을 타기 쉽습니다.",
+    "기본 운세가 바깥으로 열려 있어 너무 움츠리지만 않으면 성과가 붙기 쉽습니다.",
+  ],
+  mist: [
+    "흐름이 흐릿할수록 서두르기보다 감각을 세우는 편이 맞습니다.",
+    "분명치 않은 구간이라 속도보다 촉과 확인 순서가 더 중요합니다.",
+    "판이 선명하지 않은 날이라 빨리 결론내리기보다 한 겹 더 살펴보는 편이 좋습니다.",
+  ],
+  ember: [
+    "열감이 큰 날이라 밀어붙이기보다 힘의 방향을 조절하는 것이 중요합니다.",
+    "에너지는 강하지만 과열되기 쉬우니 힘을 쓰는 순서를 분명히 해야 합니다.",
+    "밀도 높은 날인 만큼 세게 가기보다 어디에 힘을 몰아줄지 고르는 편이 맞습니다.",
+  ],
+  gold: [
+    "균형을 지킬수록 결과가 안정되고 무리한 선택은 덜어집니다.",
+    "지금은 완급 조절이 곧 실력으로 드러나는 흐름입니다.",
+    "과하지 않은 선택과 적당한 거리감이 오늘 결과를 더 단단하게 만듭니다.",
+  ],
+  rose: [
+    "감정의 결이 진해지는 날이라 반응보다 진심의 방향이 더 중요합니다.",
+    "마음의 온도가 높아지는 구간이라 즉각 반응보다 관계의 결을 살피는 편이 좋습니다.",
+    "감정선이 쉽게 살아나는 날이니 말보다 마음의 균형을 먼저 맞추는 편이 유리합니다.",
+  ],
+};
+
+const fallbackScoreInsightLines = {
+  overall: [
+    "{direction} {oracle}",
+    "{trigramTheme} 전체 판은 너무 크게 흔들기보다 결을 맞출수록 살아납니다.",
+    "{directionAdvice} 오늘 전체 흐름은 리듬을 맞출수록 더 안정됩니다.",
+  ],
+  love: [
+    "{positive}의 결이 관계 쪽에 스미며, 감정 해석은 조금 덜어낼수록 좋습니다.",
+    "{trigramAdvice} 관계와 감정에서는 작은 신호를 과장하지 않는 편이 유리합니다.",
+    "{directionSummary} 마음은 올라와도 표현의 속도는 한 박자 고르는 편이 좋습니다.",
+  ],
+  work: [
+    "{directionAdvice} {trigramAdvice}",
+    "{positive}의 장점이 집중과 일 쪽으로 실리므로 한 번 정한 방향을 밀어 주는 편이 좋습니다.",
+    "{directionSummary} 일과 실행에서는 넓히기보다 핵심을 세우는 쪽이 더 강합니다.",
+  ],
+  money: [
+    "지출과 판단은 빠르게 움직이기보다 기준을 먼저 세우는 쪽이 유리합니다.",
+    "{trigramTheme} 돈 문제는 감각보다 원칙을 먼저 세울수록 흐름이 안정됩니다.",
+    "{directionCaution} 금전 쪽에서는 특히 작은 판단을 거칠게 넘기지 않는 편이 좋습니다.",
   ],
 };
 
@@ -1269,19 +1355,64 @@ function sample(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function sampleNonRepeating(key, items) {
+function getSelectionIdentity(item) {
+  if (typeof item === "string" || typeof item === "number") {
+    return String(item);
+  }
+  if (item?.name) {
+    return item.name;
+  }
+  if (item?.key) {
+    return item.key;
+  }
+  if (item?.label) {
+    return item.label;
+  }
+  return JSON.stringify(item);
+}
+
+function rememberSelection(key, value, limit) {
+  const history = recentSelections.get(key) ?? [];
+  history.push(value);
+  while (history.length > limit) {
+    history.shift();
+  }
+  recentSelections.set(key, history);
+}
+
+function resolveRepeatWindow(items, explicitLimit) {
+  if (explicitLimit) {
+    return explicitLimit;
+  }
+  if (items.length >= 8) {
+    return 3;
+  }
+  if (items.length >= 5) {
+    return 2;
+  }
+  return 1;
+}
+
+function sampleNonRepeating(key, items, options = {}) {
   if (!items || items.length === 0) {
     return null;
   }
+  const identity = options.identity ?? getSelectionIdentity;
+  const limit = resolveRepeatWindow(items, options.limit);
   if (items.length === 1) {
-    recentSelections.set(key, items[0]);
+    rememberSelection(key, items[0], 1);
     return items[0];
   }
 
-  const last = recentSelections.get(key);
-  const pool = items.filter((item) => item !== last);
+  const recent = recentSelections.get(key) ?? [];
+  const recentIds = new Set(recent.map((item) => identity(item)));
+  let pool = items.filter((item) => !recentIds.has(identity(item)));
+  if (pool.length === 0 && recent.length > 0) {
+    const lastId = identity(recent[recent.length - 1]);
+    pool = items.filter((item) => identity(item) !== lastId);
+  }
   const picked = sample(pool.length > 0 ? pool : items);
-  recentSelections.set(key, picked);
+  rememberSelection(key, picked, limit);
   return picked;
 }
 
@@ -1295,14 +1426,18 @@ function sampleUnique(items, count) {
   return picked;
 }
 
-function weightedPickNonRepeating(key, items, weights) {
-  const lastName = recentSelections.get(key);
-  const pool =
-    lastName && items.length > 1
-      ? items.filter((item) => item.name !== lastName)
-      : items;
+function weightedPickNonRepeating(key, items, weights, options = {}) {
+  const identity = options.identity ?? getSelectionIdentity;
+  const limit = resolveRepeatWindow(items, options.limit);
+  const recent = recentSelections.get(key) ?? [];
+  const recentIds = new Set(recent.map((item) => identity(item)));
+  let pool = items.filter((item) => !recentIds.has(identity(item)));
+  if (pool.length === 0 && recent.length > 0) {
+    const lastId = identity(recent[recent.length - 1]);
+    pool = items.filter((item) => identity(item) !== lastId);
+  }
   const picked = weightedPick(pool.length > 0 ? pool : items, weights);
-  recentSelections.set(key, picked.name);
+  rememberSelection(key, picked, limit);
   return picked;
 }
 
@@ -1519,14 +1654,15 @@ function hydrateChoiceCards() {
 }
 
 function sampleTone(choice) {
-  const tonePool = [];
-  for (const tone of ["gentle", "stern", "warning"]) {
-    const count = (choice.toneBias[tone] ?? 0) + 1;
-    for (let index = 0; index < count; index += 1) {
-      tonePool.push(tone);
-    }
-  }
-  return sample(tonePool);
+  const tones = [
+    { name: "gentle" },
+    { name: "stern" },
+    { name: "warning" },
+  ];
+  const weights = Object.fromEntries(
+    tones.map((tone) => [tone.name, (choice.toneBias[tone.name] ?? 0) + 1]),
+  );
+  return weightedPickNonRepeating("shinjeom-tone", tones, weights, { limit: 2 }).name;
 }
 
 function randomScore(base = 3) {
@@ -1597,19 +1733,64 @@ function buildHeadline(direction, trigram, focus) {
   return fillHeadlineTemplate(template, focus, trigram);
 }
 
+function buildCompositeSummary(choice, focus, subfocus, card, direction, trigram) {
+  const template = sampleNonRepeating(
+    `composite-summary-${focus.key}-${subfocus.key}`,
+    compositeSummaryTemplates,
+  );
+  return template
+    .replaceAll("{focus}", focus.label)
+    .replaceAll("{subfocus}", subfocus.label)
+    .replaceAll("{choice}", choice.label)
+    .replaceAll("{card}", card.name)
+    .replaceAll("{direction}", direction.label)
+    .replaceAll("{trigram}", trigram.label);
+}
+
 function buildInterpretation(card, direction, trigram, focus, subfocus) {
-  const toneMap = {
-    bright: "운은 열린 쪽으로 기울어 있으니 지나친 망설임만 줄이면 됩니다.",
-    mist: "흐름이 흐릿할수록 서두르기보다 감각을 세우는 편이 맞습니다.",
-    ember: "열감이 큰 날이라 밀어붙이기보다 힘의 방향을 조절하는 것이 중요합니다.",
-    gold: "균형을 지킬수록 결과가 안정되고 무리한 선택은 덜어집니다.",
-    rose: "감정의 결이 진해지는 날이라 반응보다 진심의 방향이 더 중요합니다.",
-  };
   const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
   const subfocusLine = sampleNonRepeating(
     `subfocus-interpret-${focus.label}-${subfocus.key}`,
     flavor.interpretation,
   );
+  const toneLine = sampleNonRepeating(`tone-line-${card.tone}`, interpretationToneVariants[card.tone]);
+  const structure = sampleNonRepeating(
+    `interpret-structure-${focus.key}-${subfocus.key}`,
+    ["focus-first", "card-first", "flow-first", "context-first"],
+  );
+
+  if (structure === "card-first") {
+    return [
+      `메인 카드는 ${card.summary}`,
+      `${focus.label} 가운데 ${subfocus.label}을 중심으로 보면 ${subfocus.summary}`,
+      subfocusLine,
+      `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
+      `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
+      toneLine,
+    ].join(" ");
+  }
+
+  if (structure === "flow-first") {
+    return [
+      `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
+      `${trigram.label}의 기운이 바닥에 깔려 ${trigram.theme}`,
+      `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
+      subfocusLine,
+      `메인 카드는 ${card.summary}`,
+      toneLine,
+    ].join(" ");
+  }
+
+  if (structure === "context-first") {
+    return [
+      `${focus.label}에서 지금 더 가까이 봐야 할 쪽은 ${subfocus.label}이며, ${subfocus.summary}`,
+      `${trigram.label}의 기운은 ${trigram.theme}`,
+      subfocusLine,
+      `메인 카드는 ${card.summary}`,
+      `전체 방향은 ${direction.label}이라 ${direction.summary}`,
+      toneLine,
+    ].join(" ");
+  }
 
   return [
     `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
@@ -1617,7 +1798,7 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
     `메인 카드는 ${card.summary}`,
     `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
     `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
-    toneMap[card.tone],
+    toneLine,
   ].join(" ");
 }
 
@@ -1626,11 +1807,24 @@ function buildAdvice(direction, trigram, scores, focus, subfocus) {
   const strongest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => right.value - left.value)[0];
-
-  return `${sampleNonRepeating(
+  const subfocusAdvice = sampleNonRepeating(
     `subfocus-advice-${focus.label}-${subfocus.key}`,
     flavor.advice,
-  )} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+  );
+  const structure = sampleNonRepeating(
+    `advice-structure-${focus.key}-${subfocus.key}`,
+    ["subfocus-first", "direction-first", "strongest-first"],
+  );
+
+  if (structure === "direction-first") {
+    return `${direction.advice} ${trigram.advice} ${subfocusAdvice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+  }
+
+  if (structure === "strongest-first") {
+    return `오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${subfocusAdvice} ${direction.advice} ${trigram.advice}`;
+  }
+
+  return `${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
 }
 
 function buildCaution(card, direction, scores, focus, subfocus) {
@@ -1638,11 +1832,24 @@ function buildCaution(card, direction, scores, focus, subfocus) {
   const weakest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => left.value - right.value)[0];
-
-  return `${sampleNonRepeating(
+  const subfocusCaution = sampleNonRepeating(
     `subfocus-caution-${focus.label}-${subfocus.key}`,
     flavor.caution,
-  )} ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+  );
+  const structure = sampleNonRepeating(
+    `caution-structure-${focus.key}-${subfocus.key}`,
+    ["subfocus-first", "shadow-first", "weakest-first"],
+  );
+
+  if (structure === "shadow-first") {
+    return `${card.shadow}. ${direction.caution} ${subfocusCaution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+  }
+
+  if (structure === "weakest-first") {
+    return `특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다. ${subfocusCaution} ${card.shadow}. ${direction.caution}`;
+  }
+
+  return `${subfocusCaution} ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
 }
 
 function buildScoreInsightLine(key, score, draw) {
@@ -1662,14 +1869,30 @@ function buildScoreInsightLine(key, score, draw) {
       focusedLines,
     )}`;
   }
-  const lineByKey = {
-    overall: `${level} 흐릅니다. ${draw.direction.summary} ${draw.oracle}`,
-    love: `${level} 반응합니다. ${draw.card.positive}의 결이 관계에 스미고, 감정 해석은 조금 덜어낼수록 좋습니다.`,
-    work: `${level} 힘이 실립니다. ${draw.direction.advice} ${draw.trigram.advice}`,
-    money: `${level} 작동합니다. 지출과 판단은 빠르게 움직이기보다 기준을 먼저 세우는 쪽이 유리합니다.`,
-  };
+  const fallbackTemplate = sampleNonRepeating(
+    `score-fallback-${key}`,
+    fallbackScoreInsightLines[key],
+  );
+  const line = fallbackTemplate
+    .replaceAll("{direction}", draw.direction.summary)
+    .replaceAll("{directionAdvice}", draw.direction.advice)
+    .replaceAll("{directionSummary}", draw.direction.summary)
+    .replaceAll("{directionCaution}", draw.direction.caution)
+    .replaceAll("{trigramTheme}", draw.trigram.theme)
+    .replaceAll("{trigramAdvice}", draw.trigram.advice)
+    .replaceAll("{oracle}", draw.oracle)
+    .replaceAll("{positive}", draw.card.positive);
 
-  return lineByKey[key];
+  if (key === "love") {
+    return `${level} 반응합니다. ${line}`;
+  }
+  if (key === "work") {
+    return `${level} 힘이 실립니다. ${line}`;
+  }
+  if (key === "money") {
+    return `${level} 작동합니다. ${line}`;
+  }
+  return `${level} 흐릅니다. ${line}`;
 }
 
 function buildScoreInsights(draw) {
@@ -1758,6 +1981,20 @@ function buildShinjeomDeepMessage(card, direction, oracle, tone) {
     `shinjeom-closer-${direction.name}-${tone}`,
     shinjeomDirectionClosers[direction.name][tone],
   );
+  const structure = sampleNonRepeating(
+    `shinjeom-deep-structure-${direction.name}-${tone}`,
+    ["card-oracle", "oracle-card", "card-bridge", "oracle-bridge"],
+  );
+
+  if (structure === "oracle-card") {
+    return `${oracle} ${card.summary} ${bridge} ${closer}`;
+  }
+  if (structure === "card-bridge") {
+    return `${card.summary} ${bridge} ${oracle} ${closer}`;
+  }
+  if (structure === "oracle-bridge") {
+    return `${oracle} ${bridge} ${card.summary} ${closer}`;
+  }
   return `${card.summary} ${oracle} ${bridge} ${closer}`;
 }
 
@@ -1847,12 +2084,13 @@ function composeReading() {
   const subfocus = getCurrentSubfocus();
   const card = sampleNonRepeating("main-card", tarotCards);
   const direction = createDirectionVariant(
-    weightedPickNonRepeating("direction", directions, choice.directionBias),
+    weightedPickNonRepeating("direction", directions, choice.directionBias, { limit: 2 }),
   );
   const trigram = createTrigramVariant(sampleNonRepeating("trigram", trigrams));
   const oracle = sampleNonRepeating("oracle", oracleLines);
   const scores = deriveScores(card, direction, trigram, choice, currentFocusMode, subfocus);
   const headline = buildHeadline(direction, trigram, focus);
+  const summary = buildCompositeSummary(choice, focus, subfocus, card, direction, trigram);
   const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
   const advice = buildAdvice(direction, trigram, scores, focus, subfocus);
   const caution = buildCaution(card, direction, scores, focus, subfocus);
@@ -1871,7 +2109,7 @@ function composeReading() {
     oracle,
     scores,
     headline,
-    summary: `${focus.label}의 ${subfocus.label}을 중점으로 두고, ${choice.label} 카드의 선택 위에 ${card.name}의 중심 메시지, ${direction.label}의 방향성, ${trigram.label}의 기운이 겹쳐진 결과입니다.`,
+    summary,
     interpretation,
     advice,
     caution,
