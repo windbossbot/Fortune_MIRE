@@ -608,8 +608,151 @@ const riderWaiteImageFiles = {
   "The World": "RWS Tarot 21 World.jpg",
 };
 
+const directionTextVariants = {
+  Rise: {
+    summary: [
+      "멈춰 있던 것을 움직일수록 길이 열립니다. 작은 시도라도 먼저 시작하는 쪽이 유리합니다.",
+      "가만히 재기보다 먼저 움직일 때 흐름이 살아납니다. 작은 실행이 판을 바꿉니다.",
+      "오늘은 출발점에서 망설이지 않을수록 운이 붙습니다. 먼저 손을 대는 쪽이 유리합니다.",
+    ],
+    advice: [
+      "질문을 남기기보다 행동으로 확인하세요. 연락, 제안, 시작, 발표에 힘이 실립니다.",
+      "계속 계산만 하기보다 직접 움직여 보세요. 제안, 확인, 시작 같은 행동이 잘 먹힙니다.",
+      "답을 기다리기보다 먼저 건네는 쪽이 좋습니다. 오늘은 행동이 가장 빠른 확인입니다.",
+    ],
+    caution: [
+      "속도가 붙는 만큼 기준 없이 퍼뜨리면 피로가 빠르게 쌓일 수 있습니다.",
+      "움직임이 빠른 날일수록 방향 없이 벌리면 힘이 금방 새어 나갑니다.",
+      "시작운이 강한 대신 무리하게 넓히면 집중력이 흐트러질 수 있습니다.",
+    ],
+  },
+  Hold: {
+    summary: [
+      "지금은 밀어붙이는 것보다 상태를 정돈하고 안정시키는 흐름이 강합니다.",
+      "오늘은 전진보다 정비가 더 힘을 가집니다. 판을 고르게 하는 편이 맞습니다.",
+      "무리한 속도보다 균형과 정리가 우선입니다. 차분히 다듬을수록 흐름이 안정됩니다.",
+    ],
+    advice: [
+      "점검, 조율, 보류, 자료 정리에 적합합니다. 오늘의 힘은 속도보다 정확성에 있습니다.",
+      "크게 벌리기보다 점검과 조율에 힘을 주세요. 오늘은 정확성이 속도보다 중요합니다.",
+      "잠깐 멈춰 흐름을 다듬으세요. 정리, 검토, 재확인이 좋은 결과로 이어집니다.",
+    ],
+    caution: [
+      "안전함에만 머물면 필요한 기회를 놓칠 수 있으니 작은 결론은 남겨 두세요.",
+      "조심스러움이 지나치면 기회까지 늦어질 수 있으니 꼭 필요한 결정은 남겨 두세요.",
+      "보류가 길어지면 흐름도 무거워집니다. 멈추더라도 최소한의 방향은 정해 두세요.",
+    ],
+  },
+  Release: {
+    summary: [
+      "불필요한 집착이나 끝난 흐름을 내려놓을수록 새로운 자리가 확보됩니다.",
+      "비워 낼수록 다음 흐름이 들어옵니다. 정리와 단절이 오히려 길을 만듭니다.",
+      "쥐고 있던 것을 덜어낼 때 운이 가벼워집니다. 내려놓음이 곧 전환점이 됩니다.",
+    ],
+    advice: [
+      "정리, 삭제, 단절, 청소, 마감에 행운이 붙습니다. 덜어내는 선택이 답이 됩니다.",
+      "오늘은 비우는 선택이 유리합니다. 정리하고 끝내는 일이 새 흐름을 부릅니다.",
+      "마감과 청소, 관계 정리가 잘 맞습니다. 남길 것과 버릴 것을 분명히 나누세요.",
+    ],
+    caution: [
+      "급하게 끊어버리기보다 무엇을 남길지까지 확인해야 후회가 줄어듭니다.",
+      "정리운이 강해도 성급한 단절은 금물입니다. 남길 기준까지 함께 세워야 합니다.",
+      "비우는 날일수록 급한 손절은 후회를 남길 수 있으니 끝까지 점검하고 정리하세요.",
+    ],
+  },
+};
+
+const trigramTextVariants = {
+  Heaven: {
+    theme: ["시야가 위로 열리고 큰 관점이 강조됩니다.", "판을 넓게 보는 시선이 중요해지고 큰 흐름이 먼저 보입니다.", "작은 감정보다 큰 방향과 기준이 앞에 놓입니다."],
+    advice: ["사소한 감정에 갇히지 말고 기준과 비전을 먼저 세우세요.", "눈앞의 반응보다 큰 방향을 먼저 붙드세요.", "세세한 흔들림보다 기준과 큰 그림을 먼저 확인하세요."],
+  },
+  Lake: {
+    theme: ["관계, 대화, 취향, 즐거움이 중요하게 작동합니다.", "사람 사이의 분위기와 교류가 흐름을 크게 바꿉니다.", "말과 만남, 호감의 결이 판을 움직이는 날입니다."],
+    advice: ["기분 좋은 교류가 돌파구가 될 수 있으니 말을 부드럽게 여세요.", "좋은 분위기를 만드는 말 한마디가 흐름을 열 수 있습니다.", "관계를 거칠게 밀지 말고 부드러운 교류부터 시작하세요."],
+  },
+  Fire: {
+    theme: ["주목, 표현, 드러남, 선명함이 커지는 상황입니다.", "숨기던 것이 드러나고 표현력이 중요해지는 구간입니다.", "보이는 힘이 커져 존재감과 선명함이 앞에 서는 날입니다."],
+    advice: ["보이게 만들수록 유리합니다. 아이디어나 결과를 숨기지 마세요.", "감춘 것보다 드러낸 것이 힘을 얻습니다. 표현을 아끼지 마세요.", "오늘은 보여 주는 쪽이 이깁니다. 생각과 결과를 밖으로 꺼내세요."],
+  },
+  Thunder: {
+    theme: ["예상보다 빠른 변화와 깨움의 기운이 들어옵니다.", "갑작스러운 움직임과 전환이 판을 흔들 수 있습니다.", "빠른 신호와 즉각적인 반응이 중요한 흐름입니다."],
+    advice: ["순간의 신호를 놓치지 마세요. 반응 속도가 중요한 날입니다.", "느린 판단보다 재빠른 포착이 더 큰 힘을 냅니다.", "들어오는 변화에 한 박자 빠르게 반응하는 편이 좋습니다."],
+  },
+  Wind: {
+    theme: ["보이지 않게 스며드는 영향과 분위기 변화가 큽니다.", "작은 영향이 천천히 퍼지며 판을 바꾸는 기운입니다.", "직접적인 충돌보다 은근한 분위기 변화가 더 크게 작동합니다."],
+    advice: ["강하게 밀기보다 조금씩 스며드는 방식을 택하면 좋습니다.", "정면 승부보다 천천히 스미는 방식이 잘 맞습니다.", "큰 압박보다 은근한 설득과 지속적인 태도가 유리합니다."],
+  },
+  Water: {
+    theme: ["불확실성과 깊은 감정, 조심스러운 흐름이 공존합니다.", "깊은 감정과 애매한 기류가 함께 흐르는 날입니다.", "판이 단순하지 않아 감정과 상황을 함께 읽어야 합니다."],
+    advice: ["확인 전에는 단정하지 말고, 우회 경로를 준비하세요.", "애매한 신호는 서둘러 해석하지 말고 한 번 더 확인하세요.", "직선으로 밀기보다 여유 있는 우회 경로를 함께 준비하세요."],
+  },
+  Mountain: {
+    theme: ["멈춤, 집중, 경계 설정이 필요한 구간입니다.", "판을 좁히고 핵심만 붙들어야 하는 흐름입니다.", "반응보다 멈춤과 경계가 더 큰 힘을 갖는 날입니다."],
+    advice: ["반응을 줄이고 핵심만 남기면 에너지가 다시 모입니다.", "불필요한 반응을 덜어낼수록 집중력이 살아납니다.", "흩어진 것을 멈추고 핵심만 남기는 쪽이 맞습니다."],
+  },
+  Earth: {
+    theme: ["현실 감각, 수용, 지속성이 바닥을 잡아 줍니다.", "생활감과 기본기가 흐름의 중심을 잡아 줍니다.", "크게 흔들리기보다 꾸준함과 현실감이 힘을 내는 날입니다."],
+    advice: ["기본기를 지키고 생활 리듬을 안정시키면 운이 따라옵니다.", "생활의 리듬을 먼저 바로잡으면 판도 차분해집니다.", "화려한 선택보다 기본기를 지키는 태도가 오늘은 더 강합니다."],
+  },
+};
+
+const headlineTemplates = {
+  Rise: [
+    "{focus} 길을 여는 쪽으로 움직일 때, {trigram}의 기운이 앞을 밀고 있습니다.",
+    "{focus} 먼저 손을 내밀수록, {trigram}의 기운이 흐름을 당겨 옵니다.",
+    "{focus} 움직임이 답이 되는 날, {trigram}의 기운이 주변을 깨웁니다.",
+  ],
+  Hold: [
+    "{focus} 멈춤 속에서 기준을 세울 때, {trigram}의 기운이 판을 고르게 만듭니다.",
+    "{focus} 서두르지 않고 다듬을수록, {trigram}의 기운이 흐름을 안정시킵니다.",
+    "{focus} 한 번 더 살펴볼 때, {trigram}의 기운이 진짜 결을 드러냅니다.",
+  ],
+  Release: [
+    "{focus} 덜어낼수록 길이 선명해질 때, {trigram}의 기운이 막힌 자리를 풉니다.",
+    "{focus} 비워 낸 자리 위로, {trigram}의 기운이 새 흐름을 데려옵니다.",
+    "{focus} 놓아야 할 것을 놓을 때, {trigram}의 기운이 판을 가볍게 돌립니다.",
+  ],
+};
+
+const shinjeomToneEchoes = {
+  gentle: [
+    "작은 기척도 가볍게 넘기지 않는 편이 좋다.",
+    "조용한 흐름일수록 뜻은 더 깊게 남는다.",
+    "오늘은 힘보다 결을 읽는 쪽이 맞다.",
+  ],
+  stern: [
+    "지금의 기운은 흐트러진 마음을 오래 두지 말라고 말한다.",
+    "답을 서두르기보다 결을 바로 세우는 일이 먼저다.",
+    "흔들린 자리를 바로잡을수록 뜻도 또렷해진다.",
+  ],
+  warning: [
+    "조급한 마음은 들어온 기운을 가장 먼저 흐린다.",
+    "지나친 확신은 오히려 올바른 신호를 가린다.",
+    "오늘은 급한 해석이 가장 큰 빗나감을 만든다.",
+  ],
+};
+
+const recentSelections = new Map();
+
 function sample(items) {
   return items[Math.floor(Math.random() * items.length)];
+}
+
+function sampleNonRepeating(key, items) {
+  if (!items || items.length === 0) {
+    return null;
+  }
+  if (items.length === 1) {
+    recentSelections.set(key, items[0]);
+    return items[0];
+  }
+
+  const last = recentSelections.get(key);
+  const pool = items.filter((item) => item !== last);
+  const picked = sample(pool.length > 0 ? pool : items);
+  recentSelections.set(key, picked);
+  return picked;
 }
 
 function sampleUnique(items, count) {
@@ -620,6 +763,42 @@ function sampleUnique(items, count) {
     picked.push(pool.splice(index, 1)[0]);
   }
   return picked;
+}
+
+function weightedPickNonRepeating(key, items, weights) {
+  const lastName = recentSelections.get(key);
+  const pool =
+    lastName && items.length > 1
+      ? items.filter((item) => item.name !== lastName)
+      : items;
+  const picked = weightedPick(pool.length > 0 ? pool : items, weights);
+  recentSelections.set(key, picked.name);
+  return picked;
+}
+
+function createDirectionVariant(direction) {
+  const variants = directionTextVariants[direction.name];
+  return {
+    ...direction,
+    summary: sampleNonRepeating(`direction-summary-${direction.name}`, variants?.summary ?? [direction.summary]),
+    advice: sampleNonRepeating(`direction-advice-${direction.name}`, variants?.advice ?? [direction.advice]),
+    caution: sampleNonRepeating(`direction-caution-${direction.name}`, variants?.caution ?? [direction.caution]),
+  };
+}
+
+function createTrigramVariant(trigram) {
+  const variants = trigramTextVariants[trigram.name];
+  return {
+    ...trigram,
+    theme: sampleNonRepeating(`trigram-theme-${trigram.name}`, variants?.theme ?? [trigram.theme]),
+    advice: sampleNonRepeating(`trigram-advice-${trigram.name}`, variants?.advice ?? [trigram.advice]),
+  };
+}
+
+function fillHeadlineTemplate(template, focus, trigram) {
+  return template
+    .replace("{focus}", focus.headline)
+    .replace("{trigram}", trigram.label);
 }
 
 function getCurrentSubfocus() {
@@ -865,13 +1044,11 @@ function deriveScores(card, direction, trigram, choice, focusMode) {
 }
 
 function buildHeadline(direction, trigram, focus) {
-  const actionPhrase = {
-    Rise: "조용한 확신을 행동으로 옮길 때",
-    Hold: "지금은 멈춤 속에서 기준을 세울 때",
-    Release: "덜어낼수록 길이 선명해질 때",
-  }[direction.name];
-
-  return `${focus.headline} ${actionPhrase}, ${trigram.label}의 기운이 주변을 감싸고 있습니다.`;
+  const template = sampleNonRepeating(
+    `headline-${direction.name}`,
+    headlineTemplates[direction.name],
+  );
+  return fillHeadlineTemplate(template, focus, trigram);
 }
 
 function buildInterpretation(card, direction, trigram, focus, subfocus) {
@@ -992,26 +1169,35 @@ function updatePromptOutput() {
 function buildShinjeomLine(card, direction, choice) {
   const tone = sampleTone(choice);
   const cardSpecific = shinjeomCardLines[card.energy];
-  if (cardSpecific) {
-    return {
-      text: sample(cardSpecific[tone] ?? cardSpecific.gentle),
-      tone,
-    };
-  }
+  const basePool = cardSpecific
+    ? cardSpecific[tone] ?? cardSpecific.gentle
+    : shinjeomOpenings[direction.name][tone];
+  const opening = sampleNonRepeating(
+    `shinjeom-opening-${direction.name}-${card.energy}-${tone}`,
+    basePool,
+  );
+  const echo = sampleNonRepeating(`shinjeom-echo-${tone}`, shinjeomToneEchoes[tone]);
+
   return {
-    text: sample(shinjeomOpenings[direction.name][tone]),
+    text: `${opening} ${echo}`,
     tone,
   };
 }
 
 function buildShinjeomDeepMessage(card, direction, oracle, tone) {
-  const bridge = sample(shinjeomBridgeLines[tone]);
-  const closer = sample(shinjeomDirectionClosers[direction.name][tone]);
+  const bridge = sampleNonRepeating(`shinjeom-bridge-${tone}`, shinjeomBridgeLines[tone]);
+  const closer = sampleNonRepeating(
+    `shinjeom-closer-${direction.name}-${tone}`,
+    shinjeomDirectionClosers[direction.name][tone],
+  );
   return `${card.summary} ${oracle} ${bridge} ${closer}`;
 }
 
 function buildShinjeomGuidance(direction, trigram, tone) {
-  return `${sample(shinjeomGuidanceByDirection[direction.name][tone])} ${trigram.advice}`;
+  return `${sampleNonRepeating(
+    `shinjeom-guidance-${direction.name}-${tone}`,
+    shinjeomGuidanceByDirection[direction.name][tone],
+  )} ${trigram.advice}`;
 }
 
 function renderScores(scores) {
@@ -1092,9 +1278,11 @@ function composeReading() {
   const focus = focusModes[currentFocusMode] ?? focusModes.overall;
   const subfocus = getCurrentSubfocus();
   const card = sample(tarotCards);
-  const direction = weightedPick(directions, choice.directionBias);
-  const trigram = sample(trigrams);
-  const oracle = sample(oracleLines);
+  const direction = createDirectionVariant(
+    weightedPickNonRepeating("direction", directions, choice.directionBias),
+  );
+  const trigram = createTrigramVariant(sampleNonRepeating("trigram", trigrams));
+  const oracle = sampleNonRepeating("oracle", oracleLines);
   const scores = deriveScores(card, direction, trigram, choice, currentFocusMode);
   const headline = buildHeadline(direction, trigram, focus);
   const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
