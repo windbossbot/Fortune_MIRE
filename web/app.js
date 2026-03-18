@@ -537,6 +537,536 @@ const subfocusModes = {
   ],
 };
 
+const subfocusFlavor = {
+  overall: {
+    general: {
+      scoreBias: { overall: 1 },
+      interpretation: [
+        "판 전체를 읽을 때는 한 가지 사건보다 하루의 결이 더 중요합니다.",
+        "전반 운을 볼 때는 작은 변수보다 흐름 전체의 방향을 먼저 잡는 편이 맞습니다.",
+        "오늘은 세부 사건보다 전체 리듬이 먼저 결과를 좌우합니다.",
+      ],
+      advice: [
+        "전체 흐름을 보려면 한 가지 감정에 오래 머물지 않는 편이 좋습니다.",
+        "판 전체를 읽는 날이니 서둘러 한 지점에 묶이지 마세요.",
+        "오늘은 조급하게 결론 내리기보다 흐름의 방향부터 확인하세요.",
+      ],
+      caution: [
+        "부분만 확대해서 보면 전체 흐름을 놓치기 쉽습니다.",
+        "한 장면에 과하게 의미를 두면 오늘 판을 좁게 읽게 됩니다.",
+        "작은 흔들림에 마음을 다 주면 큰 흐름을 놓칠 수 있습니다.",
+      ],
+    },
+    luck: {
+      scoreBias: { overall: 1, money: 1 },
+      interpretation: [
+        "행운 흐름은 준비된 자리에 가볍게 붙는 쪽으로 읽힙니다.",
+        "오늘의 운은 크게 터지기보다 맞는 순간에 슬쩍 붙는 형태에 가깝습니다.",
+        "행운은 억지로 잡기보다 타이밍을 맞출 때 더 잘 붙습니다.",
+      ],
+      advice: [
+        "기회가 보여도 한 번 더 결을 확인한 뒤 잡는 편이 좋습니다.",
+        "운이 오는 자리는 과장된 기대보다 가벼운 실행에서 먼저 열립니다.",
+        "오늘의 행운은 빠른 눈치와 가벼운 움직임에 더 잘 반응합니다.",
+      ],
+      caution: [
+        "행운만 믿고 기준 없이 움직이면 오히려 빈손이 될 수 있습니다.",
+        "좋은 흐름도 과신하면 금방 새어 나갈 수 있습니다.",
+        "운이 붙는 날일수록 쉬운 길만 좇으면 결이 흐려집니다.",
+      ],
+    },
+    relationship: {
+      scoreBias: { love: 1 },
+      interpretation: [
+        "대인관계 운은 말보다 분위기와 반응의 간격에서 드러납니다.",
+        "오늘 사람 사이는 직접적인 표현보다 태도의 결에서 힘이 갈립니다.",
+        "관계의 흐름은 누가 먼저 이해하려 드느냐에서 판이 달라집니다.",
+      ],
+      advice: [
+        "바로 맞서기보다 상대의 반응을 한 박자 더 읽어 보세요.",
+        "오늘은 옳고 그름보다 분위기를 고르게 만드는 말이 더 중요합니다.",
+        "사람 사이에서는 센 해석보다 부드러운 확인이 더 잘 먹힙니다.",
+      ],
+      caution: [
+        "말 한마디를 크게 키워 해석하면 관계 피로가 빨리 쌓입니다.",
+        "사소한 반응에 의미를 과하게 부여하면 마음이 먼저 멀어질 수 있습니다.",
+        "감정이 흔들리는 순간 바로 단정하면 관계가 거칠어질 수 있습니다.",
+      ],
+    },
+    decision: {
+      scoreBias: { overall: 1, work: 1 },
+      interpretation: [
+        "결정운은 답 자체보다 지금 결정해도 되는 판인지부터 읽어야 합니다.",
+        "오늘은 빠른 결단보다 맞는 시점의 선택이 더 중요합니다.",
+        "선택의 무게는 결과보다 타이밍에서 갈릴 가능성이 큽니다.",
+      ],
+      advice: [
+        "움직일 결정과 미뤄 둘 결정을 분리해서 보세요.",
+        "답을 하나로 몰기보다 지금 정할 것과 남길 것을 나누는 편이 좋습니다.",
+        "오늘은 결론보다 판별이 먼저입니다. 순서를 세워 결정하세요.",
+      ],
+      caution: [
+        "결정을 늦추는 것과 회피하는 것은 다르니 헷갈리지 마세요.",
+        "확신이 부족한데도 결론부터 밀면 뒷수습이 길어질 수 있습니다.",
+        "애매함을 못 견뎌 성급히 정하면 본래보다 더 손해를 볼 수 있습니다.",
+      ],
+    },
+  },
+  love: {
+    solo: {
+      scoreBias: { love: 1, overall: 1 },
+      interpretation: [
+        "솔로 운은 새 인연보다 내 마음의 문이 어느 쪽을 향하는지에서 먼저 읽힙니다.",
+        "지금은 누군가를 만나는 운보다 끌림을 받아낼 준비가 되어 있는지가 중요합니다.",
+        "솔로 흐름에서는 기회보다 태도와 분위기가 먼저 운을 만듭니다.",
+      ],
+      advice: [
+        "억지로 인연을 찾기보다 자연스럽게 시선을 트는 쪽이 좋습니다.",
+        "마음을 닫아 두기보다 가볍게 호응하는 태도가 운을 부릅니다.",
+        "새 만남은 준비된 자리에서 오니 분위기를 먼저 가볍게 하세요.",
+      ],
+      caution: [
+        "외로움이 크다고 아무 신호나 인연으로 착각하지 않는 편이 좋습니다.",
+        "관심과 호의를 너무 빨리 관계로 단정하면 실망이 커질 수 있습니다.",
+        "초반의 작은 반응을 크게 해석하면 마음이 먼저 지칠 수 있습니다.",
+      ],
+    },
+    some: {
+      scoreBias: { love: 1 },
+      interpretation: [
+        "썸 운은 확정된 답보다 거리의 변화와 반응 속도에서 읽힙니다.",
+        "애매한 관계일수록 말보다 리듬과 간격이 진짜 마음을 드러냅니다.",
+        "썸의 흐름은 누가 먼저 밀어붙이느냐보다 누가 더 안정적으로 반응하느냐에 달립니다.",
+      ],
+      advice: [
+        "확답을 재촉하기보다 흐름이 붙는 순간을 한 번 더 확인하세요.",
+        "말을 크게 하기보다 꾸준한 반응으로 결을 확인하는 편이 좋습니다.",
+        "애매함을 견디되 무작정 끌려가지 말고 기준은 분명히 두세요.",
+      ],
+      caution: [
+        "답답함 때문에 관계를 빨리 정의하려 들면 흐름이 끊길 수 있습니다.",
+        "상대의 작은 변화에 일희일비하면 중심이 쉽게 무너집니다.",
+        "침묵 하나를 크게 키워 해석하면 오히려 본래보다 멀어질 수 있습니다.",
+      ],
+    },
+    dating: {
+      scoreBias: { love: 1, overall: 1 },
+      interpretation: [
+        "연애중 운은 감정보다 관계를 운영하는 방식에서 차이가 드러납니다.",
+        "현재 관계는 사랑의 크기보다 호흡과 균형이 더 중요하게 작동합니다.",
+        "사귀는 사이일수록 익숙함이 흐름을 살리기도 하고 무디게 만들기도 합니다.",
+      ],
+      advice: [
+        "감정 표현보다 생활 리듬과 말의 온도를 먼저 맞춰 보세요.",
+        "지금은 큰 이벤트보다 작은 배려가 관계를 더 안정시킵니다.",
+        "익숙함에 기대기보다 한 번 더 살피는 태도가 필요합니다.",
+      ],
+      caution: [
+        "가까운 사이라고 설명을 줄이면 오해가 더 커질 수 있습니다.",
+        "서운함을 바로 판단으로 연결하면 관계가 쉽게 거칠어집니다.",
+        "익숙하다는 이유로 마음을 생략하면 거리감이 커질 수 있습니다.",
+      ],
+    },
+    reunion: {
+      scoreBias: { love: 1, overall: -1 },
+      interpretation: [
+        "재회 운은 다시 붙는가보다 왜 끊어졌는가를 먼저 비춥니다.",
+        "다시 만나는 흐름은 감정보다 미해결된 결이 남아 있는지에서 갈립니다.",
+        "재회는 그리움만으로 열리기보다 예전 패턴이 끝났는지가 중요합니다.",
+      ],
+      advice: [
+        "다시 이어질 가능성을 보되, 같은 문제를 되풀이하지 않을 기준을 먼저 세우세요.",
+        "그리움에 바로 손을 내밀기보다 지금 달라진 점이 있는지부터 보세요.",
+        "재회를 원한다면 마음보다 패턴의 변화부터 확인하는 편이 좋습니다.",
+      ],
+      caution: [
+        "추억이 강할수록 현재를 과소평가하고 과거를 미화하기 쉽습니다.",
+        "그리움만으로 움직이면 같은 막힘이 다시 반복될 수 있습니다.",
+        "옛 감정에 끌려 기준을 낮추면 다시 상처가 남을 수 있습니다.",
+      ],
+    },
+  },
+  money: {
+    saving: {
+      scoreBias: { money: 1 },
+      interpretation: [
+        "저축운은 많이 벌기보다 얼마나 새지 않게 지키는지에서 판이 갈립니다.",
+        "오늘 돈의 흐름은 공격보다 보존과 정비에 더 힘이 실립니다.",
+        "모으는 운은 큰 수입보다 관리 감각에서 먼저 드러납니다.",
+      ],
+      advice: [
+        "새는 구멍부터 막고 자동으로 지켜지는 구조를 만드는 편이 좋습니다.",
+        "수입을 늘리는 생각보다 지출을 고르게 정리하는 쪽이 먼저입니다.",
+        "돈을 모으고 싶다면 오늘은 쓰는 결부터 다듬는 편이 맞습니다.",
+      ],
+      caution: [
+        "작은 금액이라고 가볍게 넘기면 전체 흐름이 흐려질 수 있습니다.",
+        "절약이 과해도 오래 가지 못하니 무리한 통제는 피하세요.",
+        "모은다는 압박만 커지면 소비 반동이 더 커질 수 있습니다.",
+      ],
+    },
+    spending: {
+      scoreBias: { money: -1, overall: -1 },
+      interpretation: [
+        "지출운은 꼭 큰돈보다 습관성 소비와 충동 반응에서 먼저 드러납니다.",
+        "돈이 빠지는 흐름은 계획된 지출보다 순간 감정에서 더 커질 수 있습니다.",
+        "오늘 소비의 결은 필요보다 분위기와 기분에 더 흔들릴 수 있습니다.",
+      ],
+      advice: [
+        "지갑을 열기 전에 지금 필요한 것인지 한 번만 더 구분하세요.",
+        "오늘은 바로 결제하기보다 하루 정도 텀을 두는 편이 유리합니다.",
+        "감정이 흔들릴 때 쓰는 돈이 있는지 먼저 체크해 보세요.",
+      ],
+      caution: [
+        "작은 보상 소비가 반복되면 생각보다 큰 누수가 생길 수 있습니다.",
+        "싸게 샀다는 만족감이 실제 필요보다 앞서지 않게 조심하세요.",
+        "피로와 감정이 큰 날엔 소비가 판단보다 먼저 튈 수 있습니다.",
+      ],
+    },
+    income: {
+      scoreBias: { money: 1, work: 1 },
+      interpretation: [
+        "수입운은 당장 큰돈보다 들어올 가능성이 열리는 자리에서 먼저 움직입니다.",
+        "들어오는 돈의 흐름은 기회와 연결에서 천천히 살아날 수 있습니다.",
+        "수입운은 이미 가진 것의 재활용과 연결 확장에서 힘을 얻습니다.",
+      ],
+      advice: [
+        "작게라도 들어올 통로를 하나 더 만드는 생각이 좋습니다.",
+        "기존 자원과 연결을 다시 살피면 예상 밖의 수입 기회가 보일 수 있습니다.",
+        "오늘은 가능성 없는 기대보다 현실적인 작은 수입선이 더 중요합니다.",
+      ],
+      caution: [
+        "불확실한 수입을 이미 확정된 돈처럼 계산하면 흐름이 어긋납니다.",
+        "기대 수익을 앞당겨 잡으면 실제 판단이 흔들릴 수 있습니다.",
+        "들어올 가능성과 손에 쥔 현실을 섞어 생각하지 않는 편이 좋습니다.",
+      ],
+    },
+    invest: {
+      scoreBias: { money: 1, work: 1, overall: -1 },
+      interpretation: [
+        "투자운은 수익의 크기보다 타이밍과 리스크 감각에서 판이 갈립니다.",
+        "오늘 투자 흐름은 공격보다 선별과 관찰에서 더 좋은 결과를 줍니다.",
+        "기회가 있어도 아무 곳이나 들어가기보다 왜 들어가는지 이유가 분명해야 합니다.",
+      ],
+      advice: [
+        "확신보다 근거를 먼저 세우고, 들어가더라도 크기를 줄이는 편이 좋습니다.",
+        "오늘은 큰 베팅보다 분할과 관찰이 더 잘 맞습니다.",
+        "수익 기대보다 손실 관리 기준을 먼저 잡아 두는 것이 유리합니다.",
+      ],
+      caution: [
+        "분위기에 밀려 들어가면 수익보다 후회가 먼저 남을 수 있습니다.",
+        "급한 확신으로 들어간 자리는 빠른 흔들림에도 크게 흔들릴 수 있습니다.",
+        "남의 속도에 맞춰 진입하면 본인 기준이 무너질 가능성이 큽니다.",
+      ],
+    },
+  },
+  health: {
+    condition: {
+      scoreBias: { overall: 1 },
+      interpretation: [
+        "컨디션 운은 크게 아픈가보다 몸이 얼마나 고르게 버티는지에서 읽힙니다.",
+        "오늘 몸 상태는 순간 체력보다 회복 속도와 리듬에서 차이가 납니다.",
+        "컨디션은 단번에 올라가기보다 생활 리듬을 어떻게 유지하느냐에 달려 있습니다.",
+      ],
+      advice: [
+        "힘을 더 끌어쓰기보다 리듬을 일정하게 유지하는 편이 좋습니다.",
+        "무리한 일정 하나를 줄이는 것이 몸에는 더 이익일 수 있습니다.",
+        "오늘은 퍼포먼스보다 몸의 균형을 지키는 쪽이 맞습니다.",
+      ],
+      caution: [
+        "괜찮다고 넘긴 피로가 저녁에 한꺼번에 올라올 수 있습니다.",
+        "몸이 보내는 작은 신호를 무시하면 회복이 늦어질 수 있습니다.",
+        "짧은 무리라도 연속되면 컨디션 저하가 길게 갈 수 있습니다.",
+      ],
+    },
+    sleep: {
+      scoreBias: { overall: 1 },
+      interpretation: [
+        "수면운은 잠의 길이보다 얼마나 깊게 쉬는지에서 차이가 납니다.",
+        "오늘 회복은 일찍 눕는 것보다 몸과 ذهن을 느슨하게 만드는 데 달려 있습니다.",
+        "잠의 질이 전체 운에도 영향을 주는 흐름입니다.",
+      ],
+      advice: [
+        "자극을 늦게까지 끌고 가지 않는 편이 좋습니다.",
+        "수면 전 한두 가지 자극만 줄여도 회복감이 달라질 수 있습니다.",
+        "오늘은 머리를 비우는 시간이 곧 회복의 시작입니다.",
+      ],
+      caution: [
+        "피곤한데도 늦게까지 버티면 다음 흐름이 쉽게 무너질 수 있습니다.",
+        "잠을 미루는 습관이 오늘은 특히 컨디션을 크게 흔들 수 있습니다.",
+        "쉬는 시간까지 생각으로 채우면 몸이 회복 신호를 놓칠 수 있습니다.",
+      ],
+    },
+    stress: {
+      scoreBias: { overall: -1, love: -1 },
+      interpretation: [
+        "스트레스 운은 사건보다 누적된 긴장이 어디서 터지는지에 더 가깝습니다.",
+        "오늘은 바깥 문제보다 안쪽 긴장이 반응을 크게 만들 수 있습니다.",
+        "피로보다 긴장감이 먼저 흐름을 무겁게 만드는 날일 수 있습니다.",
+      ],
+      advice: [
+        "문제를 다 해결하려 하기보다 반응 강도부터 낮추는 편이 좋습니다.",
+        "바로 대처하려는 마음을 조금 늦추면 긴장도 함께 내려갑니다.",
+        "오늘은 해결보다 완화가 먼저입니다. 강도를 줄이세요.",
+      ],
+      caution: [
+        "예민한 상태에선 작은 자극도 크게 받아들일 수 있습니다.",
+        "감정 반응을 사실처럼 단정하면 스트레스가 더 커질 수 있습니다.",
+        "기운이 흔들릴수록 사람 문제와 몸 문제를 함께 악화시킬 수 있습니다.",
+      ],
+    },
+    recovery: {
+      scoreBias: { overall: 1 },
+      interpretation: [
+        "회복운은 멈춘 자리에서 얼마나 잘 쉬느냐에 따라 크게 달라집니다.",
+        "오늘은 버티는 힘보다 회복하는 힘이 더 중요합니다.",
+        "몸은 이미 쉬어야 할 지점을 알고 있고, 회복의 문도 그 자리에서 열립니다.",
+      ],
+      advice: [
+        "하나만 줄여도 회복이 시작될 수 있으니 무리의 양부터 덜어 보세요.",
+        "회복은 큰 변화보다 작은 휴식의 반복에서 더 빠르게 옵니다.",
+        "오늘은 새로 보태기보다 덜어내는 쪽이 몸에 이익입니다.",
+      ],
+      caution: [
+        "쉬는 척만 하고 실제 긴장을 놓지 않으면 회복이 늦어집니다.",
+        "회복이 된 것 같아도 바로 무리하면 다시 같은 자리로 돌아갈 수 있습니다.",
+        "휴식 없는 버티기는 회복운을 가장 빨리 소모합니다.",
+      ],
+    },
+  },
+  work: {
+    job: {
+      scoreBias: { work: 1 },
+      interpretation: [
+        "직장운은 능력보다 타이밍과 협업 리듬에서 차이가 드러납니다.",
+        "회사 일은 성과만큼 관계와 전달 방식이 중요하게 작동합니다.",
+        "직장 흐름은 일 자체보다 주변과 맞물리는 속도에서 판이 갈립니다.",
+      ],
+      advice: [
+        "혼자 빨리 끝내기보다 주변과 맞는 속도를 먼저 잡으세요.",
+        "오늘은 결과만 던지기보다 전달 방식까지 챙기는 편이 좋습니다.",
+        "직장운은 정답보다 조율 능력에서 먼저 힘이 붙습니다.",
+      ],
+      caution: [
+        "일이 맞아도 말이 거칠면 평가가 쉽게 흔들릴 수 있습니다.",
+        "성과를 급히 내려고 밀면 협업 피로가 커질 수 있습니다.",
+        "혼자 처리하려는 마음이 오히려 흐름을 막을 수 있습니다.",
+      ],
+    },
+    career: {
+      scoreBias: { work: 1, overall: -1 },
+      interpretation: [
+        "이직운은 당장 옮기느냐보다 판이 이미 바뀌고 있는지에서 읽힙니다.",
+        "움직일 운은 준비와 타이밍이 맞을 때 더 선명해집니다.",
+        "이직은 감정적 탈출보다 방향 전환으로 읽을 때 더 또렷해집니다.",
+      ],
+      advice: [
+        "당장 뛰기보다 왜 움직이려는지 이유를 선명하게 만드는 편이 좋습니다.",
+        "조건만 볼 것이 아니라 지금 떠나도 되는 판인지 먼저 확인하세요.",
+        "이직운이 보여도 준비 없이 속도만 내면 흐름이 쉽게 꺾일 수 있습니다.",
+      ],
+      caution: [
+        "현재의 피로만으로 다음 자리를 고르면 같은 문제를 다시 만날 수 있습니다.",
+        "불만이 크다고 탈출이 곧 정답은 아닙니다.",
+        "움직임이 필요해도 방향 없는 이탈은 운을 더 흐리게 만들 수 있습니다.",
+      ],
+    },
+    business: {
+      scoreBias: { work: 1, money: 1 },
+      interpretation: [
+        "사업운은 아이디어보다 판을 읽는 감각과 버티는 힘에서 갈립니다.",
+        "지금 사업 흐름은 기회와 리스크가 함께 보이는 구간일 수 있습니다.",
+        "사업은 타이밍뿐 아니라 기준을 지키는 힘이 성패를 가를 가능성이 큽니다.",
+      ],
+      advice: [
+        "기회가 보여도 수익보다 지속 가능성부터 따져 보세요.",
+        "무리하게 넓히기보다 잘 되는 한 축을 더 단단히 하는 편이 맞습니다.",
+        "오늘은 확장보다 판별과 선별이 더 중요할 수 있습니다.",
+      ],
+      caution: [
+        "좋은 흐름이 와도 기준 없이 키우면 리스크가 더 빨리 불어날 수 있습니다.",
+        "성과 욕심이 커질수록 본래 잘하던 방식이 흐려질 수 있습니다.",
+        "사업운이 살아도 과신은 가장 빠른 흔들림을 부를 수 있습니다.",
+      ],
+    },
+    study: {
+      scoreBias: { work: 1, overall: 1 },
+      interpretation: [
+        "취업·시험운은 실력만큼 리듬과 집중 유지에서 차이가 납니다.",
+        "준비운은 단번의 몰입보다 꾸준한 반복에서 더 강하게 나타납니다.",
+        "오늘은 머리의 날카로움보다 흐트러지지 않는 리듬이 더 중요합니다.",
+      ],
+      advice: [
+        "분량을 늘리기보다 집중이 살아 있는 구간을 지키는 편이 좋습니다.",
+        "무리하게 새것을 더하기보다 지금 하던 것을 정리하는 쪽이 맞습니다.",
+        "실수를 줄이는 공부가 오늘은 성과를 더 크게 만듭니다.",
+      ],
+      caution: [
+        "불안이 커질수록 공부보다 걱정에 힘을 더 쓰게 될 수 있습니다.",
+        "완벽하게 하려다 시작이 늦어지면 리듬이 더 무너질 수 있습니다.",
+        "비교가 길어질수록 집중은 금방 흐트러질 수 있습니다.",
+      ],
+    },
+  },
+};
+
+const subfocusScoreLines = {
+  overall: {
+    general: {
+      overall: [
+        "오늘 전체 판은 크게 치우치기보다 흐름을 읽는 사람에게 더 유리합니다.",
+        "전반 운은 한쪽으로 쏠리기보다 판 전체를 보는 태도에서 살아납니다.",
+      ],
+    },
+    luck: {
+      overall: [
+        "행운은 크게 터지기보다 타이밍 좋게 붙는 쪽으로 움직입니다.",
+        "좋은 흐름은 준비된 자리에 얇게 붙는 형태로 들어올 가능성이 큽니다.",
+      ],
+      money: [
+        "돈의 흐름도 의외의 기회가 스쳐 갈 수 있으니 감각을 열어 두는 편이 좋습니다.",
+        "작은 기회가 현실 이익으로 이어질 여지가 있어 타이밍 감각이 중요합니다.",
+      ],
+    },
+    relationship: {
+      love: [
+        "사람 사이 분위기가 관계운을 직접 끌어올릴 수 있는 날입니다.",
+        "대인관계의 결이 좋아지면 감정운도 함께 안정될 가능성이 큽니다.",
+      ],
+    },
+    decision: {
+      overall: [
+        "결정운은 속도보다 판별력 쪽으로 살아 있어 신중함이 오히려 이점이 됩니다.",
+        "오늘은 빨리 정하는 사람보다 맞게 고르는 사람이 유리합니다.",
+      ],
+      work: [
+        "일과 판단을 묶어 보면 선택의 질이 성과를 크게 좌우할 수 있습니다.",
+        "결정의 선명함이 일의 흐름까지 함께 정리해 줄 가능성이 큽니다.",
+      ],
+    },
+  },
+  love: {
+    solo: {
+      love: [
+        "새 인연은 억지 접근보다 자연스러운 호응 속에서 열릴 가능성이 큽니다.",
+        "호감운은 조용히 붙는 쪽이라 분위기를 가볍게 두는 편이 좋습니다.",
+      ],
+    },
+    some: {
+      love: [
+        "썸의 흐름은 확답보다 반응의 꾸준함에서 더 또렷하게 읽힙니다.",
+        "애매한 거리에서는 큰 한마디보다 작은 반응의 연속이 더 중요합니다.",
+      ],
+    },
+    dating: {
+      love: [
+        "현재 관계는 감정보다 리듬과 대화 온도에서 안정감이 결정될 수 있습니다.",
+        "연애중 운은 큰 이벤트보다 일상적인 반응의 질에서 차이가 납니다.",
+      ],
+    },
+    reunion: {
+      love: [
+        "재회운은 감정만으로 열리기보다 같은 문제를 넘을 수 있는지에서 갈립니다.",
+        "다시 이어질 가능성은 남아 있어도 과거 패턴을 반복하지 않는 것이 더 중요합니다.",
+      ],
+    },
+  },
+  money: {
+    saving: {
+      money: [
+        "지키는 돈의 흐름이 나쁘지 않아 새는 구멍만 줄여도 체감이 생길 수 있습니다.",
+        "저축운은 공격적 확장보다 관리 감각에서 먼저 살아납니다.",
+      ],
+    },
+    spending: {
+      money: [
+        "지출운은 계획된 소비보다 감정성 지출에서 더 흔들릴 수 있습니다.",
+        "오늘 돈은 쓰는 순간보다 쓰기 전의 판단에서 갈릴 가능성이 큽니다.",
+      ],
+    },
+    income: {
+      money: [
+        "수입운은 큰돈 한 번보다 작은 통로가 열리는 방식에 더 가깝습니다.",
+        "바로 손에 잡히지 않아도 들어올 길이 조금씩 보일 수 있습니다.",
+      ],
+      work: [
+        "일의 흐름을 다듬으면 현실적인 수입 가능성도 함께 살아날 수 있습니다.",
+        "성과와 수입의 연결이 천천히 드러날 여지가 있어 꾸준함이 중요합니다.",
+      ],
+    },
+    invest: {
+      money: [
+        "투자운은 수익 기대보다 리스크 관리 감각에서 훨씬 크게 갈립니다.",
+        "들어갈 자리는 보여도 크기와 타이밍을 줄여 보는 편이 더 안전합니다.",
+      ],
+      overall: [
+        "전체 흐름도 공격적 확장보다 선별적 접근에 더 우호적입니다.",
+        "판 전체가 큰 베팅보다 관찰과 분할 쪽에 더 기울어 있습니다.",
+      ],
+    },
+  },
+  health: {
+    condition: {
+      overall: [
+        "몸 상태는 큰 고저보다 꾸준함에서 더 차이가 날 가능성이 큽니다.",
+        "컨디션은 버티는 힘보다 일정한 리듬을 유지하느냐에 달려 있습니다.",
+      ],
+    },
+    sleep: {
+      overall: [
+        "수면의 질이 좋아지면 전체 운의 체감도 함께 안정될 수 있습니다.",
+        "오늘은 잠의 깊이가 하루 전체 흐름을 생각보다 많이 좌우할 수 있습니다.",
+      ],
+    },
+    stress: {
+      overall: [
+        "긴장이 먼저 올라오면 전반 흐름도 실제보다 더 거칠게 느껴질 수 있습니다.",
+        "스트레스 관리가 되지 않으면 작은 일도 크게 받아들일 가능성이 큽니다.",
+      ],
+    },
+    recovery: {
+      overall: [
+        "회복운은 이미 들어와 있어 얼마나 잘 쉬느냐가 결과를 바꿀 수 있습니다.",
+        "덜어낼 수 있는 것을 하나만 줄여도 몸과 흐름이 함께 가벼워질 수 있습니다.",
+      ],
+    },
+  },
+  work: {
+    job: {
+      work: [
+        "직장운은 일의 정답보다 협업 리듬과 전달 방식에서 더 크게 갈립니다.",
+        "회사 일은 혼자 빨리 끝내는 것보다 흐름을 맞추는 힘이 중요합니다.",
+      ],
+    },
+    career: {
+      work: [
+        "이직운은 무작정 이동보다 준비된 전환 쪽에서 더 선명해집니다.",
+        "움직일 생각이 있다면 지금은 방향과 근거를 먼저 다듬는 편이 좋습니다.",
+      ],
+      overall: [
+        "전체 흐름도 단순 탈출보다 다음 판을 준비하는 쪽에 더 우호적입니다.",
+        "지금 판은 급한 이탈보다 준비된 이동을 더 밀어줄 가능성이 큽니다.",
+      ],
+    },
+    business: {
+      work: [
+        "사업운은 확장보다 선별과 지속 가능성에서 더 강하게 갈릴 수 있습니다.",
+        "일이 되는 자리와 안 되는 자리를 분명히 나누는 감각이 중요합니다.",
+      ],
+      money: [
+        "돈의 흐름도 따라오지만 먼저 기준과 구조를 세우는 편이 더 안전합니다.",
+        "수익 기회가 있어 보여도 관리 가능한 크기인지 먼저 보는 것이 중요합니다.",
+      ],
+    },
+    study: {
+      work: [
+        "취업·시험운은 몰아서 하기보다 흐트러지지 않는 리듬에서 점수가 갈립니다.",
+        "지금은 새로운 것보다 실수 줄이기와 반복 정리가 더 효율적일 수 있습니다.",
+      ],
+    },
+  },
+};
+
 const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
@@ -806,6 +1336,15 @@ function getCurrentSubfocus() {
   return options.find((item) => item.key === currentSubfocusKey) ?? options[0];
 }
 
+function getSubfocusFlavor(focusMode, subfocusKey) {
+  return subfocusFlavor[focusMode]?.[subfocusKey] ?? {
+    scoreBias: {},
+    interpretation: ["오늘은 세부 상황의 결을 조금 더 세심하게 보는 편이 좋습니다."],
+    advice: ["세부 상황을 크게 몰아가지 말고 차분히 읽는 편이 맞습니다."],
+    caution: ["한쪽 사례에만 과하게 마음을 싣지 않는 편이 좋습니다."],
+  };
+}
+
 function renderSubfocusOptions() {
   const options = subfocusModes[currentFocusMode] ?? subfocusModes.overall;
   if (!options.some((item) => item.key === currentSubfocusKey)) {
@@ -1007,7 +1546,7 @@ function weightedPick(items, weights) {
   return items[items.length - 1];
 }
 
-function deriveScores(card, direction, trigram, choice, focusMode) {
+function deriveScores(card, direction, trigram, choice, focusMode, subfocus) {
   const energetic = ["momentum", "clarity", "hope", "manifestation", "completion"];
   const inward = ["retreat", "pause", "intuition", "ambiguity"];
   const intense = ["disruption", "attachment", "ending"];
@@ -1040,6 +1579,13 @@ function deriveScores(card, direction, trigram, choice, focusMode) {
     scores.overall = Math.min(5, scores.overall + 1);
   }
 
+  const flavorBias = getSubfocusFlavor(focusMode, subfocus.key).scoreBias ?? {};
+  for (const [key, value] of Object.entries(flavorBias)) {
+    if (scores[key] !== undefined) {
+      scores[key] = Math.min(5, Math.max(1, scores[key] + value));
+    }
+  }
+
   return scores;
 }
 
@@ -1059,9 +1605,15 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
     gold: "균형을 지킬수록 결과가 안정되고 무리한 선택은 덜어집니다.",
     rose: "감정의 결이 진해지는 날이라 반응보다 진심의 방향이 더 중요합니다.",
   };
+  const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
+  const subfocusLine = sampleNonRepeating(
+    `subfocus-interpret-${focus.label}-${subfocus.key}`,
+    flavor.interpretation,
+  );
 
   return [
     `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
+    subfocusLine,
     `메인 카드는 ${card.summary}`,
     `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
     `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
@@ -1070,19 +1622,27 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
 }
 
 function buildAdvice(direction, trigram, scores, focus, subfocus) {
+  const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
   const strongest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => right.value - left.value)[0];
 
-  return `${focus.label}의 ${subfocus.label} 기준 조언은 간단합니다. ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+  return `${sampleNonRepeating(
+    `subfocus-advice-${focus.label}-${subfocus.key}`,
+    flavor.advice,
+  )} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
 }
 
 function buildCaution(card, direction, scores, focus, subfocus) {
+  const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
   const weakest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => left.value - right.value)[0];
 
-  return `${focus.label}의 ${subfocus.label}에 마음이 쏠릴수록 ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+  return `${sampleNonRepeating(
+    `subfocus-caution-${focus.label}-${subfocus.key}`,
+    flavor.caution,
+  )} ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
 }
 
 function buildScoreInsightLine(key, score, draw) {
@@ -1094,6 +1654,14 @@ function buildScoreInsightLine(key, score, draw) {
     1: "조심스럽게",
   };
   const level = levelMap[score] ?? "복합적으로";
+  const focusedLines =
+    subfocusScoreLines[draw.focus.key]?.[draw.subfocus.key]?.[key] ?? null;
+  if (focusedLines?.length) {
+    return `${level} 흐릅니다. ${sampleNonRepeating(
+      `score-line-${draw.focus.key}-${draw.subfocus.key}-${key}`,
+      focusedLines,
+    )}`;
+  }
   const lineByKey = {
     overall: `${level} 흐릅니다. ${draw.direction.summary} ${draw.oracle}`,
     love: `${level} 반응합니다. ${draw.card.positive}의 결이 관계에 스미고, 감정 해석은 조금 덜어낼수록 좋습니다.`,
@@ -1275,15 +1843,15 @@ function renderReading(draw) {
 function composeReading() {
   const choiceCard = currentChoiceCards[pendingChoiceSlot];
   const choice = buildChoiceFromCard(choiceCard);
-  const focus = focusModes[currentFocusMode] ?? focusModes.overall;
+  const focus = { key: currentFocusMode, ...(focusModes[currentFocusMode] ?? focusModes.overall) };
   const subfocus = getCurrentSubfocus();
-  const card = sample(tarotCards);
+  const card = sampleNonRepeating("main-card", tarotCards);
   const direction = createDirectionVariant(
     weightedPickNonRepeating("direction", directions, choice.directionBias),
   );
   const trigram = createTrigramVariant(sampleNonRepeating("trigram", trigrams));
   const oracle = sampleNonRepeating("oracle", oracleLines);
-  const scores = deriveScores(card, direction, trigram, choice, currentFocusMode);
+  const scores = deriveScores(card, direction, trigram, choice, currentFocusMode, subfocus);
   const headline = buildHeadline(direction, trigram, focus);
   const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
   const advice = buildAdvice(direction, trigram, scores, focus, subfocus);
