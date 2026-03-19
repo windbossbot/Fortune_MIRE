@@ -1349,71 +1349,15 @@ const shinjeomToneEchoes = {
   ],
 };
 
-const recentSelections = new Map();
-
 function sample(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function getSelectionIdentity(item) {
-  if (typeof item === "string" || typeof item === "number") {
-    return String(item);
-  }
-  if (item?.name) {
-    return item.name;
-  }
-  if (item?.key) {
-    return item.key;
-  }
-  if (item?.label) {
-    return item.label;
-  }
-  return JSON.stringify(item);
-}
-
-function rememberSelection(key, value, limit) {
-  const history = recentSelections.get(key) ?? [];
-  history.push(value);
-  while (history.length > limit) {
-    history.shift();
-  }
-  recentSelections.set(key, history);
-}
-
-function resolveRepeatWindow(items, explicitLimit) {
-  if (explicitLimit) {
-    return explicitLimit;
-  }
-  if (items.length >= 8) {
-    return 3;
-  }
-  if (items.length >= 5) {
-    return 2;
-  }
-  return 1;
-}
-
-function sampleNonRepeating(key, items, options = {}) {
+function sampleNonRepeating(key, items) {
   if (!items || items.length === 0) {
     return null;
   }
-  const identity = options.identity ?? getSelectionIdentity;
-  const limit = resolveRepeatWindow(items, options.limit);
-  if (items.length === 1) {
-    rememberSelection(key, items[0], 1);
-    return items[0];
-  }
-
-  const recent = recentSelections.get(key) ?? [];
-  const recentIds = new Set(recent.map((item) => identity(item)));
-  let pool = items.filter((item) => !recentIds.has(identity(item)));
-  if (pool.length === 0 && recent.length > 0) {
-    const lastId = identity(recent[recent.length - 1]);
-    pool = items.filter((item) => identity(item) !== lastId);
-  }
-  const picked = sample(pool.length > 0 ? pool : items);
-  rememberSelection(key, picked, limit);
-  return picked;
+  return sample(items);
 }
 
 function sampleUnique(items, count) {
@@ -1426,19 +1370,8 @@ function sampleUnique(items, count) {
   return picked;
 }
 
-function weightedPickNonRepeating(key, items, weights, options = {}) {
-  const identity = options.identity ?? getSelectionIdentity;
-  const limit = resolveRepeatWindow(items, options.limit);
-  const recent = recentSelections.get(key) ?? [];
-  const recentIds = new Set(recent.map((item) => identity(item)));
-  let pool = items.filter((item) => !recentIds.has(identity(item)));
-  if (pool.length === 0 && recent.length > 0) {
-    const lastId = identity(recent[recent.length - 1]);
-    pool = items.filter((item) => identity(item) !== lastId);
-  }
-  const picked = weightedPick(pool.length > 0 ? pool : items, weights);
-  rememberSelection(key, picked, limit);
-  return picked;
+function weightedPickNonRepeating(key, items, weights) {
+  return weightedPick(items, weights);
 }
 
 function createDirectionVariant(direction) {
