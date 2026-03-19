@@ -586,12 +586,38 @@ const shinjeomGuidanceByDirection = {
   },
 };
 
-const scoreLabels = [
-  { key: "overall", label: "전체 흐름" },
-  { key: "love", label: "관계와 감정" },
-  { key: "work", label: "집중과 일" },
-  { key: "money", label: "돈과 현실" },
-];
+const scoreLabelSets = {
+  overall: [
+    { key: "overall", label: "전체 흐름" },
+    { key: "love", label: "관계와 감정" },
+    { key: "work", label: "집중과 일" },
+    { key: "money", label: "돈과 현실" },
+  ],
+  love: [
+    { key: "overall", label: "전체 흐름" },
+    { key: "love", label: "호감과 감정" },
+    { key: "work", label: "연락과 진전" },
+    { key: "money", label: "현실성과 균형" },
+  ],
+  money: [
+    { key: "overall", label: "시장과 흐름" },
+    { key: "love", label: "심리와 분위기" },
+    { key: "work", label: "판단과 실행" },
+    { key: "money", label: "자금과 수익성" },
+  ],
+  health: [
+    { key: "overall", label: "몸과 리듬" },
+    { key: "love", label: "감정과 긴장" },
+    { key: "work", label: "활력과 집중" },
+    { key: "money", label: "생활 감각과 회복" },
+  ],
+  work: [
+    { key: "overall", label: "전체 흐름" },
+    { key: "love", label: "협업과 관계" },
+    { key: "work", label: "성과와 실행" },
+    { key: "money", label: "실속과 수익성" },
+  ],
+};
 
 const promptModes = {
   today: {
@@ -701,6 +727,29 @@ const subfocusModes = {
     { key: "business", label: "사업", summary: "판단, 기회, 책임과 리스크를 중심으로 봅니다." },
     { key: "study", label: "취업·시험", summary: "집중력, 준비, 결과 흐름을 중심으로 봅니다." },
   ],
+};
+
+const subfocusCopyOverrides = {
+  general: { aspect: "일반 흐름", object: "일반 흐름을", lane: "일반 흐름 쪽", subject: "일반 흐름은" },
+  luck: { aspect: "행운 흐름", object: "행운 흐름을", lane: "행운 흐름 쪽", subject: "행운 흐름은" },
+  relationship: { aspect: "대인관계", object: "대인관계를", lane: "대인관계 쪽", subject: "대인관계는" },
+  decision: { aspect: "결정 흐름", object: "결정 흐름을", lane: "결정 흐름 쪽", subject: "결정 흐름은" },
+  solo: { aspect: "솔로 흐름", object: "솔로 흐름을", lane: "솔로 흐름 쪽", subject: "솔로 흐름은" },
+  some: { aspect: "썸의 흐름", object: "썸의 흐름을", lane: "썸의 흐름 쪽", subject: "썸의 흐름은" },
+  dating: { aspect: "연애중인 관계", object: "연애중인 관계를", lane: "연애중인 관계 쪽", subject: "연애중인 관계는" },
+  reunion: { aspect: "재회 가능성", object: "재회 가능성을", lane: "재회 가능성 쪽", subject: "재회 가능성은" },
+  saving: { aspect: "저축 흐름", object: "저축 흐름을", lane: "저축 흐름 쪽", subject: "저축 흐름은" },
+  spending: { aspect: "지출 흐름", object: "지출 흐름을", lane: "지출 흐름 쪽", subject: "지출 흐름은" },
+  income: { aspect: "수입 흐름", object: "수입 흐름을", lane: "수입 흐름 쪽", subject: "수입 흐름은" },
+  invest: { aspect: "투자 흐름", object: "투자 흐름을", lane: "투자 흐름 쪽", subject: "투자 흐름은" },
+  condition: { aspect: "컨디션 흐름", object: "컨디션 흐름을", lane: "컨디션 흐름 쪽", subject: "컨디션 흐름은" },
+  sleep: { aspect: "수면 흐름", object: "수면 흐름을", lane: "수면 흐름 쪽", subject: "수면 흐름은" },
+  stress: { aspect: "스트레스 흐름", object: "스트레스 흐름을", lane: "스트레스 흐름 쪽", subject: "스트레스 흐름은" },
+  recovery: { aspect: "회복 흐름", object: "회복 흐름을", lane: "회복 흐름 쪽", subject: "회복 흐름은" },
+  job: { aspect: "직장 흐름", object: "직장 흐름을", lane: "직장 흐름 쪽", subject: "직장 흐름은" },
+  career: { aspect: "이직 흐름", object: "이직 흐름을", lane: "이직 흐름 쪽", subject: "이직 흐름은" },
+  business: { aspect: "사업 흐름", object: "사업 흐름을", lane: "사업 흐름 쪽", subject: "사업 흐름은" },
+  study: { aspect: "취업·시험 흐름", object: "취업·시험 흐름을", lane: "취업·시험 흐름 쪽", subject: "취업·시험 흐름은" },
 };
 
 const subfocusFlavor = {
@@ -1358,6 +1407,185 @@ const directionTextVariants = {
   },
 };
 
+const focusDirectionLens = {
+  love: {
+    Rise: {
+      summary: [
+        "관계가 정체돼 있었다면 먼저 호응하고 표현할수록 진전이 살아나는 흐름입니다.",
+        "연애에서는 먼저 분위기를 여는 쪽이 유리합니다. 가벼운 표현과 반응이 판을 움직일 수 있습니다.",
+      ],
+      advice: [
+        "연락, 제안, 만남 약속, 가벼운 표현에 힘이 실립니다. 먼저 한 번 열어 보세요.",
+        "마음을 재기만 하기보다 작은 호응과 표현으로 관계의 템포를 확인해 보세요.",
+      ],
+      caution: [
+        "감정 속도를 너무 앞당기면 상대 템포와 어긋날 수 있으니 진전의 간격을 살피세요.",
+        "움직임이 붙는 날일수록 확답을 재촉하면 오히려 거리감이 생길 수 있습니다.",
+      ],
+    },
+    Hold: {
+      summary: [
+        "지금 연애운은 밀어붙이기보다 관계 리듬을 맞추고 감정 온도를 안정시키는 흐름이 강합니다.",
+        "관계에서는 속도보다 호흡이 중요해지는 날이라 반응 간격을 보는 편이 맞습니다.",
+      ],
+      advice: [
+        "답을 재촉하기보다 반응 간격을 살피고 말의 온도를 고르세요.",
+        "먼저 결론을 묻기보다 현재 거리와 호흡을 정리하는 편이 더 잘 맞습니다.",
+      ],
+      caution: [
+        "너무 조심스러우면 관계가 멈춘 듯 느껴질 수 있으니 작은 호응은 남겨 두세요.",
+        "안정만 지키다 표현이 너무 줄어들면 상대는 뜻을 읽기 어려울 수 있습니다.",
+      ],
+    },
+    Release: {
+      summary: [
+        "끝난 기대와 미해결 감정을 정리할수록 관계 판이 한결 선명해지는 흐름입니다.",
+        "연애운은 붙잡고 있던 오해나 미련을 덜어낼 때 다음 결이 보이는 날입니다.",
+      ],
+      advice: [
+        "끝난 기대와 애매한 감정부터 정리하세요. 내려놓을수록 마음이 가벼워집니다.",
+        "미련, 오해, 반복 패턴을 비워 내는 선택이 관계운을 더 맑게 만듭니다.",
+      ],
+      caution: [
+        "감정적으로 끊어버리기보다 남길 인연과 놓을 패턴을 구분하는 편이 좋습니다.",
+        "정리운이 강해도 홧김에 관계를 닫으면 후회가 길게 남을 수 있습니다.",
+      ],
+    },
+  },
+  money: {
+    Rise: {
+      summary: [
+        "금전운은 기다리기만 하기보다 기준을 적고 작은 실행으로 확인할수록 길이 열리는 흐름입니다.",
+        "투자와 돈 문제는 움직임 자체보다 기준 있는 진입과 확인 행동에 더 힘이 붙습니다.",
+      ],
+      advice: [
+        "진입 기준, 비중 조절, 작은 확인 매매, 현금 배분 점검에 힘이 실립니다.",
+        "먼저 기준가와 손실 한도를 적고, 작게 움직이며 판을 확인하는 편이 좋습니다.",
+      ],
+      caution: [
+        "속도가 붙을수록 추격 매수나 기준 없는 확대는 손실로 이어질 수 있습니다.",
+        "흐름이 좋아 보여도 비중을 급히 키우면 작은 흔들림이 크게 번질 수 있습니다.",
+      ],
+    },
+    Hold: {
+      summary: [
+        "금전운은 지금 크게 베팅하기보다 보유 판단과 자금 정비를 우선하는 흐름이 강합니다.",
+        "오늘 돈의 흐름은 관망과 점검, 현금 비중 관리에 더 힘이 실리는 쪽입니다.",
+      ],
+      advice: [
+        "보유 이유 재점검, 기준가 확인, 현금 비중 정리, 관찰 구간 확보에 힘을 주세요.",
+        "매수보다 점검이 맞는 날입니다. 기준과 자금표를 다시 세우는 편이 좋습니다.",
+      ],
+      caution: [
+        "관망만 하다 중요한 시그널까지 놓치지 않도록 작은 계획은 남겨 두세요.",
+        "멈춤이 길어져도 아무 기준 없이 방치하면 좋은 자리도 무겁게 지나갈 수 있습니다.",
+      ],
+    },
+    Release: {
+      summary: [
+        "금전운은 끝난 보유, 새는 지출, 기준 없는 포지션을 정리할수록 판이 가벼워지는 흐름입니다.",
+        "돈 문제는 비워 낼 것을 분명히 할 때 다음 판단이 선명해질 수 있습니다.",
+      ],
+      advice: [
+        "끝난 자리, 새는 지출, 기준 없는 보유를 정리하세요. 덜어내는 선택이 유리합니다.",
+        "손절, 익절, 소비 정리처럼 끝낼 것을 분명히 하는 편이 오늘은 더 맞습니다.",
+      ],
+      caution: [
+        "감정적으로 한 번에 던지기보다 남길 비중과 나올 가격을 함께 정하세요.",
+        "정리운이 강해도 홧김 매도나 무리한 환매는 후회를 남길 수 있습니다.",
+      ],
+    },
+  },
+  health: {
+    Rise: {
+      summary: [
+        "건강운은 회복을 미루기보다 몸을 바로 챙길수록 흐름이 개선되는 쪽으로 읽힙니다.",
+        "몸의 신호가 왔다면 바로 반응해 줄수록 컨디션이 빨리 올라오는 날입니다.",
+      ],
+      advice: [
+        "짧은 산책, 수분, 스트레칭, 일찍 쉬기, 검사 예약처럼 실제 행동으로 옮겨 보세요.",
+        "몸이 원하는 기본 조치를 먼저 해 주는 편이 오늘 회복운을 더 크게 살립니다.",
+      ],
+      caution: [
+        "의욕이 살아도 몸 상태보다 일정을 앞세우면 피로가 급히 누적될 수 있습니다.",
+        "움직임이 붙는 날일수록 무리한 운동이나 과한 일정은 오히려 역효과가 날 수 있습니다.",
+      ],
+    },
+    Hold: {
+      summary: [
+        "건강운은 지금 정비와 휴식, 리듬 회복에 더 힘이 실리는 흐름입니다.",
+        "몸은 전진보다 안정이 필요한 날이라 수면과 생활 균형을 먼저 보는 편이 맞습니다.",
+      ],
+      advice: [
+        "수면, 식사, 페이스 조절, 일정 정리에 힘을 주세요.",
+        "몸을 밀기보다 리듬을 다듬는 선택이 회복을 더 빠르게 불러올 수 있습니다.",
+      ],
+      caution: [
+        "버티기만 하다 회복 타이밍을 놓치면 작은 피로도 길게 남을 수 있습니다.",
+        "조용한 피로가 쌓이기 쉬운 날이라 괜찮다는 말만 믿고 넘기지 않는 편이 좋습니다.",
+      ],
+    },
+    Release: {
+      summary: [
+        "건강운은 과한 일정과 자극, 쌓인 긴장을 덜어낼수록 몸이 훨씬 가볍게 반응하는 흐름입니다.",
+        "몸은 더하는 것보다 빼는 조절을 먼저 원하고 있을 가능성이 큽니다.",
+      ],
+      advice: [
+        "늦은 각성, 과한 약속, 쌓인 피로를 줄이고 비워 두는 선택이 좋습니다.",
+        "몸에 남은 부담을 하나씩 덜어내는 쪽이 오늘 회복운과 잘 맞습니다.",
+      ],
+      caution: [
+        "갑자기 다 끊기보다 몸이 견딜 수 있는 속도로 조절하는 편이 좋습니다.",
+        "무리한 디톡스처럼 한 번에 바꾸면 오히려 몸이 더 예민하게 반응할 수 있습니다.",
+      ],
+    },
+  },
+  work: {
+    Rise: {
+      summary: [
+        "일·사업운은 먼저 제안하고 움직일수록 기회가 붙는 흐름으로 읽힙니다.",
+        "일에서는 기다리기보다 선제적으로 판을 여는 쪽이 성과를 더 빨리 끌어올 수 있습니다.",
+      ],
+      advice: [
+        "제안, 일정 확정, 발표, 피드백 요청, 지원 행동에 힘이 실립니다.",
+        "기획을 미루기보다 먼저 공유하고 확인하는 편이 일의 흐름을 더 빠르게 엽니다.",
+      ],
+      caution: [
+        "일이 풀린다고 범위를 너무 넓히면 집중력이 떨어질 수 있습니다.",
+        "움직임이 붙는 날일수록 할 일을 과하게 벌리면 정작 중요한 축이 흐려질 수 있습니다.",
+      ],
+    },
+    Hold: {
+      summary: [
+        "일·사업운은 지금 정비, 검토, 우선순위 조율에 더 힘이 실리는 흐름입니다.",
+        "오늘 업무는 전진보다 구조를 다듬는 쪽이 결과를 더 안정적으로 만듭니다.",
+      ],
+      advice: [
+        "기획 정리, 검토, 재확인, 협업 조율에 시간을 쓰는 편이 좋습니다.",
+        "큰 실행보다 먼저 자료와 순서를 정리하면 판이 한결 단단해질 수 있습니다.",
+      ],
+      caution: [
+        "정비만 하다 중요한 마감까지 늦추지 않도록 작은 결론은 남겨 두세요.",
+        "멈춤이 길어지면 일의 탄력도 함께 줄 수 있으니 핵심 한두 개는 분명히 정하세요.",
+      ],
+    },
+    Release: {
+      summary: [
+        "일·사업운은 불필요한 일과 끝난 안건을 정리할수록 성과 축이 더 선명해지는 흐름입니다.",
+        "업무 판에서는 비효율을 덜어낼수록 남은 일의 힘이 더 살아날 수 있습니다.",
+      ],
+      advice: [
+        "할 일 축소, 미련 과업 종료, 구조 정리에 힘이 실립니다.",
+        "끝난 일과 덜 중요한 요청을 정리해 핵심 과업을 비워 두는 편이 좋습니다.",
+      ],
+      caution: [
+        "감정적으로 일을 끊기보다 남길 핵심과 버릴 잡음을 구분하는 편이 좋습니다.",
+        "정리운이 강해도 관계를 건드리는 방식으로 정리하면 뒷파장이 길 수 있습니다.",
+      ],
+    },
+  },
+};
+
 const trigramTextVariants = {
   Heaven: {
     theme: ["시야가 위로 열리고 큰 관점이 강조됩니다.", "판을 넓게 보는 시선이 중요해지고 큰 흐름이 먼저 보입니다.", "작은 감정보다 큰 방향과 기준이 앞에 놓입니다."],
@@ -1428,19 +1656,19 @@ const headlineTemplates = {
 
 const compositeSummaryTemplates = [
   "{focus}의 {subfocusObject} 중심에 두고 {choice} 카드에서 받은 첫 기운 위에 {card}의 핵심 뜻, {direction}의 방향성, {trigram}의 기운이 겹쳐졌습니다.",
-  "{choice} 카드로 연 문 위에 {focus}의 {subfocus} 흐름을 얹어 보면, 메인 카드는 {card}로 잡히고 전체 결은 {direction} 쪽으로 기울며 바탕 기운은 {trigram}에서 들어옵니다.",
+  "{choice} 카드로 연 문 위에 {focus}에서 {subfocusAspect}을 얹어 보면, 메인 카드는 {card}로 잡히고 전체 결은 {direction} 쪽으로 기울며 바탕 기운은 {trigram}에서 들어옵니다.",
   "{focus} 중에서도 {subfocusObject} 자세히 보면, {choice}에서 끌어온 기운과 {card}의 메시지, {direction}의 움직임, {trigram}의 배경이 하나의 판으로 묶였습니다.",
-  "{choice} 선택 이후 오늘의 판은 {card}를 중심축으로 삼고, 바깥 흐름은 {direction}, 바탕 기운은 {trigram}으로 정리됩니다. 이번 리딩은 특히 {focus}의 {subfocusObject} 더 가까이 봅니다.",
-  "{focus}의 핵심 질문을 {subfocus}에 맞춰 좁혀 보면, 선택 카드 {choice} 위로 {card}의 상징이 올라오고 {direction}과 {trigram}이 전체 분위기를 보정하고 있습니다.",
+  "{choice} 선택 이후 오늘의 판은 {card}를 중심축으로 삼고, 바깥 흐름은 {direction}, 바탕 기운은 {trigram}으로 정리됩니다. 이번 리딩은 특히 {focus}에서 {subfocusAspect}을 더 가까이 봅니다.",
+  "{focus}의 핵심 질문을 {subfocus}에 맞춰 좁혀 보면, 선택 카드 {choice} 위로 {card}의 상징이 올라오고 {direction}의 흐름과 {trigram}의 기운이 전체 분위기를 보정하고 있습니다.",
   "{subfocus} 문제를 붙잡고 뽑은 이번 점괘는 {choice} 카드로 문을 열고, {card}의 중심 해석에 {direction}의 흐름과 {trigram}의 바탕 기운을 포개는 방식으로 읽힙니다.",
   "{focus}의 {subfocusObject} 향해 열린 판에서, 첫 선택은 {choice}였고 핵심 상징은 {card}였습니다. 여기에 {direction}의 방향과 {trigram}의 바탕이 더해지며 오늘의 결이 완성됩니다.",
   "{choice}에서 시작한 오늘의 복합 점괘는 {card}의 중심 메시지를 세우고, {direction}의 결론과 {trigram}의 배경을 얹어 {focus}의 {subfocusObject} 읽어 줍니다.",
-  "{focus}의 {subfocusObject} 비추는 이번 점괘는 {choice}에서 출발해 {card}를 핵심 상징으로 세우고, {direction}의 결론과 {trigram}의 바탕을 함께 읽는 구조입니다.",
-  "{choice}로 연 첫 문 뒤에서 {card}가 중심에 섰고, 오늘의 판은 {direction} 쪽으로 움직이며 {trigram}의 기운이 배경을 받치고 있습니다. 특히 {focus}의 {subfocus}에 무게가 실립니다.",
-  "{focus} 중에서도 {subfocusObject} 좁혀 본 이번 리딩은 {choice}가 여는 입구와 {card}의 상징, {direction}의 흐름, {trigram}의 바탕이 겹쳐 만들어졌습니다.",
-  "{choice}가 먼저 기운을 열고 {card}가 중심 뜻을 세운 가운데, {direction}과 {trigram}이 오늘 판의 성질을 결정하며 {focus}의 {subfocusObject} 더 선명하게 보여 줍니다.",
-  "{focus}의 {subfocus} 문제를 두고 본 오늘의 복합 점괘는 {choice}의 첫 손길 이후 {card}를 중심으로 모이고, {direction}과 {trigram}이 결을 나누어 설명합니다.",
-  "오늘 판은 {choice}의 선택에서 시작해 {card}의 메시지를 중심으로 세워졌고, {direction}의 방향성과 {trigram}의 기운이 겹치며 {focus}의 {subfocusObject} 드러내고 있습니다.",
+  "{focus}에서 {subfocusAspect}을 비추는 이번 점괘는 {choice}에서 출발해 {card}를 핵심 상징으로 세우고, {direction}의 결론과 {trigram}의 바탕을 함께 읽는 구조입니다.",
+  "{choice}로 연 첫 문 뒤에 {card}라는 핵심 상징이 중심에 섰고, 오늘의 판은 {direction} 쪽으로 움직이며 {trigram}의 기운이 배경을 받치고 있습니다. 특히 {focus}에서는 {subfocusAspect}에 무게가 실립니다.",
+  "{focus} 중에서도 {subfocusAspect}을 좁혀 본 이번 리딩은 {choice}에서 열린 입구와 {card}의 상징, {direction}의 흐름, {trigram}의 바탕이 겹쳐 만들어졌습니다.",
+  "먼저 뽑힌 카드는 {choice}였고, 중심 상징은 {card}였습니다. {direction}의 흐름과 {trigram}의 바탕이 오늘 판의 성질을 결정하며 {focus}의 {subfocusObject} 더 선명하게 보여 줍니다.",
+  "{focus}의 {subfocus} 문제를 두고 본 오늘의 복합 점괘는 {choice}의 첫 손길 이후 {card}를 중심으로 모이고, {direction}의 흐름과 {trigram}의 바탕이 결을 나누어 설명합니다.",
+  "오늘 판은 {choice}의 선택에서 시작해 {card}의 메시지를 중심으로 세워졌고, {direction}의 방향성과 {trigram}의 기운이 겹치며 {focus}에서 {subfocusAspect}을 드러내고 있습니다.",
 ];
 
 const interpretationToneVariants = {
@@ -1888,6 +2116,14 @@ function getFocusedTrigramLens(focusKey, trigramName) {
   return focusTrigramLens[focusKey]?.[trigramName] ?? null;
 }
 
+function getWeakestAxisWarningsForFocus(focusKey, axisKey) {
+  return focusedWeakestAxisWarnings[focusKey]?.[axisKey] ?? weakestAxisWarnings[axisKey];
+}
+
+function getFallbackScoreInsightTemplates(focusKey, axisKey) {
+  return focusedFallbackScoreInsightLines[focusKey]?.[axisKey] ?? fallbackScoreInsightLines[axisKey];
+}
+
 const focusPreludeVariants = {
   overall: [
     "오늘 판을 넓게 읽으면 한 가지 사건보다 전체 리듬이 먼저 드러납니다.",
@@ -2004,6 +2240,156 @@ const weakestAxisWarnings = {
   ],
 };
 
+const focusedWeakestAxisWarnings = {
+  love: {
+    overall: [
+      "전체 흐름이 흔들리면 관계 신호도 과장되어 보일 수 있습니다.",
+      "판 전체를 급히 좁혀 읽으면 관계의 실제 결보다 기분이 먼저 커질 수 있습니다.",
+    ],
+    love: [
+      "호감과 감정 축은 작은 온도 차도 크게 받아들이기 쉬우니 속단을 줄이세요.",
+      "감정선이 예민한 날이라 호의와 확신을 너무 빨리 같은 뜻으로 읽지 않는 편이 좋습니다.",
+    ],
+    work: [
+      "연락과 진전 축은 성급한 표현 하나가 거리감을 키울 수 있습니다.",
+      "관계가 풀리고 싶어도 진전 속도를 무리하게 당기면 오히려 템포가 어긋날 수 있습니다.",
+    ],
+    money: [
+      "현실성과 균형 축이 약하면 마음은 커도 실제 관계 속도와 엇갈릴 수 있습니다.",
+      "감정은 살아 있어도 생활 리듬과 거리 조절이 안 맞으면 쉽게 피로해질 수 있습니다.",
+    ],
+  },
+  money: {
+    overall: [
+      "시장 전체 흐름을 좁게 읽으면 한 종목 판단도 함께 흔들릴 수 있습니다.",
+      "판 전체가 애매한 날엔 개별 판단도 과신하지 않는 편이 좋습니다.",
+    ],
+    love: [
+      "심리와 분위기 축은 군중심리 하나에 쉽게 휘둘릴 수 있으니 거리를 두세요.",
+      "시장 분위기에 감정이 휩쓸리면 원래 세운 기준도 함께 흐려질 수 있습니다.",
+    ],
+    work: [
+      "판단과 실행 축이 약할수록 진입과 철수 기준을 먼저 적어 두는 편이 좋습니다.",
+      "매매 실행이 흔들릴수록 좋은 종목도 나쁜 진입으로 바뀔 수 있습니다.",
+    ],
+    money: [
+      "자금과 수익성 축은 작은 손실도 길게 남길 수 있으니 비중을 줄여 보는 편이 좋습니다.",
+      "수익 욕심이 앞설수록 원금과 현금 비중 관리가 느슨해질 수 있으니 조심하세요.",
+    ],
+  },
+  health: {
+    overall: [
+      "몸과 리듬 축이 약한 날엔 작은 피로도 하루 전체 체감으로 번질 수 있습니다.",
+      "전반 컨디션이 흔들리는 날이라 사소한 무리도 크게 느껴질 수 있습니다.",
+    ],
+    love: [
+      "감정과 긴장 축은 사소한 자극도 크게 느낄 수 있으니 반응 강도를 낮추세요.",
+      "예민한 날일수록 기분 문제와 몸의 피로가 섞여 느껴질 수 있습니다.",
+    ],
+    work: [
+      "활력과 집중 축이 약하면 무리한 일정이 곧바로 피로로 돌아올 수 있습니다.",
+      "몸이 버텨 주는 것처럼 보여도 집중 축이 먼저 꺼질 수 있으니 일을 줄여 보세요.",
+    ],
+    money: [
+      "생활 감각과 회복 축이 약하면 회복보다 버티기를 택하기 쉬우니 주의하세요.",
+      "쉬는 감각이 무너지면 몸은 괜찮아도 회복 속도가 눈에 띄게 늦어질 수 있습니다.",
+    ],
+  },
+  work: {
+    overall: [
+      "전체 판이 흔들리면 개별 업무도 과하게 무겁게 느껴질 수 있습니다.",
+      "일의 흐름을 한 장면만 보고 단정하면 실제보다 판이 더 답답하게 읽힐 수 있습니다.",
+    ],
+    love: [
+      "협업과 관계 축은 작은 말투 차이도 일의 피로로 번질 수 있습니다.",
+      "업무 자체보다 사람 사이 결이 흐트러지면 성과도 함께 밀릴 수 있습니다.",
+    ],
+    work: [
+      "성과와 실행 축이 약하면 일을 넓히기보다 범위를 먼저 좁히는 편이 낫습니다.",
+      "실행 축이 흔들릴수록 속도보다 우선순위를 다시 세우는 편이 더 중요합니다.",
+    ],
+    money: [
+      "실속과 수익성 축은 성과 욕심이 클수록 계산이 흐려질 수 있으니 냉정함을 유지하세요.",
+      "눈앞의 결과를 키우려다 비용과 리스크를 놓치면 일이 커질 수 있습니다.",
+    ],
+  },
+};
+
+const focusedFallbackScoreInsightLines = {
+  love: {
+    overall: [
+      "{trigramTheme} 관계 판 전체는 큰 감정보다 안정된 흐름을 붙들수록 더 정확해집니다.",
+      "{directionAdvice} 연애운 전체는 확답보다 리듬과 거리감을 고르게 맞출 때 살아납니다.",
+    ],
+    love: [
+      "{positive}의 결이 호감과 감정 축에 스미며 마음의 온도를 부드럽게 조율해 줍니다.",
+      "{oracle} 감정은 강하게 확인하기보다 반응의 안정감을 살필수록 더 또렷해질 수 있습니다.",
+    ],
+    work: [
+      "{directionSummary} 연락과 진전은 속도보다 타이밍에서 더 크게 갈릴 수 있습니다.",
+      "{trigramAdvice} 오늘 관계의 움직임은 한 번 더 고른 표현에서 힘이 붙기 쉽습니다.",
+    ],
+    money: [
+      "{oracle} 현실성과 균형 축은 감정의 크기보다 서로 맞는 생활 감각을 보라고 말합니다.",
+      "{trigramTheme} 마음이 살아 있어도 관계를 오래 가게 하는 힘은 현실적인 균형에서 나옵니다.",
+    ],
+  },
+  money: {
+    overall: [
+      "{trigramTheme} 투자 판 전체는 성급한 베팅보다 큰 흐름과 자리 선별에 더 반응합니다.",
+      "{directionAdvice} 시장과 흐름 축은 방향을 맞게 읽는 힘이 수익 자체만큼 중요합니다.",
+    ],
+    love: [
+      "{oracle} 심리와 분위기 축은 군중심리를 따라가기보다 내 리듬을 지키는 쪽이 유리합니다.",
+      "{trigramTheme} 투자 심리는 재료보다 분위기에 흔들릴 수 있어 감정 분리가 중요합니다.",
+    ],
+    work: [
+      "{directionSummary} 판단과 실행 축은 진입보다 기준을 지키는 실행력에서 더 선명해질 수 있습니다.",
+      "{trigramAdvice} 오늘 투자에서는 좋은 아이디어보다 매매 원칙을 지키는 힘이 더 중요합니다.",
+    ],
+    money: [
+      "{oracle} 자금과 수익성 축은 수익 욕심보다 비중과 손실 관리에서 먼저 갈립니다.",
+      "{positive}의 장점이 자금 운영에 실리면 큰 수익보다 지키는 매매에서 실속이 붙기 쉽습니다.",
+    ],
+  },
+  health: {
+    overall: [
+      "{trigramTheme} 몸과 리듬 축은 오늘 생활 리듬을 얼마나 안정시키느냐에서 크게 갈립니다.",
+      "{directionAdvice} 전반 컨디션은 몸을 밀어붙이기보다 호흡을 고르게 맞출수록 좋아질 수 있습니다.",
+    ],
+    love: [
+      "{oracle} 감정과 긴장 축은 마음의 자극을 얼마나 줄이느냐가 몸 반응에도 직접 이어질 수 있습니다.",
+      "{trigramTheme} 스트레스와 예민함은 작은 자극도 크게 느끼게 만들 수 있어 감정 속도를 낮추는 편이 좋습니다.",
+    ],
+    work: [
+      "{directionSummary} 활력과 집중 축은 무리한 일정 하나에도 크게 흔들릴 수 있습니다.",
+      "{trigramAdvice} 몸이 버텨도 집중력은 먼저 꺼질 수 있으니 힘의 사용량을 조절하세요.",
+    ],
+    money: [
+      "{oracle} 생활 감각과 회복 축은 무엇을 더할지보다 무엇을 덜어낼지에서 먼저 살아납니다.",
+      "{trigramTheme} 회복은 특별한 방법보다 먹고 쉬고 자는 기본 감각에서 차이가 날 수 있습니다.",
+    ],
+  },
+  work: {
+    overall: [
+      "{trigramTheme} 일의 판 전체는 넓히기보다 중심축을 세울수록 더 선명해질 수 있습니다.",
+      "{directionAdvice} 업무 전체 흐름은 많이 하는 것보다 맞는 순서를 세우는 힘에서 갈립니다.",
+    ],
+    love: [
+      "{oracle} 협업과 관계 축은 정답보다 말의 톤과 조율 방식에서 먼저 반응합니다.",
+      "{trigramTheme} 일 자체보다 사람 사이 리듬이 맞아야 결과도 함께 살아날 수 있습니다.",
+    ],
+    work: [
+      "{positive}의 장점이 성과와 실행 축에 실리면 핵심 과업을 밀어 주는 힘이 커질 수 있습니다.",
+      "{directionSummary} 실행은 속도보다 우선순위와 집중에서 차이가 날 가능성이 큽니다.",
+    ],
+    money: [
+      "{oracle} 실속과 수익성 축은 성과를 키우는 것보다 남기는 구조를 세울 때 더 좋아집니다.",
+      "{trigramTheme} 결과가 보여도 비용과 리스크를 함께 보는 눈이 있어야 일이 오래 갑니다.",
+    ],
+  },
+};
+
 const shinjeomAftertones = {
   gentle: [
     "오늘의 뜻은 세게 밀지 않아도 맞는 자리로 조용히 모일 수 있다.",
@@ -2075,12 +2461,41 @@ function createDirectionVariant(direction) {
   };
 }
 
+function createFocusedDirectionVariant(focusKey, direction) {
+  const lens = focusDirectionLens[focusKey]?.[direction.name];
+  return {
+    ...direction,
+    summary: lens?.summary?.length
+      ? sampleNonRepeating(`focus-direction-summary-${focusKey}-${direction.name}`, lens.summary)
+      : direction.summary,
+    advice: lens?.advice?.length
+      ? sampleNonRepeating(`focus-direction-advice-${focusKey}-${direction.name}`, lens.advice)
+      : direction.advice,
+    caution: lens?.caution?.length
+      ? sampleNonRepeating(`focus-direction-caution-${focusKey}-${direction.name}`, lens.caution)
+      : direction.caution,
+  };
+}
+
 function createTrigramVariant(trigram) {
   const variants = trigramTextVariants[trigram.name];
   return {
     ...trigram,
     theme: sampleNonRepeating(`trigram-theme-${trigram.name}`, variants?.theme ?? [trigram.theme]),
     advice: sampleNonRepeating(`trigram-advice-${trigram.name}`, variants?.advice ?? [trigram.advice]),
+  };
+}
+
+function createFocusedTrigramVariant(focusKey, trigram) {
+  const lens = getFocusedTrigramLens(focusKey, trigram.name);
+  return {
+    ...trigram,
+    theme: lens?.theme?.length
+      ? sampleNonRepeating(`focus-trigram-theme-${focusKey}-${trigram.name}`, lens.theme)
+      : trigram.theme,
+    advice: lens?.advice?.length
+      ? sampleNonRepeating(`focus-trigram-advice-${focusKey}-${trigram.name}`, lens.advice)
+      : trigram.advice,
   };
 }
 
@@ -2103,6 +2518,22 @@ function hasBatchim(text) {
 
 function withParticle(text, particleAfterBatchim, particleWithoutBatchim) {
   return `${text}${hasBatchim(text) ? particleAfterBatchim : particleWithoutBatchim}`;
+}
+
+function getScoreLabelsForFocus(focusKey) {
+  return scoreLabelSets[focusKey] ?? scoreLabelSets.overall;
+}
+
+function getSubfocusCopy(subfocus) {
+  const override = subfocusCopyOverrides[subfocus.key] ?? {};
+  const aspect = override.aspect ?? subfocus.label;
+  return {
+    label: subfocus.label,
+    aspect,
+    object: override.object ?? withParticle(aspect, "을", "를"),
+    lane: override.lane ?? `${aspect} 쪽`,
+    subject: override.subject ?? withParticle(aspect, "은", "는"),
+  };
 }
 
 function getCurrentSubfocus() {
@@ -2377,10 +2808,12 @@ function buildCompositeSummary(choice, focus, subfocus, card, direction, trigram
     `composite-summary-${focus.key}-${subfocus.key}`,
     compositeSummaryTemplates,
   );
+  const subfocusCopy = getSubfocusCopy(subfocus);
   return template
     .replaceAll("{focus}", focus.label)
-    .replaceAll("{subfocusObject}", withParticle(subfocus.label, "을", "를"))
+    .replaceAll("{subfocusObject}", subfocusCopy.object)
     .replaceAll("{subfocus}", subfocus.label)
+    .replaceAll("{subfocusAspect}", subfocusCopy.aspect)
     .replaceAll("{choice}", choice.label)
     .replaceAll("{card}", card.name)
     .replaceAll("{direction}", direction.label)
@@ -2390,10 +2823,8 @@ function buildCompositeSummary(choice, focus, subfocus, card, direction, trigram
 function buildInterpretation(card, direction, trigram, focus, subfocus) {
   const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
   const focusPrelude = sampleNonRepeating(`focus-prelude-${focus.key}`, focusPreludeVariants[focus.key]);
-  const trigramLens = getFocusedTrigramLens(focus.key, trigram.name);
-  const trigramThemeLine = trigramLens?.theme?.length
-    ? sampleNonRepeating(`focus-trigram-theme-${focus.key}-${trigram.name}`, trigramLens.theme)
-    : trigram.theme;
+  const subfocusCopy = getSubfocusCopy(subfocus);
+  const trigramThemeLine = trigram.theme;
   const subfocusLine = sampleNonRepeating(
     `subfocus-interpret-${focus.label}-${subfocus.key}`,
     flavor.interpretation,
@@ -2407,15 +2838,19 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
     `interpret-structure-${focus.key}-${subfocus.key}`,
     ["focus-first", "card-first", "flow-first", "context-first", "prelude-first", "focus-card"],
   );
+  const narrowedLine = `${focus.label} 중에서도 ${subfocusCopy.lane}으로 보면 ${subfocus.summary}`;
+  const centeredLine = `${focus.label} 가운데 ${subfocusCopy.object} 중심으로 보면 ${subfocus.summary}`;
+  const contextLine = `${focus.label}에서 지금 더 가까이 봐야 할 쪽은 ${subfocusCopy.aspect}이며, ${subfocus.summary}`;
+  const subjectLine = `${focus.label} 안에서 ${subfocusCopy.subject} ${subfocus.summary}`;
 
   if (structure === "prelude-first") {
     return [
       focusPrelude,
-      `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
+      narrowedLine,
       subfocusLine,
       `메인 카드는 ${card.summary}`,
-      `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
-      `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
+      `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
+      `${trigram.label}의 기운이 깔려 ${trigramThemeLine}`,
       toneLine,
       afterglow,
     ].join(" ");
@@ -2425,9 +2860,9 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
     return [
       focusPrelude,
       `메인 카드는 ${card.summary}`,
-      `${focus.label} 가운데 ${withParticle(subfocus.label, "을", "를")} 중심으로 보면 ${subfocus.summary}`,
+      centeredLine,
       subfocusLine,
-      `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
+      `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
       `${trigram.label}의 기운이 깔려 ${trigramThemeLine}`,
       toneLine,
       afterglow,
@@ -2437,9 +2872,9 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
   if (structure === "flow-first") {
     return [
       focusPrelude,
-      `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
+      `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
       `${trigram.label}의 기운이 바닥에 깔려 ${trigramThemeLine}`,
-      `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
+      narrowedLine,
       subfocusLine,
       `메인 카드는 ${card.summary}`,
       toneLine,
@@ -2450,11 +2885,11 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
   if (structure === "context-first") {
     return [
       focusPrelude,
-      `${focus.label}에서 지금 더 가까이 봐야 할 쪽은 ${subfocus.label}이며, ${subfocus.summary}`,
+      contextLine,
       `${trigram.label}의 기운은 ${trigramThemeLine}`,
       subfocusLine,
       `메인 카드는 ${card.summary}`,
-      `전체 방향은 ${direction.label}이라 ${direction.summary}`,
+      `전체 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
       toneLine,
       afterglow,
     ].join(" ");
@@ -2463,11 +2898,11 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
   if (structure === "focus-card") {
     return [
       focusPrelude,
-      `${focus.label} 안에서 ${withParticle(subfocus.label, "은", "는")} ${subfocus.summary}`,
+      subjectLine,
       `메인 카드는 ${card.summary}`,
       subfocusLine,
       `${trigram.label}의 기운은 ${trigramThemeLine}`,
-      `전체 방향은 ${direction.label}이라 ${direction.summary}`,
+      `전체 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
       toneLine,
       afterglow,
     ].join(" ");
@@ -2475,10 +2910,10 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
 
   return [
     focusPrelude,
-    `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
+    narrowedLine,
     subfocusLine,
     `메인 카드는 ${card.summary}`,
-    `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
+    `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
     `${trigram.label}의 기운이 깔려 ${trigramThemeLine}`,
     toneLine,
     afterglow,
@@ -2487,10 +2922,7 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
 
 function buildAdvice(direction, trigram, scores, focus, subfocus) {
   const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
-  const trigramLens = getFocusedTrigramLens(focus.key, trigram.name);
-  const trigramAdviceLine = trigramLens?.advice?.length
-    ? sampleNonRepeating(`focus-trigram-advice-${focus.key}-${trigram.name}`, trigramLens.advice)
-    : trigram.advice;
+  const scoreLabels = getScoreLabelsForFocus(focus.key);
   const strongest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => right.value - left.value)[0];
@@ -2505,22 +2937,23 @@ function buildAdvice(direction, trigram, scores, focus, subfocus) {
   const futureHint = sampleNonRepeating(`future-hint-${direction.name}`, directionFutureHints[direction.name]);
 
   if (structure === "direction-first") {
-    return `${direction.advice} ${trigramAdviceLine} ${subfocusAdvice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
+    return `${direction.advice} ${trigram.advice} ${subfocusAdvice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
   }
 
   if (structure === "strongest-first") {
-    return `오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${subfocusAdvice} ${direction.advice} ${trigramAdviceLine} ${futureHint}`;
+    return `오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${subfocusAdvice} ${direction.advice} ${trigram.advice} ${futureHint}`;
   }
 
   if (structure === "future-first") {
-    return `${futureHint} ${subfocusAdvice} ${direction.advice} ${trigramAdviceLine} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+    return `${futureHint} ${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
   }
 
-  return `${subfocusAdvice} ${direction.advice} ${trigramAdviceLine} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
+  return `${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
 }
 
 function buildCaution(card, direction, scores, focus, subfocus) {
   const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
+  const scoreLabels = getScoreLabelsForFocus(focus.key);
   const weakest = scoreLabels
     .map(({ key, label }) => ({ key, label, value: scores[key] }))
     .sort((left, right) => left.value - right.value)[0];
@@ -2533,8 +2966,8 @@ function buildCaution(card, direction, scores, focus, subfocus) {
     ["subfocus-first", "shadow-first", "weakest-first", "axis-first"],
   );
   const weakestAxisWarning = sampleNonRepeating(
-    `weakest-axis-${weakest.key}`,
-    weakestAxisWarnings[weakest.key],
+    `weakest-axis-${focus.key}-${weakest.key}`,
+    getWeakestAxisWarningsForFocus(focus.key, weakest.key),
   );
 
   if (structure === "shadow-first") {
@@ -2571,8 +3004,8 @@ function buildScoreInsightLine(key, score, draw) {
     )} ${nuance}`;
   }
   const fallbackTemplate = sampleNonRepeating(
-    `score-fallback-${key}`,
-    fallbackScoreInsightLines[key],
+    `score-fallback-${draw.focus.key}-${key}`,
+    getFallbackScoreInsightTemplates(draw.focus.key, key),
   );
   const line = fallbackTemplate
     .replaceAll("{direction}", draw.direction.summary)
@@ -2596,6 +3029,7 @@ function buildScoreInsightLine(key, score, draw) {
 }
 
 function buildScoreInsights(draw) {
+  const scoreLabels = draw.scoreLabels ?? getScoreLabelsForFocus(draw.focus.key);
   return scoreLabels.map(({ key, label }) => ({
     label,
     text: buildScoreInsightLine(key, draw.scores[key], draw),
@@ -2628,6 +3062,9 @@ function buildOracleLine(focus, subfocus) {
 function buildPrompt(draw, modeKey) {
   const mode = promptModes[modeKey] ?? promptModes.today;
   const sectionList = mode.sections.map((section) => `- ${section}`).join("\n");
+  const scoreSummary = draw.scoreLabels
+    .map(({ key, label }) => `${label} ${draw.scores[key]}/5`)
+    .join(", ");
 
   return `${mode.label} 중심 복합 운세를 해석해줘.
 
@@ -2642,7 +3079,9 @@ ${sectionList}
 
 [원본 데이터]
 - 중점 운: ${draw.focus.label}
+- 중점 운 설명: ${draw.focus.summary}
 - 세부 상황: ${draw.subfocus.label}
+- 세부 상황 설명: ${draw.subfocus.summary}
 - 선택 카드: ${draw.choice.label}
 - 메인 카드: ${draw.card.name}
 - 카드 요약: ${draw.card.summary}
@@ -2653,7 +3092,7 @@ ${sectionList}
 - 상황 기운: ${draw.trigram.label}
 - 상황 테마: ${draw.trigram.theme}
 - 상황 조언: ${draw.trigram.advice}
-- 점수: 전체 ${draw.scores.overall}/5, 관계 ${draw.scores.love}/5, 일 ${draw.scores.work}/5, 돈 ${draw.scores.money}/5
+- 점수: ${scoreSummary}
 - 오라클: ${draw.oracle}
 - 현재 해석: ${draw.interpretation}
 - 조언: ${draw.advice}
@@ -2784,11 +3223,11 @@ function buildShinjeomGuidance(direction, trigram, tone, focus, subfocus) {
   return `${baseGuidance} ${topicalGuidance} ${trigramAdviceLine}`;
 }
 
-function renderScores(scores) {
+function renderScores(scores, labels) {
   const scoreContainer = document.querySelector("#scores");
   scoreContainer.innerHTML = "";
 
-  for (const { key, label } of scoreLabels) {
+  for (const { key, label } of labels) {
     const fragment = scoreTemplate.content.cloneNode(true);
     fragment.querySelector(".score-label").textContent = label;
     fragment.querySelector(".score-value").textContent = `${scores[key]}/5`;
@@ -2841,7 +3280,7 @@ function renderReading(draw) {
   document.querySelector("#shinjeom-line").textContent = draw.shinjeomLine;
   document.querySelector("#shinjeom-deep-message").textContent = draw.shinjeomDeepMessage;
   document.querySelector("#shinjeom-guidance").textContent = draw.shinjeomGuidance;
-  renderScores(draw.scores);
+  renderScores(draw.scores, draw.scoreLabels);
   renderScoreInsights(draw);
 
   latestDraw = draw;
@@ -2862,12 +3301,19 @@ function composeReading() {
   const focus = { key: currentFocusMode, ...(focusModes[currentFocusMode] ?? focusModes.overall) };
   const subfocus = getCurrentSubfocus();
   const card = sampleNonRepeating("main-card", tarotCards);
-  const direction = createDirectionVariant(
-    weightedPickNonRepeating("direction", directions, choice.directionBias, { limit: 2 }),
+  const direction = createFocusedDirectionVariant(
+    focus.key,
+    createDirectionVariant(
+      weightedPickNonRepeating("direction", directions, choice.directionBias, { limit: 2 }),
+    ),
   );
-  const trigram = createTrigramVariant(sampleNonRepeating("trigram", trigrams));
+  const trigram = createFocusedTrigramVariant(
+    focus.key,
+    createTrigramVariant(sampleNonRepeating("trigram", trigrams)),
+  );
   const oracle = buildOracleLine(focus, subfocus);
   const scores = deriveScores(card, direction, trigram, choice, currentFocusMode, subfocus);
+  const scoreLabels = getScoreLabelsForFocus(focus.key);
   const headline = buildHeadline(direction, trigram, focus);
   const summary = buildCompositeSummary(choice, focus, subfocus, card, direction, trigram);
   const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
@@ -2894,6 +3340,7 @@ function composeReading() {
     trigram,
     oracle,
     scores,
+    scoreLabels,
     headline,
     summary,
     interpretation,
