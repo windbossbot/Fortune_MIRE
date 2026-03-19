@@ -1340,6 +1340,7 @@ const drawButton = document.querySelector("#draw-button");
 const copyButton = document.querySelector("#copy-button");
 const copyInlineButton = document.querySelector("#copy-inline-button");
 const retryButton = document.querySelector("#retry-button");
+const shuffleButton = document.querySelector("#shuffle-button");
 const copyActions = document.querySelector("#copy-actions");
 const choicePanel = document.querySelector("#choice-panel");
 const choiceButtons = document.querySelectorAll(".choice-button");
@@ -2777,6 +2778,21 @@ function hydrateChoiceCards() {
   });
 }
 
+function clearChoiceSelection() {
+  pendingChoiceSlot = null;
+  choiceButtons.forEach((button) => {
+    button.classList.remove("is-selected");
+  });
+}
+
+function reshuffleChoiceCards(statusMessage = null) {
+  hydrateChoiceCards();
+  clearChoiceSelection();
+  if (statusMessage) {
+    drawStatus.textContent = statusMessage;
+  }
+}
+
 function sampleTone(choice) {
   const tones = [
     { name: "gentle" },
@@ -3421,6 +3437,7 @@ async function startDraw() {
   }
 
   drawButton.disabled = true;
+  shuffleButton.disabled = true;
   drawButton.setAttribute("aria-busy", "true");
   copyButton.disabled = true;
   copyInlineButton.disabled = true;
@@ -3447,9 +3464,12 @@ async function startDraw() {
 
   const draw = composeReading();
   renderReading(draw);
-  drawStatus.textContent = `${draw.focus.label} 중심으로 ${draw.choice.label}의 기운이 열렸습니다`;
+  reshuffleChoiceCards(
+    `${draw.focus.label} 결과가 펼쳐졌습니다. 새 판을 보려면 카드 뒷면을 다시 고르세요`,
+  );
   document.body.classList.remove("is-drawing");
   drawButton.disabled = false;
+  shuffleButton.disabled = false;
   drawButton.removeAttribute("aria-busy");
   choiceButtons.forEach((button) => {
     button.disabled = false;
@@ -3469,7 +3489,6 @@ function initializeView() {
   latestPrompt = "";
   promptOutput.value = "";
   drawStatus.textContent = `${focusModes[currentFocusMode].label} · ${getCurrentSubfocus().label} 중심으로, 카드 뒷면을 고르고 기운을 불러 보세요`;
-  pendingChoiceSlot = null;
   copyActions.classList.add("hidden");
   copyButton.disabled = true;
   copyInlineButton.disabled = true;
@@ -3477,11 +3496,11 @@ function initializeView() {
   readingPanel.classList.remove("active");
   document.body.classList.remove("is-drawing");
   drawButton.disabled = false;
+  shuffleButton.disabled = false;
   drawButton.removeAttribute("aria-busy");
-  hydrateChoiceCards();
+  reshuffleChoiceCards();
   renderSubfocusOptions();
   choiceButtons.forEach((button) => {
-    button.classList.remove("is-selected");
     button.disabled = false;
   });
 }
@@ -3546,4 +3565,10 @@ focusButtons.forEach((button) => {
 retryButton.addEventListener("click", () => {
   initializeView();
   window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+shuffleButton.addEventListener("click", () => {
+  reshuffleChoiceCards(
+    `${focusModes[currentFocusMode].label} · ${getCurrentSubfocus().label} 중심으로 카드를 다시 섞었습니다. 카드 뒷면을 새로 고르세요`,
+  );
 });

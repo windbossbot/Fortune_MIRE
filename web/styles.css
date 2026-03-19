@@ -416,6 +416,24 @@ h1 {
   font-size: 0.95rem;
 }
 
+.choice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.choice-header .choice-title {
+  margin: 0;
+}
+
+.choice-ghost-button {
+  padding: 0.52rem 0.92rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
 .choice-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1122,6 +1140,15 @@ body.is-drawing .orb-core {
 
   .choice-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .choice-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .choice-ghost-button {
+    width: 100%;
   }
 
   .choice-button {
