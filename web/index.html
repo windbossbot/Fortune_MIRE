@@ -103,14 +103,39 @@
 
       <section id="reading-panel" class="reading-panel hidden" aria-live="polite">
         <div class="headline-card reveal">
-          <p class="origin-label">복합 점괘</p>
+          <div class="card-intro">
+            <p class="origin-label">복합 점괘</p>
+            <p class="role-copy">오늘 판 전체를 묶는 메인 판단입니다.</p>
+          </div>
           <h2 id="headline-text"></h2>
           <p id="summary-text" class="summary-text"></p>
         </div>
 
-        <div class="grid-layout">
-          <article class="detail-card reveal reveal-delay-1">
-            <p class="origin-label">타로</p>
+        <article class="detail-card explanation-card reveal reveal-delay-1">
+          <div class="card-intro">
+            <p class="origin-label">복합 해설</p>
+            <p class="role-copy">복합점괘를 풀어쓴 흐름, 행동, 경계입니다.</p>
+          </div>
+          <section class="explanation-block">
+            <h3>판의 흐름</h3>
+            <p id="interpretation-text"></p>
+          </section>
+          <section class="explanation-block">
+            <h3>움직일 방향</h3>
+            <p id="advice-text" class="supporting-copy"></p>
+          </section>
+          <section class="explanation-block">
+            <h3>경계할 점</h3>
+            <p id="caution-text" class="warning-copy"></p>
+          </section>
+        </article>
+
+        <div class="grid-layout support-grid">
+          <article class="detail-card reveal reveal-delay-2">
+            <div class="card-intro">
+              <p class="origin-label">타로</p>
+              <p class="role-copy">지금 문제의 본질과 중심 상징입니다.</p>
+            </div>
             <div class="tarot-card-header">
               <img id="card-art" class="card-art" alt="타로 카드 이미지" />
               <div class="tarot-card-copy">
@@ -133,8 +158,11 @@
             </dl>
           </article>
 
-          <article class="detail-card reveal reveal-delay-2">
-            <p class="origin-label">주역 기운</p>
+          <article class="detail-card reveal reveal-delay-3">
+            <div class="card-intro">
+              <p class="origin-label">주역 기운</p>
+              <p class="role-copy">지금 밀고, 멈추고, 덜어낼 방향입니다.</p>
+            </div>
             <div class="symbol-title-row">
               <h3 id="direction-name"></h3>
               <span id="trigram-name" class="pill"></span>
@@ -143,36 +171,39 @@
             <p id="trigram-summary" class="supporting-copy"></p>
           </article>
 
-          <article class="detail-card score-card reveal reveal-delay-3">
-            <p class="origin-label">운세 점수</p>
+          <article class="detail-card score-card reveal reveal-delay-4">
+            <div class="card-intro">
+              <p class="origin-label">운세 점수</p>
+              <p class="role-copy">어느 축에 힘이 실리고 약한지 보여 줍니다.</p>
+            </div>
             <div id="scores" class="score-list"></div>
             <div id="score-insights" class="score-insights"></div>
-          </article>
-
-          <article class="detail-card reveal reveal-delay-4">
-            <p class="origin-label">종합 해석</p>
-            <p id="interpretation-text"></p>
-            <p id="advice-text" class="supporting-copy"></p>
-            <p id="caution-text" class="warning-copy"></p>
           </article>
         </div>
 
         <article class="oracle-card reveal reveal-delay-5">
-          <p class="origin-label">오라클</p>
+          <div class="card-intro">
+            <p class="origin-label">오라클</p>
+            <p class="role-copy">복합점괘의 핵심 감각만 압축한 문장입니다.</p>
+          </div>
           <blockquote id="oracle-line"></blockquote>
         </article>
 
         <article class="oracle-card reveal reveal-delay-6">
-          <p class="origin-label">신점</p>
+          <div class="card-intro">
+            <p class="origin-label">신점</p>
+            <p class="role-copy">끝에 남는 경고와 붙들 기운입니다.</p>
+          </div>
           <h3 id="shinjeom-line" class="shinjeom-title"></h3>
           <p id="shinjeom-deep-message" class="supporting-copy"></p>
           <p id="shinjeom-guidance" class="warning-copy"></p>
         </article>
 
-        <article class="prompt-card reveal reveal-delay-6">
+        <article class="prompt-card reveal reveal-delay-7">
           <div class="prompt-header">
             <div>
               <p class="origin-label">AI 보조 해석</p>
+              <p class="role-copy">더 길게 풀어 보고 싶을 때 복사해 쓰는 원본입니다.</p>
               <h3>복합 해석용 프롬프트</h3>
             </div>
             <button id="copy-inline-button" class="ghost-button" type="button" disabled>

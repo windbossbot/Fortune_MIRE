@@ -224,6 +224,23 @@ img {
   margin: 0 0 0.9rem;
 }
 
+.card-intro {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.card-intro .origin-label {
+  margin: 0;
+}
+
+.role-copy {
+  margin: 0;
+  color: var(--mist);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 h1,
 h2,
 h3,
@@ -615,6 +632,7 @@ body.is-drawing .orb-ring-b {
 
 .headline-card h2 {
   font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 0.95;
 }
 
 .summary-text {
@@ -627,10 +645,39 @@ body.is-drawing .orb-ring-b {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.support-grid .score-card {
+  grid-column: 1 / -1;
+}
+
 .detail-card {
   border-radius: 1.45rem;
   padding: 1.3rem;
   min-height: 16rem;
+}
+
+.explanation-card {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.explanation-block {
+  display: grid;
+  gap: 0.45rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.explanation-block:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.explanation-block h3 {
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: 0.96rem;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  color: var(--gold);
 }
 
 .tarot-card-header {
@@ -788,6 +835,7 @@ body.is-drawing .orb-ring-b {
 
 .prompt-header h3 {
   font-size: 1.9rem;
+  margin-top: 0.25rem;
 }
 
 .score-insights {
@@ -897,6 +945,10 @@ textarea {
 
 .reading-panel.active .reveal-delay-6 {
   animation-delay: 380ms;
+}
+
+.reading-panel.active .reveal-delay-7 {
+  animation-delay: 440ms;
 }
 
 body.is-drawing .hero-panel {
@@ -1047,6 +1099,10 @@ body.is-drawing .orb-core {
 
   .grid-layout {
     grid-template-columns: 1fr;
+  }
+
+  .support-grid .score-card {
+    grid-column: auto;
   }
 
   .tarot-card-header {
