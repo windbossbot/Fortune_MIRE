@@ -265,6 +265,26 @@ const oracleLines = [
   "흩어진 마음을 모으는 순간, 미뤄졌던 답도 함께 모습을 드러냅니다.",
   "과하게 의미를 붙이지 않을수록 진짜 신호가 더 또렷하게 남습니다.",
   "운은 이미 와 있고, 지금 필요한 것은 그것을 놓치지 않을 리듬입니다.",
+  "붙들어야 할 것은 많지 않고, 오늘은 그 하나를 알아보는 감각이 중요합니다.",
+  "좋은 흐름은 대개 큰 소리보다 잔잔한 확신으로 먼저 다가옵니다.",
+  "급하게 당기지 않아도 맞는 것은 제때 네 쪽으로 기울어집니다.",
+  "정리가 먼저인 날엔 성과도 정리된 자리 위에서 더 오래 갑니다.",
+  "무거운 마음 하나를 덜어낼 때 바깥 문제도 생각보다 가벼워질 수 있습니다.",
+  "지금의 운은 밀어붙이는 손보다 오래 견디는 마음에 더 잘 붙습니다.",
+  "맞지 않는 문을 계속 두드리기보다 열리는 쪽의 결을 먼저 살피세요.",
+  "오늘은 무엇을 더할지가 아니라 무엇을 흐리지 않을지가 더 중요합니다.",
+  "기운은 이미 방향을 알고 있고, 네가 해야 할 일은 그 방향을 거스르지 않는 것입니다.",
+  "빠른 확인보다 바른 확인이 오늘의 운을 더 단단하게 만듭니다.",
+  "작은 어긋남 하나를 바로잡는 일이 큰 기회를 여는 열쇠가 될 수 있습니다.",
+  "괜히 크게 흔들지 않아도 흐름은 스스로 자리를 찾아 움직이기 시작합니다.",
+  "눈앞의 반응에 휘둘리지 않을수록 너에게 맞는 판이 또렷해집니다.",
+  "오늘의 기운은 많은 선택보다 적은 선택을 정확히 하는 쪽을 돕습니다.",
+  "아직 이름 붙일 수 없는 예감도 오늘은 무시하지 않는 편이 좋습니다.",
+  "서둘러 가지지 않아도 되는 것은 놓아둘수록 더 분명한 얼굴을 보입니다.",
+  "운이 약한 것이 아니라, 아직 네가 읽는 속도보다 느리게 다가오는 중일 수 있습니다.",
+  "한 템포 늦춘 반응이 오히려 더 멀리 가는 답이 되는 날입니다.",
+  "작은 균형 하나가 하루 전체의 무게를 바꿀 수 있는 흐름입니다.",
+  "지금 드러난 것보다 아직 남아 있는 여운 속에 더 큰 답이 있을 수 있습니다.",
 ];
 
 const shinjeomOpenings = {
@@ -272,47 +292,110 @@ const shinjeomOpenings = {
     gentle: [
       "지금 붙는 뜻은 먼저 움직일 때 열린다.",
       "오늘 네 앞의 문은 망설임보다 첫걸음에 반응한다.",
+      "가볍게라도 시작하는 손끝에서 오늘의 뜻이 먼저 살아난다.",
+      "머뭇거림을 걷어낼수록 기운은 네 발밑으로 더 빨리 모인다.",
     ],
     stern: [
       "뜻이 붙으려면 마음만 앞세우지 말고 몸을 먼저 움직여야 한다.",
       "움직여야 할 때 머뭇거리면 들어온 기운도 약해진다.",
+      "지금은 생각보다 실행이 앞서야 길이 열린다.",
+      "움직일 뜻이 왔는데도 미루면 운의 결이 금세 식어 버린다.",
     ],
     warning: [
       "들어오는 기운은 움직이는 사람의 손을 먼저 잡는다.",
       "지금은 주저하는 사이에 운의 문이 닫힐 수 있다.",
+      "늦은 결심은 붙은 기운을 스스로 놓치는 일이 될 수 있다.",
+      "머뭇거림이 길어질수록 오늘의 문도 조용히 닫힐 수 있다.",
     ],
   },
   Hold: {
     gentle: [
       "지금 붙는 뜻은 서두르지 않을 때 선명해진다.",
       "오늘의 신호는 멈춘 자리에서 더 또렷하게 드러난다.",
+      "멈춤을 견디는 사람에게 오늘의 뜻은 더 분명한 얼굴을 보인다.",
+      "조용히 가만히 두는 동안 보이지 않던 결이 한 겹 더 열린다.",
     ],
     stern: [
       "급히 잡으려는 뜻은 흐려지고, 가만히 두는 뜻이 스스로 모습을 드러낸다.",
       "지금은 서두른 판단이 오히려 기운의 결을 해친다.",
+      "잡으려는 손을 늦추지 않으면 오늘의 뜻도 제 모양을 숨긴다.",
+      "빠른 판정은 지금 들어온 기운을 얕게 읽게 만들 수 있다.",
     ],
     warning: [
       "기운은 지금 네가 멈춰 서는 자리에서 먼저 말을 건다.",
       "조급하게 답을 확정하면 들어온 신호를 놓치기 쉽다.",
+      "서두른 확신이 오히려 올바른 징조를 가릴 수 있다.",
+      "판을 읽기도 전에 결론부터 내리면 오늘의 흐름을 놓칠 수 있다.",
     ],
   },
   Release: {
     gentle: [
       "지금 붙는 뜻은 덜어낼 것을 덜어낼 때 드러난다.",
       "오늘의 기운은 비워 낸 자리 위에 새로 앉는다.",
+      "한 가지를 놓는 순간, 다음 뜻이 들어올 자리가 조용히 열린다.",
+      "비워 낸 자리에서 오늘의 기운은 가장 선명하게 제 모양을 드러낸다.",
     ],
     stern: [
       "끝난 것을 놓아야 다음 뜻이 네 앞에 선다.",
       "쥐고 있는 것을 풀지 않으면 새 기운도 머물지 못한다.",
+      "버리지 못한 결이 남아 있으면 새 뜻도 네 자리에 들어오지 못한다.",
+      "잡고 있는 것을 놓지 않으면 오늘의 운도 제 힘을 못 쓴다.",
     ],
     warning: [
       "쥐고 있는 것을 풀어야 보이지 않던 흐름이 드러난다.",
       "버릴 것을 끌고 가면 오늘의 운도 함께 무거워진다.",
+      "끝난 기운을 오래 품으면 새 길도 함께 묶이게 된다.",
+      "오늘은 정리하지 않은 것이 가장 큰 막힘이 될 수 있다.",
     ],
   },
 };
 
 const shinjeomCardLines = {
+  "new-beginning": {
+    gentle: ["새 문턱 앞에 선 뜻이 이미 네 쪽으로 기울고 있다."],
+    stern: ["처음의 두려움보다 시작의 뜻이 더 크게 와 있는 때다."],
+    warning: ["첫걸음을 늦추면 오늘의 새 기운도 금세 멀어질 수 있다."],
+  },
+  manifestation: {
+    gentle: ["마음에 있던 뜻을 바깥으로 끌어낼 힘이 조용히 모이고 있다."],
+    stern: ["생각만 품지 말고 손에 쥔 재료를 실제 움직임으로 바꿔야 한다."],
+    warning: ["힘이 있다고 아무 방향으로나 쓰면 오히려 뜻이 흐려질 수 있다."],
+  },
+  intuition: {
+    gentle: ["겉으로 드러난 말보다 안쪽 감각이 오늘의 뜻에 더 가깝다."],
+    stern: ["겉의 소음에 마음을 내주면 진짜 신호를 듣기 어렵다."],
+    warning: ["분명치 않은 기운을 억지 해석하면 오히려 길을 비껴갈 수 있다."],
+  },
+  abundance: {
+    gentle: ["풍성하게 모이는 기운이 있어 마음과 자리 둘 다 넉넉해질 수 있다."],
+    stern: ["받는 기운이 큰 만큼 흩뜨리지 않고 지켜야 할 질서도 함께 세워야 한다."],
+    warning: ["풍요의 기운이 와도 안일해지면 운의 결이 쉽게 무뎌질 수 있다."],
+  },
+  structure: {
+    gentle: ["흩어진 뜻을 바로 세우면 오늘의 기운도 제자리를 찾는다."],
+    stern: ["질서를 세우지 않으면 좋은 기운도 오래 머물지 못한다."],
+    warning: ["기준 없는 움직임은 들어온 운까지 소모하게 만들 수 있다."],
+  },
+  tradition: {
+    gentle: ["익숙한 방식과 오래된 지혜 안에 오늘의 답이 숨어 있을 수 있다."],
+    stern: ["검증된 길을 무시하면 괜한 시행착오만 늘어날 수 있다."],
+    warning: ["남의 기준에만 기대면 정작 너에게 맞는 뜻을 놓칠 수 있다."],
+  },
+  connection: {
+    gentle: ["사람과 사람 사이의 결이 오늘의 뜻을 가장 먼저 드러낸다."],
+    stern: ["마음이 기우는 방향을 외면하면 다른 길도 함께 흐려질 수 있다."],
+    warning: ["끌림이 크다고 해서 다 맞는 연은 아니니 결을 끝까지 살펴야 한다."],
+  },
+  momentum: {
+    gentle: ["움직임이 붙은 뜻은 더 큰 흐름으로 이어질 힘을 품고 있다."],
+    stern: ["흩어진 힘을 한 방향으로 묶지 않으면 오늘의 운도 쉽게 새어 나간다."],
+    warning: ["속도만 앞세우면 붙은 기운도 제 방향을 잃을 수 있다."],
+  },
+  "gentle-power": {
+    gentle: ["부드럽게 다루는 힘 안에 오늘의 뜻이 더 크게 숨 쉬고 있다."],
+    stern: ["세게 누르는 것보다 오래 견디는 힘이 오늘의 판을 살린다."],
+    warning: ["억누른 감정이 커지면 기운도 거친 방향으로 흔들릴 수 있다."],
+  },
   pause: {
     gentle: ["지금 네 앞의 뜻은 멈춤 속에서 더 또렷해진다."],
     stern: ["서두르지 말라는 뜻이 먼저 와 있다."],
@@ -322,6 +405,16 @@ const shinjeomCardLines = {
     gentle: ["안쪽으로 물러선 자리에서 오히려 답이 먼저 선다."],
     stern: ["밖을 보기보다 안쪽 불빛을 먼저 따라가야 하는 때다."],
     warning: ["바깥 소란에 휩쓸리면 정작 받아야 할 뜻을 놓친다."],
+  },
+  "turning-point": {
+    gentle: ["판이 돌기 시작한 기운이 있어 뜻도 예상 밖의 자리를 향해 움직일 수 있다."],
+    stern: ["변화의 바퀴가 이미 움직였으니 예전 자리만 붙들어선 안 된다."],
+    warning: ["흐름이 도는 날일수록 중심을 놓치면 기복도 크게 흔들릴 수 있다."],
+  },
+  balance: {
+    gentle: ["치우친 것을 바로잡으려는 뜻이 오늘의 기운 안에 들어와 있다."],
+    stern: ["마음과 현실의 저울이 맞지 않으면 좋은 운도 오래 버티지 못한다."],
+    warning: ["한쪽으로만 기울면 오늘의 답도 쉽게 빗나갈 수 있다."],
   },
   clarity: {
     gentle: ["지금 네 앞의 뜻은 흐려진 마음을 다시 밝히려는 데 있다."],
@@ -338,10 +431,35 @@ const shinjeomCardLines = {
     stern: ["마침내 끊어야 할 것을 끊으라는 신호가 선다."],
     warning: ["끝난 것을 붙드는 동안 새 뜻은 문밖에 머문다."],
   },
+  integration: {
+    gentle: ["서로 다른 결을 섞어 맞추는 자리에 오늘의 뜻이 놓여 있다."],
+    stern: ["조율 없이 한쪽만 밀면 들어온 기운도 제 모습을 잃는다."],
+    warning: ["섞여야 할 것을 억지로 갈라 두면 판이 더 오래 흔들릴 수 있다."],
+  },
+  attachment: {
+    gentle: ["강하게 끌리는 마음 속에 오늘 풀어야 할 실마리가 함께 숨어 있다."],
+    stern: ["놓지 못하는 마음을 보지 않으면 기운도 같은 자리를 맴돌 수 있다."],
+    warning: ["집착이 커질수록 들어온 뜻도 네 눈앞에서 왜곡될 수 있다."],
+  },
+  disruption: {
+    gentle: ["흔들림 속에서 가려졌던 진짜 뜻이 드러날 수 있다."],
+    stern: ["무너지는 기운은 끝이 아니라 본모습을 보라는 뜻일 수 있다."],
+    warning: ["갑작스러운 흔들림에 겁부터 내면 오히려 필요한 신호를 놓칠 수 있다."],
+  },
   ambiguity: {
     gentle: ["지금은 보이는 것보다 감지되는 기운을 더 살펴야 한다."],
     stern: ["뜻은 와 있으나, 아직 얼굴을 다 드러내지 않았다."],
     warning: ["흐린 날의 확신은 종종 잘못된 길을 더 빨리 걷게 만든다."],
+  },
+  awakening: {
+    gentle: ["잊고 있던 뜻이 다시 네 안에서 깨어나려 한다."],
+    stern: ["미루어 둔 결론을 이제는 분명히 들어야 할 때가 왔다."],
+    warning: ["부르는 뜻을 외면하면 같은 질문이 더 크게 되돌아올 수 있다."],
+  },
+  completion: {
+    gentle: ["하나의 흐름이 완성되며 다음 문으로 넘어갈 준비가 되어 있다."],
+    stern: ["끝맺음을 미루지 말아야 다음 뜻도 자연스럽게 이어진다."],
+    warning: ["완성된 것을 끝내 닫지 않으면 새 운도 문턱에서 머뭇거릴 수 있다."],
   },
 };
 
@@ -349,14 +467,20 @@ const shinjeomBridgeLines = {
   gentle: [
     "겉의 소란보다 안쪽의 감각이 먼저 답을 알고 있다.",
     "지금은 크고 화려한 답보다 맞는 결을 찾는 것이 중요하다.",
+    "서두르지 않는 마음이 오늘의 뜻을 가장 또렷하게 붙들 수 있다.",
+    "지금은 보이는 답보다 몸이 먼저 알아차리는 흐름을 살피는 편이 좋다.",
   ],
   stern: [
     "작은 신호를 가볍게 넘기지 말아야 뜻이 이어진다.",
     "지금의 기운은 억지보다 정렬에 더 크게 반응한다.",
+    "마음이 흐트러진 채로는 들어온 신호도 제 뜻을 다 전하지 못한다.",
+    "오늘의 뜻은 서두른 결론보다 단단한 기준을 먼저 요구한다.",
   ],
   warning: [
     "지나치게 애쓰는 마음이 오히려 기운의 결을 흐릴 수 있다.",
     "흐름은 이미 움직이고 있으니 마음만 늦지 않게 하라.",
+    "조급함이 커질수록 맞는 신호도 틀린 답처럼 보일 수 있다.",
+    "흔들리는 마음으로는 작은 징조도 쉽게 과장되거나 왜곡될 수 있다.",
   ],
 };
 
@@ -365,36 +489,48 @@ const shinjeomDirectionClosers = {
     gentle: [
       "묻기보다 먼저 한 걸음을 내딛되, 허투루 흩어지지 말아야 한다.",
       "먼저 움직이되, 네 중심을 잃지 않는 것이 오늘의 관건이다.",
+      "기운이 열리는 자리로 먼저 가되, 손을 너무 넓게 벌리지는 말아야 한다.",
+      "움직임은 빠르게 가져가되 마음의 중심선은 분명히 세워 두어야 한다.",
     ],
     stern: [
       "움직일 뜻은 이미 왔으니 망설임으로 기운을 흩뜨리지 말아야 한다.",
+      "지금은 고민보다 실행이 앞서야 운의 결도 살아난다.",
     ],
     warning: [
       "주저하는 동안 붙은 기운도 쉽게 흩어질 수 있다.",
+      "타이밍을 놓치면 오늘의 문도 다시 조용히 닫힐 수 있다.",
     ],
   },
   Hold: {
     gentle: [
       "당장 답을 확정하려 하지 말고, 들어오는 기운의 결을 끝까지 살펴야 한다.",
       "서두르지 않고 한 번 더 들여다보는 태도가 뜻을 지켜 준다.",
+      "멈춘 자리에서 흐름을 읽을수록 오늘의 뜻은 더 분명한 방향을 내준다.",
+      "조용히 기다리는 동안 들어온 기운이 스스로 자리를 찾게 해야 한다.",
     ],
     stern: [
       "오늘은 빠른 결론보다 조용한 판별이 더 큰 힘을 가진다.",
+      "성급한 확정보다 한 번 더 가려 보는 태도가 오늘의 기운에 맞는다.",
     ],
     warning: [
       "지금 조급한 확신은 옳은 뜻을 비껴가게 만들 수 있다.",
+      "답을 서둘러 확정하면 아직 오지 않은 신호까지 놓칠 수 있다.",
     ],
   },
   Release: {
     gentle: [
       "붙잡고 있던 뜻 가운데 이미 끝난 것을 놓아야 다음 기운이 붙는다.",
       "정리해야 할 것을 미루지 말아야 새 뜻이 네 자리에 들어온다.",
+      "덜어 낼 것을 분명히 할 때 오늘의 기운도 비로소 가볍게 흐르기 시작한다.",
+      "놓아야 할 마음 하나를 정리하면 다음 문도 더 쉽게 열린다.",
     ],
     stern: [
       "버릴 것을 남겨 두면 기운의 길도 함께 막히게 된다.",
+      "정리하지 않은 채 끌고 가면 새 운도 같은 자리에서 멈춘다.",
     ],
     warning: [
       "놓아야 할 것을 끝내 놓지 않으면 같은 막힘이 되풀이될 수 있다.",
+      "끝난 흐름을 오래 품고 있으면 오늘의 기운도 무겁게 가라앉을 수 있다.",
     ],
   },
 };
@@ -404,36 +540,48 @@ const shinjeomGuidanceByDirection = {
     gentle: [
       "미루던 것 하나를 먼저 움직여 기운의 문을 열 것.",
       "오늘은 시작을 두려워하지 말고 작은 실천으로 흐름을 깨울 것.",
+      "지금 가능한 일 하나를 바로 실행해 운의 손잡이를 먼저 잡을 것.",
+      "생각만 하지 말고 손과 발을 먼저 움직여 판을 열 것.",
     ],
     stern: [
       "가만히 재기만 하지 말고 먼저 손을 내밀어 길을 열 것.",
+      "답을 기다리기보다 먼저 움직여 오늘의 흐름을 깨울 것.",
     ],
     warning: [
       "망설임이 길어지기 전에 지금 가능한 것부터 바로 시작할 것.",
+      "기회가 식기 전에 작더라도 하나는 반드시 움직일 것.",
     ],
   },
   Hold: {
     gentle: [
       "말보다 호흡을 먼저 고르고, 급한 결론을 잠시 늦출 것.",
       "당장 답을 내리기보다 마음과 자리를 먼저 가지런히 할 것.",
+      "반응을 줄이고 오늘 흔들리는 결부터 조용히 가다듬을 것.",
+      "해야 할 말보다 멈춰 둘 말을 먼저 고르며 하루의 결을 고르게 할 것.",
     ],
     stern: [
       "서두르지 말고 오늘은 흔들리는 결부터 바로잡을 것.",
+      "움직임보다 정비를 앞세워 오늘의 기운을 단단히 붙들 것.",
     ],
     warning: [
       "급히 정한 답 하나가 하루 전체의 흐름을 흐릴 수 있으니 멈춰 둘 것.",
+      "지금은 덜 말하고 한 번 더 보는 쪽으로 기운을 아낄 것.",
     ],
   },
   Release: {
     gentle: [
       "낡은 걱정과 어수선한 자리를 먼저 비워 둘 것.",
       "끝난 생각과 흐트러진 자리를 정리해 새 기운이 붙게 할 것.",
+      "쌓인 것 하나를 덜어 내어 오늘의 판을 가볍게 만들 것.",
+      "끝난 감정과 미뤄 둔 정리부터 손대어 새 흐름이 들어오게 할 것.",
     ],
     stern: [
       "쌓인 것 하나를 덜어 내어 오늘의 막힌 기운을 풀 것.",
+      "버릴 것을 남기지 말고 오늘 안에 하나는 분명히 정리할 것.",
     ],
     warning: [
       "미루어 둔 정리를 더 끌지 말고 오늘 안에 하나는 분명히 끝낼 것.",
+      "잡고 있던 것 중 이미 끝난 것은 오늘 선명하게 놓아둘 것.",
     ],
   },
 };
@@ -1252,6 +1400,9 @@ const headlineTemplates = {
     "{focus} 움직임이 답이 되는 날, {trigram}의 기운이 주변을 깨웁니다.",
     "{focus} 머뭇거림을 줄일수록, {trigram}의 기운이 판을 앞으로 밀어 줍니다.",
     "{focus} 먼저 시작하는 쪽이 유리한 날, {trigram}의 기운이 응답을 빠르게 돌려줍니다.",
+    "{focus} 선제적으로 움직일수록, {trigram}의 기운이 막혀 있던 자리를 깨웁니다.",
+    "{focus} 오늘은 먼저 반응하는 쪽이 유리하고, {trigram}의 기운이 그 속도를 밀어 줍니다.",
+    "{focus} 시도 자체가 운을 부르는 날이라, {trigram}의 기운이 출발선에 힘을 보탭니다.",
   ],
   Hold: [
     "{focus} 멈춤 속에서 기준을 세울 때, {trigram}의 기운이 판을 고르게 만듭니다.",
@@ -1259,6 +1410,9 @@ const headlineTemplates = {
     "{focus} 한 번 더 살펴볼 때, {trigram}의 기운이 진짜 결을 드러냅니다.",
     "{focus} 속도를 줄이고 균형을 잡을 때, {trigram}의 기운이 흐트러진 판을 고릅니다.",
     "{focus} 덜 움직여도 더 정확할 수 있는 날, {trigram}의 기운이 기준을 붙잡아 줍니다.",
+    "{focus} 급히 몰아가지 않을수록, {trigram}의 기운이 오늘 판의 본모습을 드러냅니다.",
+    "{focus} 정리와 점검이 우선인 날, {trigram}의 기운이 흐름을 단단하게 묶어 줍니다.",
+    "{focus} 서두른 결론을 늦출수록, {trigram}의 기운이 맞는 타이밍을 보여 줍니다.",
   ],
   Release: [
     "{focus} 덜어낼수록 길이 선명해질 때, {trigram}의 기운이 막힌 자리를 풉니다.",
@@ -1266,6 +1420,9 @@ const headlineTemplates = {
     "{focus} 놓아야 할 것을 놓을 때, {trigram}의 기운이 판을 가볍게 돌립니다.",
     "{focus} 붙잡고 있던 것을 정리할수록, {trigram}의 기운이 다음 자리를 비워 냅니다.",
     "{focus} 끝낼 것을 분명히 할 때, {trigram}의 기운이 새로운 흐름을 조용히 밀어 넣습니다.",
+    "{focus} 정리해야 할 것이 드러나는 날, {trigram}의 기운이 막힌 판을 서서히 풀어 줍니다.",
+    "{focus} 비워 낼수록 더 맞는 길이 살아나고, {trigram}의 기운이 그 자리를 열어 줍니다.",
+    "{focus} 끝난 흐름을 내려둘 때, {trigram}의 기운이 다음 답을 끌어옵니다.",
   ],
 };
 
@@ -1278,6 +1435,12 @@ const compositeSummaryTemplates = [
   "{subfocus} 문제를 붙잡고 뽑은 이번 점괘는 {choice} 카드로 문을 열고, {card}의 중심 해석에 {direction}의 흐름과 {trigram}의 바탕 기운을 포개는 방식으로 읽힙니다.",
   "{focus}의 {subfocus}을 향해 열린 판에서, 첫 선택은 {choice}였고 핵심 상징은 {card}였습니다. 여기에 {direction}의 방향과 {trigram}의 바탕이 더해지며 오늘의 결이 완성됩니다.",
   "{choice}에서 시작한 오늘의 복합 점괘는 {card}의 중심 메시지를 세우고, {direction}의 결론과 {trigram}의 배경을 얹어 {focus}의 {subfocus}을 읽어 줍니다.",
+  "{focus}의 {subfocus}을 비추는 이번 점괘는 {choice}에서 출발해 {card}를 핵심 상징으로 세우고, {direction}의 결론과 {trigram}의 바탕을 함께 읽는 구조입니다.",
+  "{choice}로 연 첫 문 뒤에서 {card}가 중심에 섰고, 오늘의 판은 {direction} 쪽으로 움직이며 {trigram}의 기운이 배경을 받치고 있습니다. 특히 {focus}의 {subfocus}에 무게가 실립니다.",
+  "{focus} 중에서도 {subfocus}을 좁혀 본 이번 리딩은 {choice}가 여는 입구와 {card}의 상징, {direction}의 흐름, {trigram}의 바탕이 겹쳐 만들어졌습니다.",
+  "{choice}가 먼저 기운을 열고 {card}가 중심 뜻을 세운 가운데, {direction}과 {trigram}이 오늘 판의 성질을 결정하며 {focus}의 {subfocus}을 더 선명하게 보여 줍니다.",
+  "{focus}의 {subfocus} 문제를 두고 본 오늘의 복합 점괘는 {choice}의 첫 손길 이후 {card}를 중심으로 모이고, {direction}과 {trigram}이 결을 나누어 설명합니다.",
+  "오늘 판은 {choice}의 선택에서 시작해 {card}의 메시지를 중심으로 세워졌고, {direction}의 방향성과 {trigram}의 기운이 겹치며 {focus}의 {subfocus}을 드러내고 있습니다.",
 ];
 
 const interpretationToneVariants = {
@@ -1313,21 +1476,163 @@ const fallbackScoreInsightLines = {
     "{direction} {oracle}",
     "{trigramTheme} 전체 판은 너무 크게 흔들기보다 결을 맞출수록 살아납니다.",
     "{directionAdvice} 오늘 전체 흐름은 리듬을 맞출수록 더 안정됩니다.",
+    "{oracle} 지금 전체 판은 서두른 반응보다 맞는 순서를 세우는 쪽에 더 우호적입니다.",
+    "{trigramTheme} 오늘 전체 흐름은 큰 승부보다 안정된 결을 오래 밀어 줍니다.",
   ],
   love: [
     "{positive}의 결이 관계 쪽에 스미며, 감정 해석은 조금 덜어낼수록 좋습니다.",
     "{trigramAdvice} 관계와 감정에서는 작은 신호를 과장하지 않는 편이 유리합니다.",
     "{directionSummary} 마음은 올라와도 표현의 속도는 한 박자 고르는 편이 좋습니다.",
+    "{oracle} 관계에서는 감정의 세기보다 반응의 온도가 더 중요하게 작동합니다.",
+    "{trigramTheme} 연애와 감정은 오늘 말의 크기보다 분위기의 결에서 차이가 납니다.",
   ],
   work: [
     "{directionAdvice} {trigramAdvice}",
     "{positive}의 장점이 집중과 일 쪽으로 실리므로 한 번 정한 방향을 밀어 주는 편이 좋습니다.",
     "{directionSummary} 일과 실행에서는 넓히기보다 핵심을 세우는 쪽이 더 강합니다.",
+    "{oracle} 일의 흐름은 양보다 정리된 우선순위에서 더 선명해질 수 있습니다.",
+    "{trigramTheme} 오늘 일과 실행은 반응 속도보다 방향을 맞추는 힘이 더 중요합니다.",
   ],
   money: [
     "지출과 판단은 빠르게 움직이기보다 기준을 먼저 세우는 쪽이 유리합니다.",
     "{trigramTheme} 돈 문제는 감각보다 원칙을 먼저 세울수록 흐름이 안정됩니다.",
     "{directionCaution} 금전 쪽에서는 특히 작은 판단을 거칠게 넘기지 않는 편이 좋습니다.",
+    "{oracle} 돈은 크게 움직이는 판단보다 작은 기준을 지키는 태도에서 먼저 안정됩니다.",
+    "{trigramTheme} 오늘 금전 흐름은 감정 반응보다 현실 감각을 앞세울수록 나아집니다.",
+  ],
+};
+
+const focusPreludeVariants = {
+  overall: [
+    "오늘 판을 넓게 읽으면 한 가지 사건보다 전체 리듬이 먼저 드러납니다.",
+    "전반 운은 작은 변수보다 큰 흐름을 먼저 붙들 때 더 정확하게 읽힙니다.",
+    "오늘은 하나의 장면보다 판 전체의 결이 결과를 더 크게 좌우할 수 있습니다.",
+  ],
+  love: [
+    "연애와 감정의 흐름은 말보다 거리와 반응의 온도에서 먼저 드러납니다.",
+    "관계운은 확답보다 서로 주고받는 결의 안정감에서 차이가 납니다.",
+    "사람 마음이 얽히는 날일수록 감정보다 흐름의 간격을 보는 편이 맞습니다.",
+  ],
+  money: [
+    "금전운은 돈의 크기보다 판단의 질과 기준 유지에서 먼저 갈립니다.",
+    "돈의 흐름은 들어오고 나가는 속도보다 어떤 원칙으로 다루는지가 더 중요합니다.",
+    "오늘 금전 문제는 기회보다 관리 감각에서 먼저 판이 갈릴 수 있습니다.",
+  ],
+  health: [
+    "건강운은 큰 고저보다 리듬과 회복의 균형에서 더 선명하게 드러납니다.",
+    "몸의 흐름은 단번에 좋아지기보다 생활 리듬을 어떻게 유지하느냐에 더 크게 반응합니다.",
+    "컨디션 문제는 순간 체력보다 쌓인 긴장과 회복 여유에서 먼저 갈립니다.",
+  ],
+  work: [
+    "일과 사업운은 능력 하나보다 흐름을 읽고 맞추는 힘에서 차이가 납니다.",
+    "성과운은 속도만으로 밀리기보다 타이밍과 구조가 맞을 때 더 크게 살아납니다.",
+    "일의 판은 잘하는 것보다 어디에 힘을 모을지 정확히 고르는 태도에서 달라집니다.",
+  ],
+};
+
+const interpretationAfterglow = {
+  overall: [
+    "오늘은 크게 흔들기보다 판의 중심을 지키는 사람이 끝에서 더 편안해질 가능성이 큽니다.",
+    "작은 선택이 쌓여 하루 전체의 결을 만들 수 있으니 태도를 가볍게 보지 않는 편이 좋습니다.",
+    "한쪽에 몰입하기보다 흐름 전체를 보고 움직이는 사람이 오늘 운을 더 잘 읽게 됩니다.",
+  ],
+  love: [
+    "연애 쪽에서는 강한 확정보다 안정된 반응이 훨씬 오래가는 결과를 만들 수 있습니다.",
+    "관계는 오늘 말의 크기보다 마음을 다루는 방식에서 더 큰 차이를 보일 수 있습니다.",
+    "감정운이 흔들리더라도 결을 잃지 않으면 관계는 생각보다 부드럽게 이어질 수 있습니다.",
+  ],
+  money: [
+    "돈 문제는 오늘 크게 벌리기보다 기준 하나를 정확히 세우는 쪽이 더 오래 남습니다.",
+    "금전운은 즉각적인 만족보다 후회 없는 판단 쪽으로 기울 가능성이 큽니다.",
+    "판단의 속도를 줄이는 것만으로도 금전 흐름이 한결 안정될 수 있습니다.",
+  ],
+  health: [
+    "몸은 오늘 무리보다 회복에 더 솔직하게 반응할 가능성이 큽니다.",
+    "컨디션은 버티는 힘보다 적절히 쉬어 가는 감각이 있을 때 더 고르게 유지됩니다.",
+    "오늘 건강운은 강함보다 균형을 지키는 사람에게 더 우호적입니다.",
+  ],
+  work: [
+    "일의 결과는 오늘 얼마나 많이 하느냐보다 얼마나 정확히 힘을 모으느냐에 달릴 수 있습니다.",
+    "성과운은 넓게 손대는 것보다 잘되는 축을 붙드는 쪽에서 더 선명해질 수 있습니다.",
+    "일·사업운은 무리한 확장보다 중심을 지키는 사람에게 더 실질적으로 붙을 가능성이 큽니다.",
+  ],
+};
+
+const directionFutureHints = {
+  Rise: [
+    "흐름을 잘 타면 가까운 시일 안에 답답했던 구간이 먼저 풀릴 수 있습니다.",
+    "먼저 움직인 자리에서 의외로 빠른 응답이나 반응이 돌아올 가능성이 있습니다.",
+    "시작운이 붙으면 며칠 안에 판이 생각보다 빨리 움직일 수 있습니다.",
+  ],
+  Hold: [
+    "지금 흐름을 잘 다루면 가까운 시일 안에 더 분명한 판단 근거가 생길 수 있습니다.",
+    "서두르지 않을수록 며칠 안에 애매했던 부분이 스스로 정리될 가능성이 큽니다.",
+    "유지운을 잘 쓰면 급한 반응 없이도 판이 안정되며 길이 드러날 수 있습니다.",
+  ],
+  Release: [
+    "정리할 것을 분명히 하면 가까운 시일 안에 막혔던 자리가 가볍게 풀릴 수 있습니다.",
+    "놓아야 할 것을 놓는 순간 생각보다 빨리 새 흐름이 들어올 가능성이 있습니다.",
+    "덜어내는 선택을 잘하면 며칠 안에 무거웠던 판이 바뀌기 시작할 수 있습니다.",
+  ],
+};
+
+const scoreLevelNuances = {
+  5: [
+    "강하게 붙은 영역이라 오늘의 선택이 체감으로 빨리 돌아올 수 있습니다.",
+    "기운이 실리는 자리라 조금만 잘 다뤄도 만족감이 크게 느껴질 수 있습니다.",
+  ],
+  4: [
+    "안정적으로 밀리는 흐름이라 조급하지만 않으면 좋은 결과를 만들기 쉽습니다.",
+    "판이 비교적 고르게 받쳐 주는 자리라 무리만 줄이면 흐름이 편안합니다.",
+  ],
+  3: [
+    "무난한 흐름이라 과하게 해석하지 않을수록 실속을 챙기기 쉽습니다.",
+    "크게 흔들리진 않지만 태도에 따라 체감이 갈릴 수 있는 영역입니다.",
+  ],
+  2: [
+    "예민한 자리라 작은 판단 하나가 체감에 크게 번질 수 있습니다.",
+    "조금만 무리해도 피로가 빠르게 쌓일 수 있으니 결을 부드럽게 다루는 편이 좋습니다.",
+  ],
+  1: [
+    "민감도가 높은 구간이라 급한 확신과 과한 반응은 특히 피하는 편이 좋습니다.",
+    "지금은 지키는 선택이 더 유리한 자리일 수 있으니 힘을 과하게 싣지 않는 편이 맞습니다.",
+  ],
+};
+
+const weakestAxisWarnings = {
+  overall: [
+    "전체 판을 좁게 읽으면 다른 영역까지 함께 흔들릴 수 있습니다.",
+    "전반 흐름이 약한 날엔 한 장면만 보고 전체를 단정하지 않는 편이 좋습니다.",
+  ],
+  love: [
+    "관계와 감정 쪽은 특히 작은 신호를 크게 키우지 않는 편이 좋습니다.",
+    "마음이 먼저 앞서면 관계의 실제 거리감과 어긋날 수 있습니다.",
+  ],
+  work: [
+    "일과 실행 쪽은 속도보다 기준을 먼저 세워야 흔들림이 줄어듭니다.",
+    "성과를 서두르면 본래 하던 흐름도 쉽게 꼬일 수 있습니다.",
+  ],
+  money: [
+    "돈과 현실 영역은 충동 판단 하나가 길게 남을 수 있으니 특히 조심하는 편이 좋습니다.",
+    "작은 금전 선택을 가볍게 넘기면 생각보다 크게 번질 수 있습니다.",
+  ],
+};
+
+const shinjeomAftertones = {
+  gentle: [
+    "오늘의 뜻은 세게 밀지 않아도 맞는 자리로 조용히 모일 수 있다.",
+    "조용히 지키는 태도 안에서 오늘의 기운은 더 또렷해질 수 있다.",
+    "억지 없는 태도가 오히려 오늘 뜻을 더 깊게 살린다.",
+  ],
+  stern: [
+    "흐트러진 기준을 오래 두지 않을수록 오늘의 뜻도 분명히 선다.",
+    "정리된 마음만이 들어온 기운을 바르게 붙들 수 있다.",
+    "오늘의 운은 분명한 기준 위에서 더 오래 힘을 낸다.",
+  ],
+  warning: [
+    "지나친 해석과 조급한 확신만 줄여도 오늘의 길은 한결 선명해질 수 있다.",
+    "기운보다 마음이 먼저 흔들리면 맞는 답도 어긋나기 쉬운 날이다.",
+    "급한 판단이야말로 오늘의 뜻을 가장 쉽게 빗나가게 만든다.",
   ],
 };
 
@@ -1682,56 +1987,95 @@ function buildCompositeSummary(choice, focus, subfocus, card, direction, trigram
 
 function buildInterpretation(card, direction, trigram, focus, subfocus) {
   const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
+  const focusPrelude = sampleNonRepeating(`focus-prelude-${focus.key}`, focusPreludeVariants[focus.key]);
   const subfocusLine = sampleNonRepeating(
     `subfocus-interpret-${focus.label}-${subfocus.key}`,
     flavor.interpretation,
   );
   const toneLine = sampleNonRepeating(`tone-line-${card.tone}`, interpretationToneVariants[card.tone]);
+  const afterglow = sampleNonRepeating(
+    `interpret-afterglow-${focus.key}`,
+    interpretationAfterglow[focus.key],
+  );
   const structure = sampleNonRepeating(
     `interpret-structure-${focus.key}-${subfocus.key}`,
-    ["focus-first", "card-first", "flow-first", "context-first"],
+    ["focus-first", "card-first", "flow-first", "context-first", "prelude-first", "focus-card"],
   );
+
+  if (structure === "prelude-first") {
+    return [
+      focusPrelude,
+      `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
+      subfocusLine,
+      `메인 카드는 ${card.summary}`,
+      `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
+      `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
+      toneLine,
+      afterglow,
+    ].join(" ");
+  }
 
   if (structure === "card-first") {
     return [
+      focusPrelude,
       `메인 카드는 ${card.summary}`,
       `${focus.label} 가운데 ${subfocus.label}을 중심으로 보면 ${subfocus.summary}`,
       subfocusLine,
       `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
       `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
       toneLine,
+      afterglow,
     ].join(" ");
   }
 
   if (structure === "flow-first") {
     return [
+      focusPrelude,
       `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
       `${trigram.label}의 기운이 바닥에 깔려 ${trigram.theme}`,
       `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
       subfocusLine,
       `메인 카드는 ${card.summary}`,
       toneLine,
+      afterglow,
     ].join(" ");
   }
 
   if (structure === "context-first") {
     return [
+      focusPrelude,
       `${focus.label}에서 지금 더 가까이 봐야 할 쪽은 ${subfocus.label}이며, ${subfocus.summary}`,
       `${trigram.label}의 기운은 ${trigram.theme}`,
       subfocusLine,
       `메인 카드는 ${card.summary}`,
       `전체 방향은 ${direction.label}이라 ${direction.summary}`,
       toneLine,
+      afterglow,
+    ].join(" ");
+  }
+
+  if (structure === "focus-card") {
+    return [
+      focusPrelude,
+      `${focus.label} 안에서 ${subfocus.label}은 ${subfocus.summary}`,
+      `메인 카드는 ${card.summary}`,
+      subfocusLine,
+      `${trigram.label}의 기운은 ${trigram.theme}`,
+      `전체 방향은 ${direction.label}이라 ${direction.summary}`,
+      toneLine,
+      afterglow,
     ].join(" ");
   }
 
   return [
+    focusPrelude,
     `${focus.label} 중에서도 ${subfocus.label} 쪽으로 보면 ${subfocus.summary}`,
     subfocusLine,
     `메인 카드는 ${card.summary}`,
     `오늘의 방향은 ${direction.label}이라 ${direction.summary}`,
     `${trigram.label}의 기운이 깔려 ${trigram.theme}`,
     toneLine,
+    afterglow,
   ].join(" ");
 }
 
@@ -1746,18 +2090,23 @@ function buildAdvice(direction, trigram, scores, focus, subfocus) {
   );
   const structure = sampleNonRepeating(
     `advice-structure-${focus.key}-${subfocus.key}`,
-    ["subfocus-first", "direction-first", "strongest-first"],
+    ["subfocus-first", "direction-first", "strongest-first", "future-first"],
   );
+  const futureHint = sampleNonRepeating(`future-hint-${direction.name}`, directionFutureHints[direction.name]);
 
   if (structure === "direction-first") {
-    return `${direction.advice} ${trigram.advice} ${subfocusAdvice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+    return `${direction.advice} ${trigram.advice} ${subfocusAdvice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
   }
 
   if (structure === "strongest-first") {
-    return `오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${subfocusAdvice} ${direction.advice} ${trigram.advice}`;
+    return `오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${subfocusAdvice} ${direction.advice} ${trigram.advice} ${futureHint}`;
   }
 
-  return `${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+  if (structure === "future-first") {
+    return `${futureHint} ${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+  }
+
+  return `${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
 }
 
 function buildCaution(card, direction, scores, focus, subfocus) {
@@ -1771,18 +2120,26 @@ function buildCaution(card, direction, scores, focus, subfocus) {
   );
   const structure = sampleNonRepeating(
     `caution-structure-${focus.key}-${subfocus.key}`,
-    ["subfocus-first", "shadow-first", "weakest-first"],
+    ["subfocus-first", "shadow-first", "weakest-first", "axis-first"],
+  );
+  const weakestAxisWarning = sampleNonRepeating(
+    `weakest-axis-${weakest.key}`,
+    weakestAxisWarnings[weakest.key],
   );
 
   if (structure === "shadow-first") {
-    return `${card.shadow}. ${direction.caution} ${subfocusCaution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+    return `${card.shadow}. ${direction.caution} ${subfocusCaution} ${weakestAxisWarning} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
   }
 
   if (structure === "weakest-first") {
-    return `특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다. ${subfocusCaution} ${card.shadow}. ${direction.caution}`;
+    return `특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다. ${weakestAxisWarning} ${subfocusCaution} ${card.shadow}. ${direction.caution}`;
   }
 
-  return `${subfocusCaution} ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+  if (structure === "axis-first") {
+    return `${weakestAxisWarning} ${subfocusCaution} ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+  }
+
+  return `${subfocusCaution} ${card.shadow}. ${direction.caution} ${weakestAxisWarning} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
 }
 
 function buildScoreInsightLine(key, score, draw) {
@@ -1794,13 +2151,14 @@ function buildScoreInsightLine(key, score, draw) {
     1: "조심스럽게",
   };
   const level = levelMap[score] ?? "복합적으로";
+  const nuance = sampleNonRepeating(`score-nuance-${score}`, scoreLevelNuances[score]);
   const focusedLines =
     subfocusScoreLines[draw.focus.key]?.[draw.subfocus.key]?.[key] ?? null;
   if (focusedLines?.length) {
     return `${level} 흐릅니다. ${sampleNonRepeating(
       `score-line-${draw.focus.key}-${draw.subfocus.key}-${key}`,
       focusedLines,
-    )}`;
+    )} ${nuance}`;
   }
   const fallbackTemplate = sampleNonRepeating(
     `score-fallback-${key}`,
@@ -1815,17 +2173,16 @@ function buildScoreInsightLine(key, score, draw) {
     .replaceAll("{trigramAdvice}", draw.trigram.advice)
     .replaceAll("{oracle}", draw.oracle)
     .replaceAll("{positive}", draw.card.positive);
-
   if (key === "love") {
-    return `${level} 반응합니다. ${line}`;
+    return `${level} 반응합니다. ${line} ${nuance}`;
   }
   if (key === "work") {
-    return `${level} 힘이 실립니다. ${line}`;
+    return `${level} 힘이 실립니다. ${line} ${nuance}`;
   }
   if (key === "money") {
-    return `${level} 작동합니다. ${line}`;
+    return `${level} 작동합니다. ${line} ${nuance}`;
   }
-  return `${level} 흐릅니다. ${line}`;
+  return `${level} 흐릅니다. ${line} ${nuance}`;
 }
 
 function buildScoreInsights(draw) {
@@ -1914,21 +2271,28 @@ function buildShinjeomDeepMessage(card, direction, oracle, tone) {
     `shinjeom-closer-${direction.name}-${tone}`,
     shinjeomDirectionClosers[direction.name][tone],
   );
+  const aftertone = sampleNonRepeating(`shinjeom-aftertone-${tone}`, shinjeomAftertones[tone]);
   const structure = sampleNonRepeating(
     `shinjeom-deep-structure-${direction.name}-${tone}`,
-    ["card-oracle", "oracle-card", "card-bridge", "oracle-bridge"],
+    ["card-oracle", "oracle-card", "card-bridge", "oracle-bridge", "aftertone-last", "bridge-first"],
   );
 
   if (structure === "oracle-card") {
-    return `${oracle} ${card.summary} ${bridge} ${closer}`;
+    return `${oracle} ${card.summary} ${bridge} ${closer} ${aftertone}`;
   }
   if (structure === "card-bridge") {
-    return `${card.summary} ${bridge} ${oracle} ${closer}`;
+    return `${card.summary} ${bridge} ${oracle} ${closer} ${aftertone}`;
   }
   if (structure === "oracle-bridge") {
-    return `${oracle} ${bridge} ${card.summary} ${closer}`;
+    return `${oracle} ${bridge} ${card.summary} ${closer} ${aftertone}`;
   }
-  return `${card.summary} ${oracle} ${bridge} ${closer}`;
+  if (structure === "aftertone-last") {
+    return `${card.summary} ${oracle} ${bridge} ${closer} ${aftertone}`;
+  }
+  if (structure === "bridge-first") {
+    return `${bridge} ${card.summary} ${oracle} ${closer} ${aftertone}`;
+  }
+  return `${card.summary} ${oracle} ${bridge} ${closer} ${aftertone}`;
 }
 
 function buildShinjeomGuidance(direction, trigram, tone) {
