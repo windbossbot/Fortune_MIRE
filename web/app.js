@@ -586,6 +586,60 @@ const shinjeomGuidanceByDirection = {
   },
 };
 
+const shinjeomCoreStrikes = {
+  Rise: {
+    gentle: [
+      "작게라도 먼저 움직여 흐름을 확인하라.",
+      "문이 열릴 때는 망설임보다 첫 실행이 먼저다.",
+      "오늘은 가볍게 시작하는 쪽이 운을 붙든다.",
+    ],
+    stern: [
+      "생각만 쌓지 말고 지금 가능한 것부터 실행하라.",
+      "뜻이 왔다면 몸이 먼저 반응해야 한다.",
+      "미루는 사이 운의 타이밍도 함께 식는다.",
+    ],
+    warning: [
+      "늦은 결심은 붙은 운도 놓치게 만든다.",
+      "주저하는 동안 네 자리는 다른 흐름이 가져간다.",
+      "지금은 망설임이 가장 큰 손실이 될 수 있다.",
+    ],
+  },
+  Hold: {
+    gentle: [
+      "지금은 잡기보다 가려 보는 쪽이 맞다.",
+      "답을 늦추는 것이 오히려 판을 살린다.",
+      "한 번 더 들여다본 뒤 움직여도 늦지 않다.",
+    ],
+    stern: [
+      "조급한 확신을 거두고 기준부터 세워라.",
+      "성급한 판단 하나가 오늘 판 전체를 흐린다.",
+      "지금은 멈춤이 아니라 판별의 시간이다.",
+    ],
+    warning: [
+      "서둘러 쥔 답은 틀릴 가능성이 더 크다.",
+      "급히 결론 내리면 들어온 신호부터 놓친다.",
+      "조급함이 오늘의 운을 가장 빨리 흐린다.",
+    ],
+  },
+  Release: {
+    gentle: [
+      "덜어내야 길이 선명해진다.",
+      "비울 것을 비워야 다음 답이 들어온다.",
+      "지금은 더하는 손보다 정리하는 손이 강하다.",
+    ],
+    stern: [
+      "남길 것과 버릴 것을 오늘 안에 가려라.",
+      "끝난 것을 붙들면 새 운도 함께 묶인다.",
+      "정리하지 않은 미련이 오늘의 판을 막는다.",
+    ],
+    warning: [
+      "쥔 것을 놓지 않으면 같은 막힘이 반복된다.",
+      "끝난 흐름을 끌고 가면 오늘 운도 무거워진다.",
+      "정리 미룸이 오늘의 가장 큰 손실이 될 수 있다.",
+    ],
+  },
+};
+
 const scoreLabelSets = {
   overall: [
     { key: "overall", label: "전체 흐름" },
@@ -3125,29 +3179,28 @@ function buildShinjeomLine(card, direction, choice, focus, subfocus) {
   const basePool = cardSpecific
     ? cardSpecific[tone] ?? cardSpecific.gentle
     : shinjeomOpenings[direction.name][tone];
-  const opening = sampleNonRepeating(
+  const baseLine = sampleNonRepeating(
     `shinjeom-opening-${direction.name}-${card.energy}-${tone}`,
     basePool,
   );
-  const echo = sampleNonRepeating(`shinjeom-echo-${tone}`, shinjeomToneEchoes[tone]);
+  const strike = sampleNonRepeating(
+    `shinjeom-strike-${direction.name}-${tone}`,
+    shinjeomCoreStrikes[direction.name][tone],
+  );
   const topic = getTopicInfusion(focus.key, subfocus.key);
   const topicalLine = topic.shinjeomLine.length
     ? sampleNonRepeating(`shinjeom-topic-line-${focus.key}-${subfocus.key}`, topic.shinjeomLine)
     : "";
   const structure = sampleNonRepeating(
     `shinjeom-line-structure-${focus.key}-${subfocus.key}-${tone}`,
-    ["opening-first", "topic-first", "opening-topic"],
+    topicalLine ? ["topic-strike", "base-strike", "topic-base"] : ["base-strike"],
   );
 
-  let text = `${opening} ${echo}`;
-  if (topicalLine) {
-    if (structure === "topic-first") {
-      text = `${topicalLine} ${opening} ${echo}`;
-    } else if (structure === "opening-topic") {
-      text = `${opening} ${topicalLine} ${echo}`;
-    } else {
-      text = `${opening} ${echo} ${topicalLine}`;
-    }
+  let text = `${baseLine} ${strike}`;
+  if (topicalLine && structure === "topic-strike") {
+    text = `${topicalLine} ${strike}`;
+  } else if (topicalLine && structure === "topic-base") {
+    text = `${topicalLine} ${baseLine}`;
   }
 
   return {

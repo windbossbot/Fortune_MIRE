@@ -899,6 +899,9 @@ body.is-drawing .orb-ring-b {
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   margin-top: 0.15rem;
   margin-bottom: 0.8rem;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  max-width: 28ch;
 }
 
 textarea {
