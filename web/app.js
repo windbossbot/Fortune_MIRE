@@ -811,8 +811,8 @@ const subfocusFlavor = {
     general: {
       scoreBias: { overall: 1 },
       interpretation: [
-        "판 전체를 읽을 때는 한 가지 사건보다 하루의 결이 더 중요합니다.",
-        "전반 운을 볼 때는 작은 변수보다 흐름 전체의 방향을 먼저 잡는 편이 맞습니다.",
+        "작은 사건보다 하루 전체의 결이 먼저 분위기를 움직입니다.",
+        "전반 흐름은 잔변수보다 큰 방향이 어떻게 기우는지에서 갈립니다.",
         "오늘은 세부 사건보다 전체 리듬이 먼저 결과를 좌우합니다.",
       ],
       advice: [
@@ -2179,26 +2179,26 @@ function getFallbackScoreInsightTemplates(focusKey, axisKey) {
   return focusedFallbackScoreInsightLines[focusKey]?.[axisKey] ?? fallbackScoreInsightLines[axisKey];
 }
 
-const focusPreludeVariants = {
+const focusInterpretationAnchors = {
   overall: [
-    "오늘 판을 넓게 읽으면 한 가지 사건보다 전체 리듬이 먼저 드러납니다.",
-    "전반 운은 작은 변수보다 큰 흐름을 먼저 붙들 때 더 정확하게 읽힙니다.",
-    "오늘은 하나의 장면보다 판 전체의 결이 결과를 더 크게 좌우할 수 있습니다.",
+    "오늘 전체운은 한 가지 사건보다 판 전체의 결이 먼저 분위기를 끌고 갑니다.",
+    "전반 흐름은 작은 변수보다 하루 전체 리듬에서 먼저 갈립니다.",
+    "오늘 판의 힘은 부분 장면보다 큰 흐름을 어떻게 타느냐에 더 크게 실립니다.",
   ],
   love: [
-    "연애와 감정의 흐름은 말보다 거리와 반응의 온도에서 먼저 드러납니다.",
-    "관계운은 확답보다 서로 주고받는 결의 안정감에서 차이가 납니다.",
-    "사람 마음이 얽히는 날일수록 감정보다 흐름의 간격을 보는 편이 맞습니다.",
+    "연애운은 말보다 거리감과 반응의 온도에서 먼저 차이가 납니다.",
+    "관계의 결은 확답보다 주고받는 리듬과 안정감에서 드러납니다.",
+    "감정선이 얽히는 날일수록 마음의 크기보다 관계의 호흡이 더 중요해집니다.",
   ],
   money: [
     "금전운은 돈의 크기보다 판단의 질과 기준 유지에서 먼저 갈립니다.",
     "돈의 흐름은 들어오고 나가는 속도보다 어떤 원칙으로 다루는지가 더 중요합니다.",
-    "오늘 금전 문제는 기회보다 관리 감각에서 먼저 판이 갈릴 수 있습니다.",
+    "오늘 금전 문제는 기회보다 관리 감각과 손실 통제에서 먼저 판이 갈릴 수 있습니다.",
   ],
   health: [
     "건강운은 큰 고저보다 리듬과 회복의 균형에서 더 선명하게 드러납니다.",
     "몸의 흐름은 단번에 좋아지기보다 생활 리듬을 어떻게 유지하느냐에 더 크게 반응합니다.",
-    "컨디션 문제는 순간 체력보다 쌓인 긴장과 회복 여유에서 먼저 갈립니다.",
+    "컨디션은 순간 체력보다 쌓인 긴장과 회복 여유에서 먼저 갈립니다.",
   ],
   work: [
     "일과 사업운은 능력 하나보다 흐름을 읽고 맞추는 힘에서 차이가 납니다.",
@@ -2892,8 +2892,10 @@ function buildCompositeSummary(choice, focus, subfocus, card, direction, trigram
 
 function buildInterpretation(card, direction, trigram, focus, subfocus) {
   const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
-  const focusPrelude = sampleNonRepeating(`focus-prelude-${focus.key}`, focusPreludeVariants[focus.key]);
-  const subfocusCopy = getSubfocusCopy(subfocus);
+  const focusAnchor = sampleNonRepeating(
+    `focus-anchor-${focus.key}`,
+    focusInterpretationAnchors[focus.key],
+  );
   const trigramThemeLine = trigram.theme;
   const subfocusLine = sampleNonRepeating(
     `subfocus-interpret-${focus.label}-${subfocus.key}`,
@@ -2906,21 +2908,19 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
   );
   const structure = sampleNonRepeating(
     `interpret-structure-${focus.key}-${subfocus.key}`,
-    ["focus-first", "card-first", "flow-first", "context-first", "prelude-first", "focus-card"],
+    ["anchor-first", "card-first", "flow-first", "context-first", "focus-card"],
   );
-  const narrowedLine = `${focus.label} 중에서도 ${subfocusCopy.lane}으로 보면 ${subfocus.summary}`;
-  const centeredLine = `${focus.label} 가운데 ${subfocusCopy.object} 중심으로 보면 ${subfocus.summary}`;
-  const contextLine = `${focus.label}에서 지금 더 가까이 봐야 할 쪽은 ${subfocusCopy.aspect}이며, ${subfocus.summary}`;
-  const subjectLine = `${focus.label} 안에서 ${subfocusCopy.subject} ${subfocus.summary}`;
+  const cardLine = `중심에 선 카드는 ${card.summary}`;
+  const directionLine = `지금 판의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`;
+  const trigramLine = `${trigram.label}의 기운이 바닥을 받아 ${trigramThemeLine}`;
+  const contextLine = `${focusAnchor} ${subfocusLine}`;
 
-  if (structure === "prelude-first") {
+  if (structure === "anchor-first") {
     return [
-      focusPrelude,
-      narrowedLine,
-      subfocusLine,
-      `메인 카드는 ${card.summary}`,
-      `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
-      `${trigram.label}의 기운이 깔려 ${trigramThemeLine}`,
+      contextLine,
+      cardLine,
+      directionLine,
+      trigramLine,
       toneLine,
       afterglow,
     ].join(" ");
@@ -2928,12 +2928,10 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
 
   if (structure === "card-first") {
     return [
-      focusPrelude,
-      `메인 카드는 ${card.summary}`,
-      centeredLine,
-      subfocusLine,
-      `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
-      `${trigram.label}의 기운이 깔려 ${trigramThemeLine}`,
+      cardLine,
+      contextLine,
+      directionLine,
+      trigramLine,
       toneLine,
       afterglow,
     ].join(" ");
@@ -2941,12 +2939,10 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
 
   if (structure === "flow-first") {
     return [
-      focusPrelude,
-      `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
-      `${trigram.label}의 기운이 바닥에 깔려 ${trigramThemeLine}`,
-      narrowedLine,
-      subfocusLine,
-      `메인 카드는 ${card.summary}`,
+      directionLine,
+      trigramLine,
+      contextLine,
+      cardLine,
       toneLine,
       afterglow,
     ].join(" ");
@@ -2954,12 +2950,10 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
 
   if (structure === "context-first") {
     return [
-      focusPrelude,
       contextLine,
-      `${trigram.label}의 기운은 ${trigramThemeLine}`,
-      subfocusLine,
-      `메인 카드는 ${card.summary}`,
-      `전체 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
+      trigramLine,
+      cardLine,
+      directionLine,
       toneLine,
       afterglow,
     ].join(" ");
@@ -2967,24 +2961,21 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
 
   if (structure === "focus-card") {
     return [
-      focusPrelude,
-      subjectLine,
-      `메인 카드는 ${card.summary}`,
+      focusAnchor,
+      cardLine,
       subfocusLine,
-      `${trigram.label}의 기운은 ${trigramThemeLine}`,
-      `전체 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
+      trigramLine,
+      directionLine,
       toneLine,
       afterglow,
     ].join(" ");
   }
 
   return [
-    focusPrelude,
-    narrowedLine,
-    subfocusLine,
-    `메인 카드는 ${card.summary}`,
-    `오늘의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`,
-    `${trigram.label}의 기운이 깔려 ${trigramThemeLine}`,
+    contextLine,
+    cardLine,
+    directionLine,
+    trigramLine,
     toneLine,
     afterglow,
   ].join(" ");
