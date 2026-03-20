@@ -673,6 +673,290 @@ const scoreLabelSets = {
   ],
 };
 
+const detailScoreSets = {
+  overall: {
+    general: [
+      { key: "day-rhythm", label: "하루 리듬", source: "overall", tilt: "stability" },
+      { key: "outside-variable", label: "바깥 변수 대응", source: "money", tilt: "adaptation" },
+      { key: "people-response", label: "주변 반응", source: "love", tilt: "relationship" },
+      { key: "execution-tension", label: "움직임 탄력", source: "work", tilt: "execution" },
+      { key: "grounding", label: "정리 감각", source: "money", tilt: "discipline" },
+    ],
+    luck: [
+      { key: "luck-signal", label: "행운 신호", source: "overall", tilt: "luck" },
+      { key: "timing-catch", label: "타이밍 포착", source: "work", tilt: "timing" },
+      { key: "chance-window", label: "기회 창", source: "money", tilt: "luck" },
+      { key: "intuition-pick", label: "감각 선택", source: "love", tilt: "insight" },
+      { key: "closing-sense", label: "마무리 감각", source: "money", tilt: "discipline" },
+    ],
+    relationship: [
+      { key: "mood-reading", label: "분위기 읽기", source: "love", tilt: "relationship" },
+      { key: "word-temperature", label: "말의 온도", source: "love", tilt: "communication" },
+      { key: "distance-control", label: "거리 조절", source: "overall", tilt: "emotional" },
+      { key: "conflict-ease", label: "마찰 완화", source: "money", tilt: "risk-control" },
+      { key: "sincerity-check", label: "진심 판별", source: "work", tilt: "clarity" },
+    ],
+    decision: [
+      { key: "clarity-overall", label: "판단 선명도", source: "overall", tilt: "clarity" },
+      { key: "go-power", label: "밀어붙일 힘", source: "work", tilt: "courage" },
+      { key: "wait-sense", label: "보류 감각", source: "money", tilt: "discipline" },
+      { key: "info-check", label: "정보 확인력", source: "love", tilt: "insight" },
+      { key: "conclusion-stability", label: "결론 안정감", source: "money", tilt: "stability" },
+    ],
+  },
+  love: {
+    solo: [
+      { key: "new-connection", label: "새 인연 기류", source: "love", tilt: "attraction" },
+      { key: "approach-timing", label: "다가감 타이밍", source: "overall", tilt: "timing" },
+      { key: "conversation-open", label: "대화 열림", source: "work", tilt: "communication" },
+      { key: "self-appeal", label: "매력 발산", source: "overall", tilt: "courage" },
+      { key: "realistic-chance", label: "현실 가능성", source: "money", tilt: "stability" },
+    ],
+    some: [
+      { key: "reply-flow", label: "연락 흐름", source: "love", tilt: "communication" },
+      { key: "approach-distance", label: "거리 조절", source: "overall", tilt: "relationship" },
+      { key: "signal-clarity", label: "신호 선명도", source: "work", tilt: "clarity" },
+      { key: "advance-timing", label: "진전 타이밍", source: "overall", tilt: "timing" },
+      { key: "misread-control", label: "오해 관리", source: "money", tilt: "risk-control" },
+    ],
+    dating: [
+      { key: "conversation-warmth", label: "대화 온도", source: "love", tilt: "communication" },
+      { key: "trust-balance", label: "신뢰 균형", source: "overall", tilt: "emotional" },
+      { key: "emotional-stability", label: "감정 안정", source: "love", tilt: "emotional" },
+      { key: "relationship-momentum", label: "관계 진전", source: "work", tilt: "execution" },
+      { key: "reality-adjustment", label: "현실 조율", source: "money", tilt: "stability" },
+    ],
+    reunion: [
+      { key: "lingering-clear", label: "미련 정리", source: "overall", tilt: "discipline" },
+      { key: "reconnect-sign", label: "재접점 기류", source: "love", tilt: "luck" },
+      { key: "old-pattern-risk", label: "과거 반복 경계", source: "money", tilt: "risk-control" },
+      { key: "sincerity-proof", label: "진심 확인", source: "work", tilt: "clarity" },
+      { key: "restart-strength", label: "다시 시작할 힘", source: "love", tilt: "courage" },
+    ],
+  },
+  money: {
+    saving: [
+      { key: "fixed-expense", label: "고정지출 관리", source: "money", tilt: "discipline" },
+      { key: "reserve-power", label: "비상금 여력", source: "money", tilt: "stability" },
+      { key: "keep-plan", label: "계획 유지력", source: "work", tilt: "discipline" },
+      { key: "leak-block", label: "새는 돈 차단", source: "overall", tilt: "risk-control" },
+      { key: "patience", label: "모으는 인내", source: "money", tilt: "stability" },
+    ],
+    spending: [
+      { key: "impulse-control", label: "충동 억제", source: "money", tilt: "discipline" },
+      { key: "necessity-judge", label: "필요/욕구 구분", source: "work", tilt: "clarity" },
+      { key: "price-sense", label: "가격 감각", source: "overall", tilt: "insight" },
+      { key: "regret-risk", label: "후회 위험 관리", source: "money", tilt: "risk-control" },
+      { key: "satisfaction-balance", label: "만족도 균형", source: "love", tilt: "emotional" },
+    ],
+    income: [
+      { key: "inflow-sign", label: "유입 신호", source: "overall", tilt: "luck" },
+      { key: "income-window", label: "수입 창구", source: "money", tilt: "timing" },
+      { key: "negotiation-read", label: "조건 읽기", source: "work", tilt: "clarity" },
+      { key: "practical-yield", label: "실속 확보", source: "money", tilt: "execution" },
+      { key: "continuity", label: "지속 가능성", source: "overall", tilt: "stability" },
+    ],
+    invest: [
+      { key: "market-sense", label: "시장 체감", source: "overall", tilt: "insight" },
+      { key: "volatility-response", label: "변동성 대응", source: "love", tilt: "emotional" },
+      { key: "entry-exit", label: "매수·매도 판단", source: "work", tilt: "clarity" },
+      { key: "sizing-control", label: "비중 조절", source: "money", tilt: "discipline" },
+      { key: "loss-management", label: "손실 관리", source: "money", tilt: "risk-control" },
+    ],
+  },
+  health: {
+    condition: [
+      { key: "base-stamina", label: "기초 체력", source: "overall", tilt: "recovery" },
+      { key: "focus-keep", label: "집중 지속력", source: "work", tilt: "focus" },
+      { key: "body-signal", label: "몸 신호 감지", source: "overall", tilt: "insight" },
+      { key: "overheat-risk", label: "무리 경계", source: "money", tilt: "risk-control" },
+      { key: "bounce-back", label: "되돌림 여력", source: "overall", tilt: "recovery" },
+    ],
+    sleep: [
+      { key: "sleep-onset", label: "잠드는 흐름", source: "overall", tilt: "stability" },
+      { key: "sleep-depth", label: "숙면 깊이", source: "overall", tilt: "recovery" },
+      { key: "night-rhythm", label: "밤 리듬", source: "money", tilt: "discipline" },
+      { key: "wake-refresh", label: "기상 상쾌함", source: "work", tilt: "focus" },
+      { key: "fatigue-release", label: "피로 해소", source: "love", tilt: "recovery" },
+    ],
+    stress: [
+      { key: "nervous-tension", label: "긴장도", source: "love", tilt: "emotional" },
+      { key: "overload-risk", label: "과부하 경계", source: "money", tilt: "risk-control" },
+      { key: "breathing-space", label: "숨 고르기", source: "overall", tilt: "recovery" },
+      { key: "rebound-speed", label: "회복 속도", source: "overall", tilt: "stability" },
+      { key: "emotion-drain", label: "감정 소모 관리", source: "love", tilt: "emotional" },
+    ],
+    recovery: [
+      { key: "recovery-speed", label: "회복 속도", source: "overall", tilt: "recovery" },
+      { key: "rest-absorption", label: "휴식 흡수력", source: "love", tilt: "recovery" },
+      { key: "habit-reset", label: "생활 재정렬", source: "money", tilt: "discipline" },
+      { key: "pain-ease", label: "불편 완화", source: "overall", tilt: "stability" },
+      { key: "return-power", label: "일상 복귀력", source: "work", tilt: "focus" },
+    ],
+  },
+  work: {
+    job: [
+      { key: "task-focus", label: "업무 집중", source: "work", tilt: "focus" },
+      { key: "collab-flow", label: "협업 호흡", source: "love", tilt: "communication" },
+      { key: "reporting-clarity", label: "보고·소통", source: "work", tilt: "clarity" },
+      { key: "mistake-control", label: "실수 관리", source: "money", tilt: "discipline" },
+      { key: "practical-stability", label: "실무 안정", source: "overall", tilt: "stability" },
+    ],
+    career: [
+      { key: "move-timing", label: "움직일 타이밍", source: "overall", tilt: "timing" },
+      { key: "direction-confidence", label: "방향 확신", source: "work", tilt: "clarity" },
+      { key: "offer-reading", label: "조건 읽기", source: "love", tilt: "insight" },
+      { key: "negotiation", label: "조건 조율", source: "money", tilt: "discipline" },
+      { key: "adaptation-speed", label: "변화 적응", source: "work", tilt: "adaptation" },
+    ],
+    business: [
+      { key: "market-read", label: "판 읽기", source: "overall", tilt: "insight" },
+      { key: "client-response", label: "상대 반응", source: "love", tilt: "communication" },
+      { key: "execution-drive", label: "추진력", source: "work", tilt: "execution" },
+      { key: "risk-calc", label: "리스크 계산", source: "money", tilt: "risk-control" },
+      { key: "profit-connect", label: "수익 연결", source: "money", tilt: "timing" },
+    ],
+    study: [
+      { key: "concentration-span", label: "집중 지속", source: "work", tilt: "focus" },
+      { key: "memory-organize", label: "기억 정리", source: "overall", tilt: "clarity" },
+      { key: "practice-sense", label: "실전 감각", source: "work", tilt: "execution" },
+      { key: "mistake-block", label: "실수 억제", source: "money", tilt: "discipline" },
+      { key: "result-link", label: "결과 연결", source: "overall", tilt: "timing" },
+    ],
+  },
+};
+
+const detailTiltRules = {
+  stability: {
+    directionPlus: ["Hold"],
+    directionMinus: ["Release"],
+    trigramPlus: ["Earth", "Mountain"],
+    trigramMinus: ["Thunder"],
+    energyPlus: ["structure", "tradition", "balance", "abundance", "completion", "gentle-power"],
+    energyMinus: ["disruption", "ambiguity", "attachment", "ending"],
+  },
+  adaptation: {
+    directionPlus: ["Rise"],
+    directionMinus: ["Hold"],
+    trigramPlus: ["Thunder", "Wind", "Fire"],
+    trigramMinus: ["Mountain"],
+    energyPlus: ["momentum", "turning-point", "clarity", "new-beginning"],
+    energyMinus: ["pause", "retreat"],
+  },
+  relationship: {
+    directionPlus: ["Hold", "Rise"],
+    directionMinus: ["Release"],
+    trigramPlus: ["Lake", "Wind"],
+    trigramMinus: ["Water", "Mountain"],
+    energyPlus: ["connection", "hope", "abundance", "gentle-power"],
+    energyMinus: ["attachment", "ending", "ambiguity"],
+  },
+  execution: {
+    directionPlus: ["Rise"],
+    directionMinus: ["Hold"],
+    trigramPlus: ["Fire", "Heaven", "Thunder"],
+    trigramMinus: ["Water"],
+    energyPlus: ["momentum", "manifestation", "completion", "clarity"],
+    energyMinus: ["pause", "ambiguity"],
+  },
+  discipline: {
+    directionPlus: ["Hold"],
+    directionMinus: ["Rise"],
+    trigramPlus: ["Earth", "Mountain"],
+    trigramMinus: ["Thunder"],
+    energyPlus: ["structure", "tradition", "balance", "retreat"],
+    energyMinus: ["attachment", "disruption"],
+  },
+  luck: {
+    directionPlus: ["Rise"],
+    directionMinus: ["Hold"],
+    trigramPlus: ["Heaven", "Fire", "Thunder", "Lake"],
+    trigramMinus: ["Mountain"],
+    energyPlus: ["hope", "new-beginning", "manifestation", "completion"],
+    energyMinus: ["ambiguity", "ending"],
+  },
+  timing: {
+    directionPlus: ["Rise"],
+    directionMinus: ["Hold"],
+    trigramPlus: ["Thunder", "Wind", "Fire"],
+    trigramMinus: ["Water"],
+    energyPlus: ["momentum", "turning-point", "clarity"],
+    energyMinus: ["pause", "ambiguity"],
+  },
+  attraction: {
+    directionPlus: ["Rise"],
+    directionMinus: ["Release"],
+    trigramPlus: ["Lake", "Fire", "Wind"],
+    trigramMinus: ["Water", "Mountain"],
+    energyPlus: ["connection", "abundance", "hope", "gentle-power"],
+    energyMinus: ["retreat", "ambiguity"],
+  },
+  communication: {
+    directionPlus: ["Rise", "Hold"],
+    directionMinus: ["Release"],
+    trigramPlus: ["Lake", "Wind", "Fire"],
+    trigramMinus: ["Water", "Mountain"],
+    energyPlus: ["connection", "clarity", "hope"],
+    energyMinus: ["ambiguity", "retreat", "ending"],
+  },
+  "risk-control": {
+    directionPlus: ["Hold"],
+    directionMinus: ["Rise"],
+    trigramPlus: ["Earth", "Mountain", "Water"],
+    trigramMinus: ["Thunder", "Fire"],
+    energyPlus: ["balance", "structure", "tradition", "retreat", "pause"],
+    energyMinus: ["momentum", "disruption", "attachment"],
+  },
+  recovery: {
+    directionPlus: ["Hold"],
+    directionMinus: ["Rise"],
+    trigramPlus: ["Earth", "Water", "Mountain"],
+    trigramMinus: ["Fire", "Thunder"],
+    energyPlus: ["retreat", "pause", "hope", "abundance", "balance"],
+    energyMinus: ["momentum", "disruption", "attachment"],
+  },
+  focus: {
+    directionPlus: ["Hold"],
+    directionMinus: ["Release"],
+    trigramPlus: ["Mountain", "Heaven"],
+    trigramMinus: ["Lake", "Thunder"],
+    energyPlus: ["clarity", "structure", "tradition", "completion", "retreat"],
+    energyMinus: ["ambiguity", "attachment"],
+  },
+  emotional: {
+    directionPlus: ["Hold"],
+    directionMinus: ["Release"],
+    trigramPlus: ["Lake", "Earth", "Wind"],
+    trigramMinus: ["Water", "Thunder"],
+    energyPlus: ["hope", "gentle-power", "balance", "connection"],
+    energyMinus: ["ambiguity", "attachment", "ending"],
+  },
+  insight: {
+    directionPlus: ["Hold"],
+    directionMinus: ["Rise"],
+    trigramPlus: ["Heaven", "Water", "Wind"],
+    trigramMinus: ["Thunder"],
+    energyPlus: ["intuition", "clarity", "pause", "retreat"],
+    energyMinus: ["disruption", "attachment"],
+  },
+  clarity: {
+    directionPlus: ["Rise"],
+    directionMinus: ["Hold"],
+    trigramPlus: ["Fire", "Heaven"],
+    trigramMinus: ["Water"],
+    energyPlus: ["clarity", "manifestation", "completion", "balance"],
+    energyMinus: ["ambiguity", "pause"],
+  },
+  courage: {
+    directionPlus: ["Rise"],
+    directionMinus: ["Hold"],
+    trigramPlus: ["Fire", "Thunder"],
+    trigramMinus: ["Water"],
+    energyPlus: ["new-beginning", "momentum", "gentle-power", "hope"],
+    energyMinus: ["retreat", "ambiguity"],
+  },
+};
+
 const promptModes = {
   today: {
     label: "오늘의 운세",
@@ -2657,6 +2941,11 @@ function getScoreLabelsForFocus(focusKey) {
   return scoreLabelSets[focusKey] ?? scoreLabelSets.overall;
 }
 
+function getDetailScoreSet(focusKey, subfocusKey) {
+  const focusSet = detailScoreSets[focusKey] ?? detailScoreSets.overall;
+  return focusSet[subfocusKey] ?? focusSet.general ?? detailScoreSets.overall.general;
+}
+
 function getSubfocusCopy(subfocus) {
   const override = subfocusCopyOverrides[subfocus.key] ?? {};
   const aspect = override.aspect ?? subfocus.label;
@@ -2888,6 +3177,84 @@ function randomScore(base = 3) {
   return Math.min(5, Math.max(1, base + drift));
 }
 
+function clampScore(value) {
+  return Math.min(5, Math.max(1, value));
+}
+
+function hashString(text) {
+  let hash = 0;
+  for (let index = 0; index < text.length; index += 1) {
+    hash = (hash * 31 + text.charCodeAt(index)) >>> 0;
+  }
+  return hash;
+}
+
+const energeticCardEnergies = ["momentum", "clarity", "hope", "manifestation", "completion"];
+const inwardCardEnergies = ["retreat", "pause", "intuition", "ambiguity"];
+const intenseCardEnergies = ["disruption", "attachment", "ending"];
+
+function getDetailTiltModifier(tilt, card, direction, trigram) {
+  const rules = detailTiltRules[tilt];
+  if (!rules) {
+    return 0;
+  }
+
+  let modifier = 0;
+  if (rules.directionPlus?.includes(direction.name)) {
+    modifier += 1;
+  }
+  if (rules.directionMinus?.includes(direction.name)) {
+    modifier -= 1;
+  }
+  if (rules.trigramPlus?.includes(trigram.name)) {
+    modifier += 1;
+  }
+  if (rules.trigramMinus?.includes(trigram.name)) {
+    modifier -= 1;
+  }
+  if (rules.energyPlus?.includes(card.energy)) {
+    modifier += 1;
+  }
+  if (rules.energyMinus?.includes(card.energy)) {
+    modifier -= 1;
+  }
+
+  if (modifier > 0) {
+    return 1;
+  }
+  if (modifier < 0) {
+    return -1;
+  }
+  return 0;
+}
+
+function getDetailDrift(detailKey, card, direction, trigram, choice, subfocus) {
+  const seed = `${detailKey}|${card.name}|${direction.name}|${trigram.name}|${choice.label}|${subfocus.key}`;
+  const roll = hashString(seed) % 6;
+  if (roll === 0) {
+    return -1;
+  }
+  if (roll >= 4) {
+    return 1;
+  }
+  return 0;
+}
+
+function deriveDetailScores(scores, card, direction, trigram, choice, focusMode, subfocus) {
+  const detailSet = getDetailScoreSet(focusMode, subfocus.key);
+
+  return detailSet.map((detail) => {
+    const base = scores[detail.source] ?? 3;
+    const modifier = getDetailTiltModifier(detail.tilt, card, direction, trigram);
+    const drift = getDetailDrift(detail.key, card, direction, trigram, choice, subfocus);
+    return {
+      key: detail.key,
+      label: detail.label,
+      value: clampScore(base + modifier + drift),
+    };
+  });
+}
+
 function weightedPick(items, weights) {
   const total = items.reduce((sum, item) => sum + (weights[item.name] ?? 1), 0);
   let roll = Math.random() * total;
@@ -2901,18 +3268,14 @@ function weightedPick(items, weights) {
 }
 
 function deriveScores(card, direction, trigram, choice, focusMode, subfocus) {
-  const energetic = ["momentum", "clarity", "hope", "manifestation", "completion"];
-  const inward = ["retreat", "pause", "intuition", "ambiguity"];
-  const intense = ["disruption", "attachment", "ending"];
-
   let base = 3;
-  if (energetic.includes(card.energy) || direction.name === "Rise") {
+  if (energeticCardEnergies.includes(card.energy) || direction.name === "Rise") {
     base = 4;
   }
-  if (inward.includes(card.energy) || direction.name === "Hold") {
+  if (inwardCardEnergies.includes(card.energy) || direction.name === "Hold") {
     base = 3;
   }
-  if (intense.includes(card.energy) || direction.name === "Release") {
+  if (intenseCardEnergies.includes(card.energy) || direction.name === "Release") {
     base = 2;
   }
 
@@ -3233,6 +3596,9 @@ function buildPrompt(draw, modeKey) {
   const scoreSummary = draw.scoreLabels
     .map(({ key, label }) => `${label} ${draw.scores[key]}/5`)
     .join(", ");
+  const detailScoreSummary = (draw.detailScores ?? [])
+    .map(({ label, value }) => `${label} ${value}/5`)
+    .join(", ");
 
   return `${mode.label} 중심 복합 운세를 해석해줘.
 
@@ -3261,6 +3627,7 @@ ${sectionList}
 - 상황 테마: ${draw.trigram.theme}
 - 상황 조언: ${draw.trigram.advice}
 - 점수: ${scoreSummary}
+- 세부 점수: ${detailScoreSummary}
 - 오라클: ${draw.oracle}
 - 현재 해석: ${draw.interpretation}
 - 조언: ${draw.advice}
@@ -3394,6 +3761,43 @@ function renderScores(scores, labels) {
   }
 }
 
+function renderDetailScores(detailScores) {
+  const detailScoreContainer = document.querySelector("#detail-scores");
+  detailScoreContainer.innerHTML = "";
+
+  for (const detail of detailScores) {
+    const item = document.createElement("div");
+    item.className = "detail-score-item";
+
+    const copy = document.createElement("div");
+    copy.className = "detail-score-copy";
+
+    const name = document.createElement("span");
+    name.className = "detail-score-name";
+    name.textContent = detail.label;
+
+    const value = document.createElement("span");
+    value.className = "detail-score-value";
+    value.textContent = `${detail.value}/5`;
+
+    copy.append(name, value);
+
+    const track = document.createElement("div");
+    track.className = "detail-score-track";
+
+    const fill = document.createElement("div");
+    fill.className = "detail-score-fill";
+    track.append(fill);
+
+    item.append(copy, track);
+    detailScoreContainer.append(item);
+
+    requestAnimationFrame(() => {
+      fill.style.width = `${detail.value * 20}%`;
+    });
+  }
+}
+
 function renderScoreInsights(draw) {
   const scoreInsights = document.querySelector("#score-insights");
   scoreInsights.innerHTML = "";
@@ -3437,6 +3841,7 @@ function renderReading(draw) {
   document.querySelector("#shinjeom-deep-message").textContent = draw.shinjeomDeepMessage;
   document.querySelector("#shinjeom-guidance").textContent = draw.shinjeomGuidance;
   renderScores(draw.scores, draw.scoreLabels);
+  renderDetailScores(draw.detailScores);
   renderScoreInsights(draw);
 
   latestDraw = draw;
@@ -3470,6 +3875,15 @@ function composeReading() {
   const oracle = buildOracleLine(focus, subfocus);
   const scores = deriveScores(card, direction, trigram, choice, currentFocusMode, subfocus);
   const scoreLabels = getScoreLabelsForFocus(focus.key);
+  const detailScores = deriveDetailScores(
+    scores,
+    card,
+    direction,
+    trigram,
+    choice,
+    currentFocusMode,
+    subfocus,
+  );
   const headline = buildHeadline(direction, trigram, focus);
   const summary = buildCompositeSummary(choice, focus, subfocus, card, direction, trigram);
   const cardReading = buildTarotReading(card, direction, focus, subfocus);
@@ -3501,6 +3915,7 @@ function composeReading() {
     oracle,
     scores,
     scoreLabels,
+    detailScores,
     headline,
     summary,
     cardReading,

@@ -794,6 +794,13 @@ body.is-drawing .orb-ring-b {
   margin-top: 0.9rem;
 }
 
+.detail-score-label {
+  margin: 1rem 0 0;
+  color: rgba(230, 224, 213, 0.72);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
 .score-item {
   display: grid;
   gap: 0.45rem;
@@ -821,6 +828,57 @@ body.is-drawing .orb-ring-b {
   width: 0;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--rose), var(--gold));
+  transition: width 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.detail-score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+}
+
+.detail-score-item {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+    rgba(10, 13, 31, 0.42);
+}
+
+.detail-score-copy {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.detail-score-name {
+  color: rgba(245, 236, 220, 0.95);
+  font-size: 0.93rem;
+}
+
+.detail-score-value {
+  color: var(--gold);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.detail-score-track {
+  height: 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.detail-score-fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(255, 176, 143, 0.9), rgba(246, 220, 157, 0.95));
   transition: width 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -1162,6 +1220,10 @@ body.is-drawing .orb-core {
 
   .choice-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-score-grid {
+    grid-template-columns: 1fr;
   }
 
   .choice-header {
