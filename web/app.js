@@ -1710,20 +1710,14 @@ const headlineTemplates = {
 };
 
 const compositeSummaryTemplates = [
-  "{focus}의 {subfocusObject} 중심에 두고 {choice} 카드에서 받은 첫 기운 위에 {card}의 핵심 뜻, {direction}의 방향성, {trigram}의 기운이 겹쳐졌습니다.",
-  "{choice} 카드로 연 문 위에 {focus}에서 {subfocusAspect}을 얹어 보면, 메인 카드는 {card}로 잡히고 전체 결은 {direction} 쪽으로 기울며 바탕 기운은 {trigram}에서 들어옵니다.",
-  "{focus} 중에서도 {subfocusObject} 자세히 보면, {choice}에서 끌어온 기운과 {card}의 메시지, {direction}의 움직임, {trigram}의 배경이 하나의 판으로 묶였습니다.",
-  "{choice} 선택 이후 오늘의 판은 {card}를 중심축으로 삼고, 바깥 흐름은 {direction}, 바탕 기운은 {trigram}으로 정리됩니다. 이번 리딩은 특히 {focus}에서 {subfocusAspect}을 더 가까이 봅니다.",
-  "{focus}의 핵심 질문을 {subfocus}에 맞춰 좁혀 보면, 선택 카드 {choice} 위로 {card}의 상징이 올라오고 {direction}의 흐름과 {trigram}의 기운이 전체 분위기를 보정하고 있습니다.",
-  "{subfocus} 문제를 붙잡고 뽑은 이번 점괘는 {choice} 카드로 문을 열고, {card}의 중심 해석에 {direction}의 흐름과 {trigram}의 바탕 기운을 포개는 방식으로 읽힙니다.",
-  "{focus}의 {subfocusObject} 향해 열린 판에서, 첫 선택은 {choice}였고 핵심 상징은 {card}였습니다. 여기에 {direction}의 방향과 {trigram}의 바탕이 더해지며 오늘의 결이 완성됩니다.",
-  "{choice}에서 시작한 오늘의 복합 점괘는 {card}의 중심 메시지를 세우고, {direction}의 결론과 {trigram}의 배경을 얹어 {focus}의 {subfocusObject} 읽어 줍니다.",
-  "{focus}에서 {subfocusAspect}을 비추는 이번 점괘는 {choice}에서 출발해 {card}를 핵심 상징으로 세우고, {direction}의 결론과 {trigram}의 바탕을 함께 읽는 구조입니다.",
-  "{choice}로 연 첫 문 뒤에 {card}라는 핵심 상징이 중심에 섰고, 오늘의 판은 {direction} 쪽으로 움직이며 {trigram}의 기운이 배경을 받치고 있습니다. 특히 {focus}에서는 {subfocusAspect}에 무게가 실립니다.",
-  "{focus} 중에서도 {subfocusAspect}을 좁혀 본 이번 리딩은 {choice}에서 열린 입구와 {card}의 상징, {direction}의 흐름, {trigram}의 바탕이 겹쳐 만들어졌습니다.",
-  "먼저 뽑힌 카드는 {choice}였고, 중심 상징은 {card}였습니다. {direction}의 흐름과 {trigram}의 바탕이 오늘 판의 성질을 결정하며 {focus}의 {subfocusObject} 더 선명하게 보여 줍니다.",
-  "{focus}의 {subfocus} 문제를 두고 본 오늘의 복합 점괘는 {choice}의 첫 손길 이후 {card}를 중심으로 모이고, {direction}의 흐름과 {trigram}의 바탕이 결을 나누어 설명합니다.",
-  "오늘 판은 {choice}의 선택에서 시작해 {card}의 메시지를 중심으로 세워졌고, {direction}의 방향성과 {trigram}의 기운이 겹치며 {focus}에서 {subfocusAspect}을 드러내고 있습니다.",
+  "이번 판은 {card}의 뜻 위로 {direction} 흐름이 겹치고, 바탕에는 {trigram} 기운이 깔립니다.",
+  "{choice}에서 열린 판은 {card}를 중심으로 {direction} 쪽에 기울고, 뒤에는 {trigram} 기운이 받칩니다.",
+  "{subfocus} 쪽은 {card}의 상징이 먼저 서고, 판 전체는 {direction}와 {trigram}이 함께 잡습니다.",
+  "{focus}에서는 {subfocusAspect}이 또렷하고, 전체 결은 {card}·{direction}·{trigram}의 겹침으로 읽힙니다.",
+  "오늘 점괘는 {card}를 중심축으로 삼고, {direction} 흐름과 {trigram} 기운이 판을 완성합니다.",
+  "{choice}로 연 문 뒤에 {card}가 서고, {direction} 방향과 {trigram} 바탕이 판의 결을 만듭니다.",
+  "{focus}의 {subfocusObject} 보면 {card}의 뜻이 앞에 서고, {direction}와 {trigram}이 뒤를 받칩니다.",
+  "{subfocus} 문제는 {card}의 상징으로 드러나고, 판 전체는 {direction} 흐름과 {trigram} 기운으로 굳어집니다.",
 ];
 
 const interpretationToneVariants = {
@@ -2445,24 +2439,6 @@ const focusedFallbackScoreInsightLines = {
   },
 };
 
-const shinjeomAftertones = {
-  gentle: [
-    "오늘의 뜻은 세게 밀지 않아도 맞는 자리로 조용히 모일 수 있다.",
-    "조용히 지키는 태도 안에서 오늘의 기운은 더 또렷해질 수 있다.",
-    "억지 없는 태도가 오히려 오늘 뜻을 더 깊게 살린다.",
-  ],
-  stern: [
-    "흐트러진 기준을 오래 두지 않을수록 오늘의 뜻도 분명히 선다.",
-    "정리된 마음만이 들어온 기운을 바르게 붙들 수 있다.",
-    "오늘의 운은 분명한 기준 위에서 더 오래 힘을 낸다.",
-  ],
-  warning: [
-    "지나친 해석과 조급한 확신만 줄여도 오늘의 길은 한결 선명해질 수 있다.",
-    "기운보다 마음이 먼저 흔들리면 맞는 답도 어긋나기 쉬운 날이다.",
-    "급한 판단이야말로 오늘의 뜻을 가장 쉽게 빗나가게 만든다.",
-  ],
-};
-
 const shinjeomToneEchoes = {
   gentle: [
     "작은 기척도 가볍게 넘기지 않는 편이 좋다.",
@@ -2908,80 +2884,33 @@ function buildInterpretation(card, direction, trigram, focus, subfocus) {
   );
   const structure = sampleNonRepeating(
     `interpret-structure-${focus.key}-${subfocus.key}`,
-    ["anchor-first", "card-first", "flow-first", "context-first", "focus-card"],
+    ["lead-card-flow", "card-flow-close", "flow-card-close", "trigram-card-close"],
   );
-  const cardLine = `중심에 선 카드는 ${card.summary}`;
-  const directionLine = `지금 판의 방향은 ${withParticle(direction.label, "이라", "라")} ${direction.summary}`;
-  const trigramLine = `${trigram.label}의 기운이 바닥을 받아 ${trigramThemeLine}`;
-  const contextLine = `${focusAnchor} ${subfocusLine}`;
+  const leadLine = sampleNonRepeating(
+    `interpret-lead-${focus.key}-${subfocus.key}`,
+    [subfocusLine, focusAnchor],
+  );
+  const closeLine = sampleNonRepeating(
+    `interpret-close-${focus.key}-${subfocus.key}-${card.tone}`,
+    [toneLine, afterglow],
+  );
 
-  if (structure === "anchor-first") {
-    return [
-      contextLine,
-      cardLine,
-      directionLine,
-      trigramLine,
-      toneLine,
-      afterglow,
-    ].join(" ");
+  if (structure === "lead-card-flow") {
+    return [leadLine, card.summary, direction.summary, closeLine].join(" ");
   }
 
-  if (structure === "card-first") {
-    return [
-      cardLine,
-      contextLine,
-      directionLine,
-      trigramLine,
-      toneLine,
-      afterglow,
-    ].join(" ");
+  if (structure === "card-flow-close") {
+    return [card.summary, direction.summary, trigramThemeLine, closeLine].join(" ");
   }
 
-  if (structure === "flow-first") {
-    return [
-      directionLine,
-      trigramLine,
-      contextLine,
-      cardLine,
-      toneLine,
-      afterglow,
-    ].join(" ");
+  if (structure === "flow-card-close") {
+    return [direction.summary, subfocusLine, card.summary, closeLine].join(" ");
   }
 
-  if (structure === "context-first") {
-    return [
-      contextLine,
-      trigramLine,
-      cardLine,
-      directionLine,
-      toneLine,
-      afterglow,
-    ].join(" ");
-  }
-
-  if (structure === "focus-card") {
-    return [
-      focusAnchor,
-      cardLine,
-      subfocusLine,
-      trigramLine,
-      directionLine,
-      toneLine,
-      afterglow,
-    ].join(" ");
-  }
-
-  return [
-    contextLine,
-    cardLine,
-    directionLine,
-    trigramLine,
-    toneLine,
-    afterglow,
-  ].join(" ");
+  return [trigramThemeLine, card.summary, focusAnchor, closeLine].join(" ");
 }
 
-function buildAdvice(direction, trigram, scores, focus, subfocus) {
+function buildAdvice(direction, scores, focus, subfocus) {
   const flavor = getSubfocusFlavor(focus.key ?? "overall", subfocus.key);
   const scoreLabels = getScoreLabelsForFocus(focus.key);
   const strongest = scoreLabels
@@ -2996,20 +2925,21 @@ function buildAdvice(direction, trigram, scores, focus, subfocus) {
     ["subfocus-first", "direction-first", "strongest-first", "future-first"],
   );
   const futureHint = sampleNonRepeating(`future-hint-${direction.name}`, directionFutureHints[direction.name]);
+  const strongestLine = `오늘은 ${strongest.label} 쪽에 힘이 더 실립니다.`;
 
   if (structure === "direction-first") {
-    return `${direction.advice} ${trigram.advice} ${subfocusAdvice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
+    return `${direction.advice} ${subfocusAdvice} ${strongestLine}`;
   }
 
   if (structure === "strongest-first") {
-    return `오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${subfocusAdvice} ${direction.advice} ${trigram.advice} ${futureHint}`;
+    return `${strongestLine} ${subfocusAdvice} ${direction.advice}`;
   }
 
   if (structure === "future-first") {
-    return `${futureHint} ${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다.`;
+    return `${subfocusAdvice} ${direction.advice} ${futureHint}`;
   }
 
-  return `${subfocusAdvice} ${direction.advice} ${trigram.advice} 오늘 가장 힘이 실리는 쪽은 ${strongest.label}입니다. ${futureHint}`;
+  return `${subfocusAdvice} ${strongestLine} ${direction.advice}`;
 }
 
 function buildCaution(card, direction, scores, focus, subfocus) {
@@ -3030,39 +2960,35 @@ function buildCaution(card, direction, scores, focus, subfocus) {
     `weakest-axis-${focus.key}-${weakest.key}`,
     getWeakestAxisWarningsForFocus(focus.key, weakest.key),
   );
+  const weakestLine = `${weakest.label} 쪽은 특히 예민합니다.`;
 
   if (structure === "shadow-first") {
-    return `${card.shadow}. ${direction.caution} ${subfocusCaution} ${weakestAxisWarning} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+    return `${subfocusCaution} ${weakestAxisWarning} ${weakestLine}`;
   }
 
   if (structure === "weakest-first") {
-    return `특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다. ${weakestAxisWarning} ${subfocusCaution} ${card.shadow}. ${direction.caution}`;
+    return `${weakestLine} ${subfocusCaution} ${direction.caution}`;
   }
 
   if (structure === "axis-first") {
-    return `${weakestAxisWarning} ${subfocusCaution} ${card.shadow}. ${direction.caution} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+    return `${weakestAxisWarning} ${direction.caution} ${weakestLine}`;
   }
 
-  return `${subfocusCaution} ${card.shadow}. ${direction.caution} ${weakestAxisWarning} 특히 ${weakest.label}에서는 과잉 해석과 과잉 반응을 줄이는 편이 좋습니다.`;
+  return `${subfocusCaution} ${direction.caution} ${weakestLine}`;
 }
 
 function buildScoreInsightLine(key, score, draw) {
-  const levelMap = {
-    5: "아주 강하게",
-    4: "안정적으로",
-    3: "무난하게",
-    2: "예민하게",
-    1: "조심스럽게",
-  };
-  const level = levelMap[score] ?? "복합적으로";
-  const nuance = sampleNonRepeating(`score-nuance-${score}`, scoreLevelNuances[score]);
   const focusedLines =
     subfocusScoreLines[draw.focus.key]?.[draw.subfocus.key]?.[key] ?? null;
   if (focusedLines?.length) {
-    return `${level} 흐릅니다. ${sampleNonRepeating(
+    const line = sampleNonRepeating(
       `score-line-${draw.focus.key}-${draw.subfocus.key}-${key}`,
       focusedLines,
-    )} ${nuance}`;
+    );
+    const nuance = score >= 4 || score <= 2
+      ? sampleNonRepeating(`score-nuance-${score}`, scoreLevelNuances[score])
+      : "";
+    return `${line}${nuance ? ` ${nuance}` : ""}`;
   }
   const fallbackTemplate = sampleNonRepeating(
     `score-fallback-${draw.focus.key}-${key}`,
@@ -3077,24 +3003,35 @@ function buildScoreInsightLine(key, score, draw) {
     .replaceAll("{trigramAdvice}", draw.trigram.advice)
     .replaceAll("{oracle}", draw.oracle)
     .replaceAll("{positive}", draw.card.positive);
-  if (key === "love") {
-    return `${level} 반응합니다. ${line} ${nuance}`;
-  }
-  if (key === "work") {
-    return `${level} 힘이 실립니다. ${line} ${nuance}`;
-  }
-  if (key === "money") {
-    return `${level} 작동합니다. ${line} ${nuance}`;
-  }
-  return `${level} 흐릅니다. ${line} ${nuance}`;
+  const nuance = score >= 4 || score <= 2
+    ? sampleNonRepeating(`score-nuance-${score}`, scoreLevelNuances[score])
+    : "";
+  return `${line}${nuance ? ` ${nuance}` : ""}`;
 }
 
 function buildScoreInsights(draw) {
   const scoreLabels = draw.scoreLabels ?? getScoreLabelsForFocus(draw.focus.key);
-  return scoreLabels.map(({ key, label }) => ({
-    label,
-    text: buildScoreInsightLine(key, draw.scores[key], draw),
-  }));
+  const ranked = scoreLabels
+    .map(({ key, label }) => ({ key, label, value: draw.scores[key] }))
+    .sort((left, right) => {
+      if (right.value !== left.value) {
+        return right.value - left.value;
+      }
+      return left.label.localeCompare(right.label, "ko");
+    });
+  const strongest = ranked[0];
+  const weakest = ranked[ranked.length - 1];
+
+  return [
+    {
+      label: `강한 축 · ${strongest.label}`,
+      text: buildScoreInsightLine(strongest.key, strongest.value, draw),
+    },
+    {
+      label: `예민한 축 · ${weakest.label}`,
+      text: buildScoreInsightLine(weakest.key, weakest.value, draw),
+    },
+  ];
 }
 
 function buildOracleLine(focus, subfocus) {
@@ -3222,46 +3159,33 @@ function buildShinjeomDeepMessage(card, direction, oracle, tone, focus, subfocus
     `shinjeom-closer-${direction.name}-${tone}`,
     shinjeomDirectionClosers[direction.name][tone],
   );
-  const aftertone = sampleNonRepeating(`shinjeom-aftertone-${tone}`, shinjeomAftertones[tone]);
   const topic = getTopicInfusion(focus.key, subfocus.key);
   const topicalLine = topic.shinjeomDeep.length
     ? sampleNonRepeating(`shinjeom-topic-deep-${focus.key}-${subfocus.key}`, topic.shinjeomDeep)
     : "";
+  const sourceLine = sampleNonRepeating(
+    `shinjeom-source-${card.energy}-${focus.key}-${subfocus.key}`,
+    [card.summary, oracle],
+  );
   const structure = sampleNonRepeating(
     `shinjeom-deep-structure-${direction.name}-${tone}`,
-    ["card-oracle", "oracle-card", "card-bridge", "oracle-bridge", "aftertone-last", "bridge-first", "topic-middle"],
+    topicalLine ? ["topic-core-close", "source-bridge-close", "topic-bridge-close"] : ["source-bridge-close"],
   );
 
-  if (structure === "oracle-card") {
-    return `${oracle} ${card.summary} ${topicalLine} ${bridge} ${closer} ${aftertone}`.trim();
+  if (structure === "topic-core-close") {
+    return `${topicalLine} ${sourceLine} ${closer}`.trim();
   }
-  if (structure === "card-bridge") {
-    return `${card.summary} ${bridge} ${topicalLine} ${oracle} ${closer} ${aftertone}`.trim();
+  if (structure === "topic-bridge-close") {
+    return `${topicalLine} ${bridge} ${closer}`.trim();
   }
-  if (structure === "oracle-bridge") {
-    return `${oracle} ${bridge} ${topicalLine} ${card.summary} ${closer} ${aftertone}`.trim();
-  }
-  if (structure === "aftertone-last") {
-    return `${card.summary} ${oracle} ${topicalLine} ${bridge} ${closer} ${aftertone}`.trim();
-  }
-  if (structure === "bridge-first") {
-    return `${bridge} ${topicalLine} ${card.summary} ${oracle} ${closer} ${aftertone}`.trim();
-  }
-  if (structure === "topic-middle") {
-    return `${card.summary} ${oracle} ${topicalLine} ${bridge} ${closer} ${aftertone}`.trim();
-  }
-  return `${card.summary} ${oracle} ${topicalLine} ${bridge} ${closer} ${aftertone}`.trim();
+  return `${sourceLine} ${bridge} ${closer}`.trim();
 }
 
-function buildShinjeomGuidance(direction, trigram, tone, focus, subfocus) {
+function buildShinjeomGuidance(direction, tone, focus, subfocus) {
   const baseGuidance = sampleNonRepeating(
     `shinjeom-guidance-${direction.name}-${tone}`,
     shinjeomGuidanceByDirection[direction.name][tone],
   );
-  const trigramLens = getFocusedTrigramLens(focus.key, trigram.name);
-  const trigramAdviceLine = trigramLens?.advice?.length
-    ? sampleNonRepeating(`focus-trigram-guidance-${focus.key}-${trigram.name}`, trigramLens.advice)
-    : trigram.advice;
   const topic = getTopicInfusion(focus.key, subfocus.key);
   const topicalGuidance = topic.guidance.length
     ? sampleNonRepeating(`shinjeom-topic-guidance-${focus.key}-${subfocus.key}`, topic.guidance)
@@ -3272,15 +3196,15 @@ function buildShinjeomGuidance(direction, trigram, tone, focus, subfocus) {
   );
 
   if (!topicalGuidance) {
-    return `${baseGuidance} ${trigramAdviceLine}`;
+    return baseGuidance;
   }
   if (structure === "base-first") {
-    return `${baseGuidance} ${topicalGuidance} ${trigramAdviceLine}`;
+    return `${baseGuidance} ${topicalGuidance}`;
   }
   if (structure === "topic-first") {
-    return `${topicalGuidance} ${baseGuidance} ${trigramAdviceLine}`;
+    return `${topicalGuidance} ${baseGuidance}`;
   }
-  return `${baseGuidance} ${topicalGuidance} ${trigramAdviceLine}`;
+  return `${baseGuidance} ${topicalGuidance}`;
 }
 
 function renderScores(scores, labels) {
@@ -3377,7 +3301,7 @@ function composeReading() {
   const headline = buildHeadline(direction, trigram, focus);
   const summary = buildCompositeSummary(choice, focus, subfocus, card, direction, trigram);
   const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
-  const advice = buildAdvice(direction, trigram, scores, focus, subfocus);
+  const advice = buildAdvice(direction, scores, focus, subfocus);
   const caution = buildCaution(card, direction, scores, focus, subfocus);
   const shinjeomBase = buildShinjeomLine(card, direction, choice, focus, subfocus);
   const shinjeomLine = shinjeomBase.text;
@@ -3389,7 +3313,7 @@ function composeReading() {
     focus,
     subfocus,
   );
-  const shinjeomGuidance = buildShinjeomGuidance(direction, trigram, shinjeomBase.tone, focus, subfocus);
+  const shinjeomGuidance = buildShinjeomGuidance(direction, shinjeomBase.tone, focus, subfocus);
 
   return {
     choice,
