@@ -227,18 +227,11 @@ img {
 .card-intro {
   display: grid;
   gap: 0.25rem;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.7rem;
 }
 
 .card-intro .origin-label {
   margin: 0;
-}
-
-.role-copy {
-  margin: 0;
-  color: var(--mist);
-  font-size: 0.9rem;
-  line-height: 1.5;
 }
 
 h1,
@@ -655,6 +648,27 @@ body.is-drawing .orb-ring-b {
 
 .summary-text {
   margin-top: 0.8rem;
+}
+
+.reading-guide {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.95rem;
+  margin-top: 1rem;
+  color: var(--mist);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.reading-guide span {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: baseline;
+}
+
+.reading-guide strong {
+  color: var(--bone);
+  font-weight: 600;
 }
 
 .grid-layout {
@@ -1192,5 +1206,10 @@ body.is-drawing .orb-core {
   .prompt-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .reading-guide {
+    gap: 0.55rem 0.8rem;
+    font-size: 0.86rem;
   }
 }
