@@ -724,6 +724,10 @@ body.is-drawing .orb-ring-b {
   gap: 0.25rem;
 }
 
+.tarot-reading {
+  margin-top: 0.35rem;
+}
+
 .card-art {
   width: 100%;
   aspect-ratio: 5 / 8;

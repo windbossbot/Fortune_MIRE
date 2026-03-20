@@ -806,6 +806,87 @@ const subfocusCopyOverrides = {
   study: { aspect: "취업·시험 흐름", object: "취업·시험 흐름을", lane: "취업·시험 흐름 쪽", subject: "취업·시험 흐름은" },
 };
 
+const tarotFocusSurfaces = {
+  overall: "오늘 판 전체",
+  love: "관계와 감정",
+  money: "돈과 판단",
+  health: "몸과 리듬",
+  work: "일과 성과",
+};
+
+const tarotSubfocusSurfaces = {
+  general: "전반 흐름",
+  luck: "행운 타이밍",
+  relationship: "사람 사이의 분위기",
+  decision: "결정의 타이밍",
+  solo: "새 인연의 흐름",
+  some: "썸의 간격",
+  dating: "현재 관계",
+  reunion: "재회의 가능성",
+  saving: "저축과 관리",
+  spending: "지출 판단",
+  income: "수입 흐름",
+  invest: "투자 판단",
+  condition: "컨디션",
+  sleep: "수면과 회복",
+  stress: "긴장과 소모",
+  recovery: "회복력",
+  job: "직장 흐름",
+  career: "이직 판단",
+  business: "사업 흐름",
+  study: "취업·시험 흐름",
+};
+
+const tarotDirectionHints = {
+  Rise: [
+    "작게라도 먼저 움직일수록 이 카드의 빛이 더 잘 살아납니다.",
+    "머뭇거리기보다 한 번 확인 행동을 할 때 카드의 뜻이 더 분명해집니다.",
+  ],
+  Hold: [
+    "서두르지 않고 기준을 고를수록 이 카드가 말하는 장점이 또렷해집니다.",
+    "한 박자 쉬고 정리할수록 카드의 힘이 더 안정적으로 드러납니다.",
+  ],
+  Release: [
+    "불필요한 기대를 덜어낼수록 이 카드의 좋은 뜻이 곧게 작동합니다.",
+    "쥐고 있던 미련부터 정리할 때 카드의 힘이 훨씬 선명해집니다.",
+  ],
+};
+
+const tarotReadingTemplates = {
+  overall: [
+    "{focusSurface}에서는 {summary} 특히 {subfocusSurface}은 {positive} 쪽 감각이 살아날 때 카드의 뜻이 곧게 드러납니다. {directionHint}",
+    "{summary} 오늘은 {subfocusSurface}을 다룰 때 {positive} 같은 힘이 붙으면 카드가 훨씬 바르게 읽힙니다. {directionHint}",
+  ],
+  love: [
+    "{summary} 관계와 감정에서는 {subfocusSurface}이 {positive} 쪽으로 열릴 때 카드의 장점이 살아납니다. {directionHint}",
+    "{focusSurface}에서는 {summary} 특히 {subfocusSurface}을 볼 때 {positive} 같은 결이 붙으면 흐름이 한결 부드러워집니다. {directionHint}",
+  ],
+  money: [
+    "{summary} 돈과 판단에서는 {subfocusSurface}이 {positive} 쪽으로 움직일수록 카드가 더 좋은 답을 줍니다. {directionHint}",
+    "{focusSurface}에서는 {summary} 특히 {subfocusSurface}을 볼 때 {positive} 같은 감각이 붙어야 카드의 힘이 제대로 드러납니다. {directionHint}",
+  ],
+  health: [
+    "{summary} 몸과 리듬에서는 {subfocusSurface}이 {positive} 쪽으로 돌아설 때 카드의 힘이 살아납니다. {directionHint}",
+    "{focusSurface}에서는 {summary} 특히 {subfocusSurface}을 다룰 때 {positive} 같은 흐름이 붙으면 회복 쪽으로 읽기 쉽습니다. {directionHint}",
+  ],
+  work: [
+    "{summary} 일과 성과에서는 {subfocusSurface}이 {positive} 쪽으로 정리될 때 카드의 장점이 살아납니다. {directionHint}",
+    "{focusSurface}에서는 {summary} 특히 {subfocusSurface}을 볼 때 {positive} 같은 힘이 붙으면 결과가 더 선명해집니다. {directionHint}",
+  ],
+};
+
+const tarotLightTemplates = [
+  "{subfocusSurface}에서는 {positive} 쪽 감각이 살아날수록 카드의 빛이 제대로 드러납니다.",
+  "{positive} 같은 힘이 붙을 때 이 카드는 가장 바르게 작동합니다.",
+  "지금 판에서는 {positive} 쪽으로 힘을 모을수록 카드의 장점이 살아나기 쉽습니다.",
+];
+
+const tarotShadowTemplates = [
+  "{shadow}가 앞서면 카드가 주는 좋은 흐름도 쉽게 흐려질 수 있습니다. {directionHint}",
+  "반대로 {shadow}가 커지면 카드의 장점이 약해지니 이 부분은 먼저 눌러 두는 편이 좋습니다. {directionHint}",
+  "이 카드의 그림자는 {shadow} 쪽에서 커지기 쉬우니, 그 결이 과해지지 않게 보는 편이 맞습니다. {directionHint}",
+];
+
 const subfocusFlavor = {
   overall: {
     general: {
@@ -2849,6 +2930,53 @@ function buildHeadline(direction, trigram, focus) {
   return fillHeadlineTemplate(template, focus, trigram);
 }
 
+function getTarotFocusSurface(focusKey) {
+  return tarotFocusSurfaces[focusKey] ?? "오늘의 흐름";
+}
+
+function getTarotSubfocusSurface(subfocusKey, fallbackLabel) {
+  return tarotSubfocusSurfaces[subfocusKey] ?? fallbackLabel;
+}
+
+function buildTarotReading(card, direction, focus, subfocus) {
+  const focusSurface = getTarotFocusSurface(focus.key);
+  const subfocusSurface = getTarotSubfocusSurface(subfocus.key, subfocus.label);
+  const directionHint = sampleNonRepeating(
+    `tarot-direction-hint-${direction.name}`,
+    tarotDirectionHints[direction.name],
+  );
+  const templates = tarotReadingTemplates[focus.key] ?? tarotReadingTemplates.overall;
+  const template = sampleNonRepeating(
+    `tarot-reading-${focus.key}-${subfocus.key}-${card.energy}`,
+    templates,
+  );
+
+  return template
+    .replaceAll("{focusSurface}", focusSurface)
+    .replaceAll("{subfocusSurface}", subfocusSurface)
+    .replaceAll("{summary}", card.summary)
+    .replaceAll("{positive}", card.positive)
+    .replaceAll("{directionHint}", directionHint);
+}
+
+function buildTarotPolarityText(type, card, direction, subfocus) {
+  const subfocusSurface = getTarotSubfocusSurface(subfocus.key, subfocus.label);
+  const directionHint = sampleNonRepeating(
+    `tarot-polarity-direction-${type}-${direction.name}`,
+    tarotDirectionHints[direction.name],
+  );
+  const template = sampleNonRepeating(
+    `tarot-polarity-${type}-${card.energy}-${subfocus.key}`,
+    type === "positive" ? tarotLightTemplates : tarotShadowTemplates,
+  );
+
+  return template
+    .replaceAll("{subfocusSurface}", subfocusSurface)
+    .replaceAll("{positive}", card.positive)
+    .replaceAll("{shadow}", card.shadow)
+    .replaceAll("{directionHint}", directionHint);
+}
+
 function buildCompositeSummary(choice, focus, subfocus, card, direction, trigram) {
   const template = sampleNonRepeating(
     `composite-summary-${focus.key}-${subfocus.key}`,
@@ -3251,8 +3379,9 @@ function renderReading(draw) {
   const mainCardArt = document.querySelector("#card-art");
   setTarotImage(mainCardArt, draw.card, `${draw.card.name} 카드 이미지`);
   document.querySelector("#card-summary").textContent = draw.card.summary;
-  document.querySelector("#card-positive").textContent = draw.card.positive;
-  document.querySelector("#card-shadow").textContent = draw.card.shadow;
+  document.querySelector("#card-reading").textContent = draw.cardReading;
+  document.querySelector("#card-positive").textContent = draw.cardPositiveText;
+  document.querySelector("#card-shadow").textContent = draw.cardShadowText;
   document.querySelector("#direction-name").textContent = draw.direction.label;
   document.querySelector("#trigram-name").textContent = draw.trigram.label;
   document.querySelector("#direction-summary").textContent = draw.direction.summary;
@@ -3300,6 +3429,9 @@ function composeReading() {
   const scoreLabels = getScoreLabelsForFocus(focus.key);
   const headline = buildHeadline(direction, trigram, focus);
   const summary = buildCompositeSummary(choice, focus, subfocus, card, direction, trigram);
+  const cardReading = buildTarotReading(card, direction, focus, subfocus);
+  const cardPositiveText = buildTarotPolarityText("positive", card, direction, subfocus);
+  const cardShadowText = buildTarotPolarityText("shadow", card, direction, subfocus);
   const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
   const advice = buildAdvice(direction, scores, focus, subfocus);
   const caution = buildCaution(card, direction, scores, focus, subfocus);
@@ -3327,6 +3459,9 @@ function composeReading() {
     scoreLabels,
     headline,
     summary,
+    cardReading,
+    cardPositiveText,
+    cardShadowText,
     interpretation,
     advice,
     caution,
