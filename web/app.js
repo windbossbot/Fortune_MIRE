@@ -887,6 +887,27 @@ const tarotShadowTemplates = [
   "이 카드의 그림자는 {shadow} 쪽에서 커지기 쉬우니, 그 결이 과해지지 않게 보는 편이 맞습니다. {directionHint}",
 ];
 
+const ichingDirectionEssence = {
+  Rise: [
+    "주역은 지금 판이 정체보다 실행 쪽으로 기울었다고 봅니다.",
+    "이 흐름은 기다리기보다 한 번 확인 행동을 할 때 더 또렷해집니다.",
+  ],
+  Hold: [
+    "주역은 지금 판이 전진보다 정비 쪽으로 기울었다고 봅니다.",
+    "이 흐름은 속도를 늦추고 기준을 고를 때 더 안정적으로 읽힙니다.",
+  ],
+  Release: [
+    "주역은 지금 판이 확장보다 정리 쪽으로 기울었다고 봅니다.",
+    "이 흐름은 덜어낼 것을 정할수록 더 선명하게 열립니다.",
+  ],
+};
+
+const ichingReadingTemplates = [
+  "{essence} 특히 {subfocusSurface}에서는 {trigramTheme} {trigramAdvice}",
+  "{focusSurface}을 보면 {essence} 지금 {subfocusSurface}은 {trigramTheme} {trigramAdvice}",
+  "{subfocusSurface} 쪽에서는 {essence} 바닥에 깔린 {trigramLabel} 기운이 {trigramTheme} {trigramAdvice}",
+];
+
 const subfocusFlavor = {
   overall: {
     general: {
@@ -2977,6 +2998,27 @@ function buildTarotPolarityText(type, card, direction, subfocus) {
     .replaceAll("{directionHint}", directionHint);
 }
 
+function buildIChingReading(direction, trigram, focus, subfocus) {
+  const focusSurface = getTarotFocusSurface(focus.key);
+  const subfocusSurface = getTarotSubfocusSurface(subfocus.key, subfocus.label);
+  const essence = sampleNonRepeating(
+    `iching-essence-${direction.name}-${focus.key}`,
+    ichingDirectionEssence[direction.name],
+  );
+  const template = sampleNonRepeating(
+    `iching-reading-${direction.name}-${focus.key}-${subfocus.key}-${trigram.name}`,
+    ichingReadingTemplates,
+  );
+
+  return template
+    .replaceAll("{focusSurface}", focusSurface)
+    .replaceAll("{subfocusSurface}", subfocusSurface)
+    .replaceAll("{essence}", essence)
+    .replaceAll("{trigramTheme}", trigram.theme)
+    .replaceAll("{trigramAdvice}", trigram.advice)
+    .replaceAll("{trigramLabel}", trigram.label);
+}
+
 function buildCompositeSummary(choice, focus, subfocus, card, direction, trigram) {
   const template = sampleNonRepeating(
     `composite-summary-${focus.key}-${subfocus.key}`,
@@ -3386,6 +3428,7 @@ function renderReading(draw) {
   document.querySelector("#trigram-name").textContent = draw.trigram.label;
   document.querySelector("#direction-summary").textContent = draw.direction.summary;
   document.querySelector("#trigram-summary").textContent = `${draw.trigram.theme} ${draw.trigram.advice}`;
+  document.querySelector("#iching-reading").textContent = draw.ichingReading;
   document.querySelector("#interpretation-text").textContent = draw.interpretation;
   document.querySelector("#advice-text").textContent = draw.advice;
   document.querySelector("#caution-text").textContent = draw.caution;
@@ -3432,6 +3475,7 @@ function composeReading() {
   const cardReading = buildTarotReading(card, direction, focus, subfocus);
   const cardPositiveText = buildTarotPolarityText("positive", card, direction, subfocus);
   const cardShadowText = buildTarotPolarityText("shadow", card, direction, subfocus);
+  const ichingReading = buildIChingReading(direction, trigram, focus, subfocus);
   const interpretation = buildInterpretation(card, direction, trigram, focus, subfocus);
   const advice = buildAdvice(direction, scores, focus, subfocus);
   const caution = buildCaution(card, direction, scores, focus, subfocus);
@@ -3462,6 +3506,7 @@ function composeReading() {
     cardReading,
     cardPositiveText,
     cardShadowText,
+    ichingReading,
     interpretation,
     advice,
     caution,

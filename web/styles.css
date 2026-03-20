@@ -728,6 +728,10 @@ body.is-drawing .orb-ring-b {
   margin-top: 0.35rem;
 }
 
+.trigram-reading {
+  margin-top: 0.55rem;
+}
+
 .card-art {
   width: 100%;
   aspect-ratio: 5 / 8;
